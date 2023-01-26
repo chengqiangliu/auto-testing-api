@@ -11,7 +11,7 @@ const { validate } = require("./common.controller");
 const logger = require('../lib/logger').API;
 const { generateToken } = require('../auth');
 
-// login
+// 登陆
 const userLogin = async (req, res, next) => {
     logger.addContext(Constants.FILE_NAME, path.basename(__filename));
     logger.info('The user login controller is started');
@@ -54,7 +54,7 @@ const userLogin = async (req, res, next) => {
                 return res.status(400).json({success: false, errors: ['clientId不正确!']});
             }
         } else {
-            // login failed
+            // 登陆失败
             logger.warn('login failed, username or password is wrong。');
             return res.status(400).json({success: false, errors: ['用户名或密码不正确!']});
         }
@@ -64,7 +64,7 @@ const userLogin = async (req, res, next) => {
     }
 };
 
-// add user
+// 添加用户
 const userAdd = async (req, res, next) => {
     logger.addContext(Constants.FILE_NAME, path.basename(__filename));
     logger.info('The user add controller is started');
@@ -97,7 +97,7 @@ const userAdd = async (req, res, next) => {
     }
 };
 
-// update user
+// 更新用户
 const userUpdate = async (req, res, next) => {
     logger.addContext(Constants.FILE_NAME, path.basename(__filename));
     logger.info('The user update controller is started');

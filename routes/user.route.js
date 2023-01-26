@@ -15,19 +15,19 @@ const {
     userList
 } = require("../controllers/user.controller");
 
-// login
+// 登陆
 router.post('/login', userLoginValidator, userLogin);
 
-// add user
+// 添加用户
 router.post('/add', userAddValidator, userAdd);
 
-// update user
+// 更新用户
 router.post('/update', userUpdateValidator, userUpdate);
 
-// delete user
+// 删除用户
 router.post('/delete', userDeleteValidator, userDelete);
 
-// get user list
+// 获取所有用户列表
 router.post('/list', userList);
 
 module.exports = router;

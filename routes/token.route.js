@@ -8,6 +8,6 @@ const {
     getAccessToken
 } = require("../controllers/token.controller");
 
-// get accessToken
+// 获得accessToken
 router.post('/getAccessToken', getAccessTokenValidator, getAccessToken);
 module.exports = router;
