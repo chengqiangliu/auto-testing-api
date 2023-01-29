@@ -1,8 +1,10 @@
 const { expressjwt } = require('express-jwt');
 const { secret } = require('../config');
 const jwt = require('jsonwebtoken');
+const logger = require('../lib/logger').API;
 
 const generateToken = (payload, type) => {
+    logger.info('The generateToken started');
     if (type === 'AccessToken') {
         return jwt.sign(payload, secret, {expiresIn: "600s"});
     } else {
@@ -34,12 +36,13 @@ const verifyRefreshToken = async (refreshToken) => {
     });
 };
 
-// 失败处理--放到最后一个app.use()
+// Error Token Handler--放到最后一个app.use()
 const errorTokenHandler = (err, req, res, next) => {
+    logger.info('The ErrorTokenHandler started');
     if (err.name === 'UnauthorizedError') {
         //  这个需要根据自己的业务逻辑来处理（ 具体的err值 请看下面）
         let data = {};
-        data.msg = 'token验证失败';
+        data.msg = 'Token Validation Failed';
         data.error = err;
 
         res.status(401).json({success: false, data});

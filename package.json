@@ -1,5 +1,5 @@
 {
-  "name": "benben-daigou-server",
+  "name": "auto-testing-api",
   "version": "0.0.0",
   "private": true,
   "scripts": {
@@ -10,14 +10,13 @@
     "blueimp-md5": "^2.19.0",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
-    "express": "~4.16.1",
-    "express-jwt": "^7.7.5",
-    "express-validator": "^6.14.2",
+    "express": "^4.18.2",
+    "express-jwt": "^8.4.0",
+    "express-validator": "^6.14.3",
     "http-errors": "~1.6.3",
-    "jsonwebtoken": "^8.5.1",
-    "log4js": "^6.7.0",
-    "mongoose": "^6.6.5",
-    "multer": "^1.4.5-lts.1",
+    "jsonwebtoken": "^9.0.0",
+    "log4js": "^6.7.1",
+    "mongoose": "^6.9.0",
     "nodemon": "^2.0.20"
   }
 }

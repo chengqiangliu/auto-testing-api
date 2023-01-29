@@ -14,9 +14,14 @@ const {
     userDelete,
     userList
 } = require("../controllers/user.controller");
+const logger = require('../lib/logger').API;
 
-// 登陆
-router.post('/login', userLoginValidator, userLogin);
+// login
+router.post('/login', function(req, res, next) {
+    let {username, password} = req.body;
+    logger.info(`username: ${username}, password: ${password}`)
+    return res.status(200).json({success: true, data: {id: "test"}});
+});
 
 // 添加用户
 router.post('/add', userAddValidator, userAdd);

@@ -21,7 +21,7 @@ ClientModel.findOne({clientId: '9999'}).then(client => {
   if(!client) {
     ClientModel.create({clientId: '9999', clientName: 'Administrator', clientSecret: md5('admin'), redirectUri: ''})
         .then(user => {
-          console.log('初始化Client: clientId: 9999')
+          console.log('Initial Client: clientId: 9999')
         })
   }
 })

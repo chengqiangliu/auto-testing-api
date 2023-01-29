@@ -26,8 +26,8 @@ router.post('/add', productAddValidator, productAdd);
 // 更新产品
 router.post('/update', productUpdateValidator, productUpdate);
 
-// 更新产品状态(上架/下架)
-router.post('/updateStatus', productUpdateStatusValidator, productUpdate);
+// // 更新产品状态(上架/下架)
+// router.post('/updateStatus', productUpdateStatusValidator, productUpdate);
 
 // 删除产品
 router.post('/delete', productDeleteValidator, productDelete);
@@ -39,6 +39,6 @@ router.get('/info/:productId', productInfoValidator, getProductInfo);
 router.get('/list', getProductList);
 
 // 搜索产品列表
-router.get('/search', searchProduct);
+// router.get('/search', searchProduct);
 
 module.exports = router;

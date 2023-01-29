@@ -1,42 +1,53 @@
-/*
- * 应用的启动模块
- */
+const createError = require('http-errors');
 const express = require('express');
-const app = express();
+const path = require('path');
+
+// mongodb connection
 const connection = require('./db/connection');
 
-const path = require('path');
+// logger
 const Constants = require('./lib/constants');
 const logger = require('./lib/logger').API;
 logger.addContext(Constants.FILE_NAME, path.basename(__filename));
 
-// 声明使用解析post请求的中间件
-app.use(express.urlencoded({extended: true})) // 请求体参数是: name=tom&pwd=123
-app.use(express.json()) // 请求体参数是json结构: {name: tom, pwd: 123}
+// import middleware used to parse post request
+const app = express();
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 
-// 声明使用解析cookie数据的中间件
+// import cookieParser
 const cookieParser = require('cookie-parser');
 app.use(cookieParser());
 
-const { verifyToken, errorTokenHandler } = require('./auth');
-app.use(verifyToken()); // 接收所有请求验证
+const userRouter = require('./routes/user.route');
+app.use('/api/user', userRouter);
 
-// 声明使用路由器中间件
-app.use('/api/user', require('./routes/user.route'));
-app.use('/api/token', require('./routes/token.route'));
-app.use('/api/role', require('./routes/role.route'));
-app.use('/api/category', require('./routes/category.route'));
-app.use('/api/product', require('./routes/product.route'));
+// catch 404 and forward to error handler
+app.use(function(req, res, next) {
+  next(createError(404));
+});
 
-app.use(errorTokenHandler);
+// error handler
+app.use(function(err, req, res, next) {
+  // set locals, only providing error in development
+  res.locals.message = err.message;
+  res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-// 通过mongoose连接数据库
+  // render the error page
+  res.status(err.status || 500);
+  logger.error(`Error Occur. Error Status: ${err.status}, Error Message: ${err.message}`)
+  res.send('error');
+});
+
+// mongodb is connected
 connection.on('connected', () => {
-    logger.info('MongoDB is connected successfully.')
+  logger.info('MongoDB is connected successfully.')
 })
 
+// failed to connect mongodb
 connection.on('error', (error) => {
-    logger.error('MongoDB is connected failed.', error)
+  logger.error('MongoDB is connected failed.', error)
 });
+
 
 module.exports = app;
