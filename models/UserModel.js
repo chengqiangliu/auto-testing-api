@@ -1,23 +1,25 @@
-/*
-能操作users集合数据的Model
- */
-// 1.引入mongoose
+//usermodel
+//mongoose
 const mongoose = require('mongoose')
 const md5 = require('blueimp-md5')
+const moment = require("moment");
+//date formating to display it with the time as well
+const date = new Date();
+const formattedDate = moment(date).format("YYYY-MM-DD HH:mm:ss");
 
-// 2.字义Schema(描述文档结构)
+//user schema
 const userSchema = new mongoose.Schema({
-  username: {type: String, required: true}, // 用户名
-  password: {type: String, required: true}, // 密码
+  username: {type: String, required: true}, 
+  password: {type: String, required: true}, 
   phone: String,
   email: String,
-  create_time: {type: Number, default: Date.now},
+  create_time: {type: String, default: formattedDate},
   role_id: String,
   clientId: {type: String, required: true}
 })
 
-// 3. 定义Model(与集合对应, 可以操作集合)
+
 const UserModel = mongoose.model('users', userSchema)
 
-// 4. 向外暴露Model
+// exporting the model 
 module.exports = UserModel
