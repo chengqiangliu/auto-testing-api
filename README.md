@@ -1,7 +1,8 @@
 **WORKFLOW**
 
 Commands to run the code(app.js): 
-
+* cd `<project folder>`
+* npm install
 * npm run dev 
 
 Then fetch the API by POST method in the postman using URL “http://localhost: [Port Address]/[API Address]”.  
