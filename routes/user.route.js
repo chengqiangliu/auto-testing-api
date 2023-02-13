@@ -4,7 +4,8 @@ const {
     userLoginValidator,
     userAddValidator,
     userUpdateValidator,
-    userDeleteValidator
+    userDeleteValidator,
+    userDeleteByIdValidator
 } = require("../validations/user.validation");
 
 const {
@@ -12,6 +13,7 @@ const {
     userAdd,
     userUpdate,
     userDelete,
+    userDeleteById,
     userList
 } = require("../controllers/user.controller");
 const logger = require('../lib/logger').API;
@@ -30,7 +32,8 @@ router.post('/add', userAddValidator, userAdd);
 router.post('/update', userUpdateValidator, userUpdate);
 
 // 删除用户
-router.post('/delete', userDeleteValidator, userDelete);
+router.post('/deleteByUser', userDeleteValidator, userDelete);
+router.post('/deleteById', userDeleteByIdValidator, userDeleteById);
 
 // 获取所有用户列表
 router.post('/list', userList);
