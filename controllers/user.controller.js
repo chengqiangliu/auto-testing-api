@@ -141,22 +141,52 @@ const userUpdate = async (req, res, next) => {
 // 删除用户
 const userDelete = async (req, res, next) => {
     logger.addContext(Constants.FILE_NAME, path.basename(__filename));
-    logger.info('The user delete controller is started');
+    logger.info('The user delete by Username controller is started');
     try {
         // validation
         const validateResult = validate(req);
         if (!validateResult.success) {
             return res.status(validateResult.status).json({success: false, errors: validateResult.errors});
         }
-
-        const {userId} = req.body;
-        await UserModel.deleteOne({_id: userId});
-
-        logger.info(`delete user successful, ${user.username}`);
-        return res.status(200).json({success: true});
+        const {username} = req.body;
+        const user = await UserModel.findOne({username});
+        if(user){
+            await UserModel.deleteOne({username: username});
+            logger.info(`delete user successful, ${username}`);
+            return res.status(200).json({success: true, message: username + ' successfully deleted'});
+        }
+        else{
+            return res.status(404).json({success: false, error:[ {msg: username + ' does not exist', errorcode: "404"}] });
+        }
     } catch (err) {
         logger.error(`delete user failed, system error。${err}`);
-        return res.status(500).json({success: false, errors: ['用户删除异常, 请重新尝试!']});
+        return res.status(500).json({success: false, errors:[{ msg: '用户删除异常, 请重新尝试!', errorcode: '500'}]});
+    }
+};
+const userDeleteById = async (req, res, next) => {
+    logger.addContext(Constants.FILE_NAME, path.basename(__filename));
+    logger.info('The user delete by ClientId controller is started');
+
+    try {
+        // validation
+        const validateResult = validate(req);
+        if (!validateResult.success) {
+            return res.status(validateResult.status).json({success: false, errors: validateResult.errors});
+        }
+        const {clientId} = req.body;
+        const user = await UserModel.findOne({clientId});
+        //console.log(user);
+        if(user){
+            await UserModel.deleteOne({clientId:clientId});
+            logger.info(`delete user successful, ${clientId}`);
+            return res.status(200).json({success: true, message: clientId + ' successfully deleted'});
+        }
+        else{
+            return res.status(404).json({success: false, error:[ {msg: clientId + ' does not exist', errorcode: "404"}] });
+        }
+    } catch (err) {
+        logger.error(`delete user failed, system error。${err}`);
+         return res.status(500).json({success: false, errors:[{ msg: '用户删除异常, 请重新尝试!', errorcode: '500'}]});
     }
 };
 
@@ -205,4 +235,4 @@ const userList = async (req, res, next) => {
     }
 };
 
-module.exports = { userLogin, userAdd, userUpdate, userDelete, userList };
+module.exports = { userLogin, userAdd, userUpdate, userDelete, userDeleteById, userList };
