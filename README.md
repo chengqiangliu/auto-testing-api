@@ -42,8 +42,8 @@ The necessary input attributes for user login are a username, password and a Cli
 
 **Case and error message for input attributes (validation errors)** 
 
-CASE | ERROR | MESSAGE 
----|---|---
+CASE | ERROR MESSAGE
+---|---
 Username is not given | Username is required and it should be a string  
 Username is given but it is not a string | Username should be a string 
 Password is not given | Password is required. Password should contain at least one uppercase, one lowercase, one number and one special character. Password should be at least 5 letters long. 
