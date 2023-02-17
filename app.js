@@ -19,8 +19,11 @@ app.use(express.urlencoded({ extended: false }));
 const cookieParser = require('cookie-parser');
 app.use(cookieParser());
 
-const userRouter = require('./routes/user.route');
-app.use('/api/user', userRouter);
+//const userRouter = require('./routes/user.route');
+//app.use('/api/user', userRouter);
+
+const deviceRouter = require('./routes/device.route');
+app.use('/api/device', deviceRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
