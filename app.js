@@ -21,6 +21,10 @@ app.use(cookieParser());
 
 const userRouter = require('./routes/user.route');
 app.use('/api/user', userRouter);
+const ciRouter = require('./routes/ci.route');
+app.use('/api/ci', ciRouter);
+const configurationRouter = require('./routes/configuration.route');
+app.use('/api/configuration', configurationRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
