@@ -133,7 +133,7 @@ const resultsDeleteById = async (req, res, next) => {
 };
 
 // fetch information of the results
-const resultsGetInfo = async (req, res, next) => {
+const resultsGet = async (req, res, next) => {
     logger.addContext(Constants.FILE_NAME, path.basename(__filename));
     logger.info('The results info controller is started');
     try {
@@ -162,5 +162,5 @@ module.exports = {
     resultsAdd,
     resultsUpdate,
     resultsDeleteById,
-    resultsGetInfo
+    resultsGet
 };
