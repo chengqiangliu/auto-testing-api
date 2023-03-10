@@ -125,7 +125,7 @@ const casesDeleteById = async (req, res, next) => {
 //fetch information of the cases
 const casesGet = async (req, res, next) => {
     logger.addContext(Constants.FILE_NAME, path.basename(__filename));
-    logger.info('The apps info controller is started');
+    logger.info('The cases info controller is started');
     try {
         // validation
         const validateResult = validate(req);
