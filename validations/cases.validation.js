@@ -83,3 +83,22 @@ exports.casesDeleteByIdValidator =
    ]; 
    
    
+   exports.casesInfoValidator = 
+   [
+       check("_id")
+           .exists({checkFalsy: true})
+           .withMessage("cases id is required")
+           .isString()
+           .withMessage("cases id should be string"),
+           (req, res, next) => {
+               const error = validationResult(req).formatWith(({ msg }) => ({msg,errorcode:'401'}));
+
+               const hasError = !error.isEmpty();
+
+               if (hasError) {
+               res.status(422).json({ errors: error.array() });
+               } else {
+               next();
+               }
+           }    
+   ];
