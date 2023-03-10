@@ -22,14 +22,12 @@ const casesAdd = async (req, res, next) => {
         let {title,external_id} = req.body
         // if title already exists, return error or else create new cases
         let cases = await CasesModel.findOne({title,external_id});
-        logger.info(cases);
         if (cases) {
             logger.warn(`Tag name already exists`);
             return res.status(400).json({success: false, errors: {errormessage:'Tag already exists',errorcode:'400'}});
         } else { 
             await CasesModel.create({...req.body});
             const cases = await CasesModel.findOne({title,external_id});
-            logger.info(cases)
             logger.info(`add tag successful, ${title}`);
             return res.status(200).json({success: true, data:{title: title,external_id:external_id}});
         }
@@ -132,5 +130,4 @@ module.exports = {
     casesUpdate,
     casesDelete,
     casesDeleteById,
-    //appsGetInfo
 };
