@@ -67,4 +67,22 @@ exports.errorsDeleteByIdValidator =
        }
    ]; 
    
+exports.errorsInfoValidator = 
+   [
+       check("_id")
+           .exists({checkFalsy: true})
+           .withMessage("errors id is required")
+           .isString()
+           .withMessage("errors id should be string"),
+           (req, res, next) => {
+               const error = validationResult(req).formatWith(({ msg }) => ({msg,errorcode:'401'}));
 
+               const hasError = !error.isEmpty();
+
+               if (hasError) {
+               res.status(422).json({ errors: error.array() });
+               } else {
+               next();
+               }
+           }    
+   ];
