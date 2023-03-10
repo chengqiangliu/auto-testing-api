@@ -11,7 +11,7 @@ const {
     resultsAdd,
     resultsUpdate,
     resultsDeleteById,
-    resultsGetInfo
+    resultsGet
 } = require("../controllers/results.controller");
 
 // results add 
@@ -24,6 +24,6 @@ router.post('/update', resultsUpdateValidator, resultsUpdate);
 router.post('/deleteById', resultsDeleteByIdValidator, resultsDeleteById);
 
 // results get Information
-router.get('/getInfo', resultsInfoValidator, resultsGetInfo);
+router.get('/get', resultsInfoValidator, resultsGet);
 
 module.exports = router;
