@@ -96,10 +96,33 @@ const errorsDeleteById = async (req, res, next) => {
     }
 };
 
+//fetch information of the errors
+const errorsGet = async (req, res, next) => {
+    logger.addContext(Constants.FILE_NAME, path.basename(__filename));
+    logger.info('The errors info controller is started');
+    try {
+        // validation
+        const validateResult = validate(req);
+        if (!validateResult.success) {
+            return res.status(validateResult.status).json({success: false, errors: validateResult.errors});
+        }
 
+        const {_id} = req.body;
+        const errors = await ErrorsModel.findOne({_id});
+        if(errors){
+            return res.status(200).json({success:true, data: errors});
+        }
+        else{
+            return res.status(404).json({success:false,errors:[{msg:_id+'does not exist',code:"404"}]});
+        }
+    } catch (err) {
+        logger.error(`get errors info failed, system error。${err}`);
+        return res.status(500).json({success: false, errors: ['get errors info failed, system error!']});
+    }
+};
 module.exports = {
     errorsAdd,
     errorsUpdate,
     errorsDeleteById,
-    
+    errorsGet
 };
