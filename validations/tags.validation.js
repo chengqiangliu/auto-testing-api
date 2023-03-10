@@ -78,23 +78,23 @@ exports.tagsDeleteValidator =
    ]; 
    
    
-//    exports.appsInfoValidator = 
-//    [
-//        check("_id")
-//            .exists({checkFalsy: true})
-//            .withMessage("Application id is required")
-//            .isString()
-//            .withMessage("Application id should be string"),
-//            (req, res, next) => {
-//                const error = validationResult(req).formatWith(({ msg }) => ({msg,errorcode:'401'}));
+   exports.tagsInfoValidator = 
+   [
+       check("_id")
+           .exists({checkFalsy: true})
+           .withMessage("tag id is required")
+           .isString()
+           .withMessage("tag id should be string"),
+           (req, res, next) => {
+               const error = validationResult(req).formatWith(({ msg }) => ({msg,errorcode:'401'}));
 
-//                const hasError = !error.isEmpty();
+               const hasError = !error.isEmpty();
 
-//                if (hasError) {
-//                res.status(422).json({ errors: error.array() });
-//                } else {
-//                next();
-//                }
-//            }    
-//    ];
+               if (hasError) {
+               res.status(422).json({ errors: error.array() });
+               } else {
+               next();
+               }
+           }    
+   ];
 
