@@ -133,7 +133,7 @@ const casetagsDeleteById = async (req, res, next) => {
 };
 
 // fetch information of the casetags
-const casetagsGetInfo = async (req, res, next) => {
+const casetagsGet = async (req, res, next) => {
     logger.addContext(Constants.FILE_NAME, path.basename(__filename));
     logger.info('The casetags info controller is started');
     try {
@@ -162,5 +162,5 @@ module.exports = {
     casetagsAdd,
     casetagsUpdate,
     casetagsDeleteById,
-    casetagsGetInfo
+    casetagsGet
 };
