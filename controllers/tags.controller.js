@@ -22,12 +22,14 @@ const tagsAdd = async (req, res, next) => {
         let {tagsname} = req.body
         // if tagsname already exists, return error or else create new tags
         let tags = await TagsModel.findOne({tagsname});
+        logger.info(tags);
         if (tags) {
             logger.warn(`Tag name already exists`);
             return res.status(400).json({success: false, errors: {errormessage:'Tag already exists',errorcode:'400'}});
         } else { 
             await TagsModel.create({...req.body});
             const tags = await TagsModel.findOne({tagsname});
+            logger.info(tags)
             logger.info(`add tag successful, ${tagsname}`);
             return res.status(200).json({success: true, data:{name: tagsname}});
         }
@@ -49,6 +51,7 @@ const tagsUpdate = async (req, res, next) => {
         }
 
         const tags = req.body;
+        //logger.info(apps);
         const oldTags = await TagsModel.findOneAndUpdate({_id: tags._id}, tags);
         // after updating the tags, we need to get the tags object data.
         var dict={};
@@ -121,7 +124,30 @@ const tagsDeleteById = async (req, res, next) => {
     }
 };
 
+//fetch information of the tags
+const tagsGet = async (req, res, next) => {
+    logger.addContext(Constants.FILE_NAME, path.basename(__filename));
+    logger.info('The apps info controller is started');
+    try {
+        // validation
+        const validateResult = validate(req);
+        if (!validateResult.success) {
+            return res.status(validateResult.status).json({success: false, errors: validateResult.errors});
+        }
 
+        const {_id} = req.body;
+        const tags = await TagsModel.findOne({_id});
+        if(tags){
+            return res.status(200).json({success:true, data: tags});
+        }
+        else{
+            return res.status(404).json({success:false,errors:[{msg:_id+'does not exist',code:"404"}]});
+        }
+    } catch (err) {
+        logger.error(`get tags info failed, system error。${err}`);
+        return res.status(500).json({success: false, errors: ['get tags info failed, system error!']});
+    }
+};
 
 
 module.exports = {
@@ -129,4 +155,5 @@ module.exports = {
     tagsUpdate,
     tagsDelete,
     tagsDeleteById,
+    tagsGet
 };
