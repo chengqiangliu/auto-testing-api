@@ -5,6 +5,7 @@ const {
     casesUpdateValidator,
     casesDeleteValidator,
     casesDeleteByIdValidator,
+    casesInfoValidator
 } = require("../validations/cases.validation");
 
 const {
@@ -12,20 +13,23 @@ const {
     casesUpdate,
     casesDelete,
     casesDeleteById,
-    //tagsGetInfo
+    casesGet
 } = require("../controllers/cases.controller");
 
-// apps add 
+// cases add 
 router.post('/add', casesAddValidator, casesAdd);
 
-// apps update
+// cases update
 router.post('/update', casesUpdateValidator, casesUpdate);
 
-// apps delete by appsname
+// cases delete by casesname
 router.post('/deleteByName', casesDeleteValidator, casesDelete);
 
-// apps delete by apps id
+// cases delete by cases id
 router.post('/deleteById', casesDeleteByIdValidator, casesDeleteById);
+
+// cases Information
+router.get('/get', casesInfoValidator, casesGet);
 
 
 
