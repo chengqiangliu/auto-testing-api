@@ -122,7 +122,30 @@ const casesDeleteById = async (req, res, next) => {
     }
 };
 
+//fetch information of the cases
+const casesGet = async (req, res, next) => {
+    logger.addContext(Constants.FILE_NAME, path.basename(__filename));
+    logger.info('The apps info controller is started');
+    try {
+        // validation
+        const validateResult = validate(req);
+        if (!validateResult.success) {
+            return res.status(validateResult.status).json({success: false, errors: validateResult.errors});
+        }
 
+        const {_id} = req.body;
+        const cases = await CasesModel.findOne({_id});
+        if(cases){
+            return res.status(200).json({success:true, data: cases});
+        }
+        else{
+            return res.status(404).json({success:false,errors:[{msg:_id+'does not exist',code:"404"}]});
+        }
+    } catch (err) {
+        logger.error(`get cases info failed, system error。${err}`);
+        return res.status(500).json({success: false, errors: ['get cases info failed, system error!']});
+    }
+};
 
 
 module.exports = {
@@ -130,4 +153,5 @@ module.exports = {
     casesUpdate,
     casesDelete,
     casesDeleteById,
+    casesGet
 };
