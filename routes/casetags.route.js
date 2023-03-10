@@ -11,7 +11,7 @@ const {
     casetagsAdd,
     casetagsUpdate,
     casetagsDeleteById,
-    casetagsGetInfo
+    casetagsGet
 } = require("../controllers/casetags.controller");
 
 // casetags add 
@@ -24,6 +24,6 @@ router.post('/update', casetagsUpdateValidator, casetagsUpdate);
 router.post('/deleteById', casetagsDeleteByIdValidator, casetagsDeleteById);
 
 // case tags Information
-router.get('/getInfo', casetagsInfoValidator, casetagsGetInfo);
+router.get('/get', casetagsInfoValidator, casetagsGet);
 
 module.exports = router;
