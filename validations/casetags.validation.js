@@ -1,13 +1,18 @@
 //removed body from the source code and added check and validation instead
 const { check, validationResult } = require("express-validator");
 
-exports.tagsAddValidator = 
+exports.casetagsAddValidator = 
     [
-        check("tagsname")
-            .exists({checkFalsy: true})
-            .withMessage(" Tagname is required")
-            .isString()
-            .withMessage("Tagname should be string"),
+        check("tag_id")
+        .exists({checkFalsy: true})
+        .withMessage("tag_id is required")
+        .isString()
+        .withMessage("tag_id should be string"),
+        check("case_id")
+        .exists({checkFalsy: true})
+        .withMessage("case_id is required")
+        .isString()
+        .withMessage("case_id should be string"),
             (req, res, next) => {
                 const error = validationResult(req).formatWith(({ msg }) => ({msg,errorcode:'401'}));
 
@@ -21,13 +26,13 @@ exports.tagsAddValidator =
             }    
     ];
 
-exports.tagsUpdateValidator = 
+exports.casetagsUpdateValidator = 
      [
         check("_id")
             .exists({checkFalsy: true})
-            .withMessage("Application ID is required")
+            .withMessage("casetags ID is required")
             .isString()
-            .withMessage("Application ID should be string"),
+            .withMessage("casetags ID should be string"),
             (req, res, next) => {
                 const error = validationResult(req).formatWith(({ msg }) => ({msg,errorcode:'401'}));
 
@@ -43,28 +48,11 @@ exports.tagsUpdateValidator =
     ];
 
 
-exports.tagsDeleteValidator = 
-     [
-       check("tagsname")
-           .exists({checkFalsy: true})
-           .withMessage("Application name is required"),
-       (req, res, next) => {
-           const error = validationResult(req).formatWith(( {msg} ) => ({msg, errorcode:'400'}));
-           const hasError = !error.isEmpty();
-
-            if (hasError) {
-            res.status(400).json({ errors: error.array() });
-            } else {
-            next();
-            }
-        }
-    ];
-
-    exports.tagsDeleteByIdValidator = 
+exports.casetagsDeleteByIdValidator = 
     [
        check("_id")
            .exists({checkFalsy: true})
-           .withMessage("Application id is required"),
+           .withMessage("casetags id is required"),
        (req, res, next) => {
            const error = validationResult(req).formatWith(( {msg} ) => ({msg, errorcode:'400'}));
            const hasError = !error.isEmpty();
@@ -76,14 +64,15 @@ exports.tagsDeleteValidator =
            }
        }
    ]; 
-  
-   exports.tagsInfoValidator = 
+   
+   
+exports.casetagsInfoValidator = 
    [
        check("_id")
            .exists({checkFalsy: true})
-           .withMessage("tag id is required")
+           .withMessage("casetags id is required")
            .isString()
-           .withMessage("tag id should be string"),
+           .withMessage("casetags id should be string"),
            (req, res, next) => {
                const error = validationResult(req).formatWith(({ msg }) => ({msg,errorcode:'401'}));
 
@@ -96,3 +85,4 @@ exports.tagsDeleteValidator =
                }
            }    
    ];
+

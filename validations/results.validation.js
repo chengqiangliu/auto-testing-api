@@ -1,13 +1,28 @@
 //removed body from the source code and added check and validation instead
 const { check, validationResult } = require("express-validator");
 
-exports.tagsAddValidator = 
+exports.resultsAddValidator = 
     [
-        check("tagsname")
-            .exists({checkFalsy: true})
-            .withMessage(" Tagname is required")
-            .isString()
-            .withMessage("Tagname should be string"),
+        check("status")
+        .exists({checkFalsy: true})
+        .withMessage("status is required")
+        .isString()
+        .withMessage("status should be string"),
+        check("error")
+        .exists({checkFalsy: true})
+        .withMessage("error is required")
+        .isString()
+        .withMessage("error should be string"),
+        check("run")
+        .exists({checkFalsy: true})
+        .withMessage("runs is required")
+        .isString()
+        .withMessage("runs should be string"),
+        check("case")
+        .exists({checkFalsy: true})
+        .withMessage("case is required")
+        .isString()
+        .withMessage("case should be string"),
             (req, res, next) => {
                 const error = validationResult(req).formatWith(({ msg }) => ({msg,errorcode:'401'}));
 
@@ -21,13 +36,13 @@ exports.tagsAddValidator =
             }    
     ];
 
-exports.tagsUpdateValidator = 
+exports.resultsUpdateValidator = 
      [
         check("_id")
             .exists({checkFalsy: true})
-            .withMessage("Application ID is required")
+            .withMessage("results ID is required")
             .isString()
-            .withMessage("Application ID should be string"),
+            .withMessage("results ID should be string"),
             (req, res, next) => {
                 const error = validationResult(req).formatWith(({ msg }) => ({msg,errorcode:'401'}));
 
@@ -43,28 +58,13 @@ exports.tagsUpdateValidator =
     ];
 
 
-exports.tagsDeleteValidator = 
-     [
-       check("tagsname")
-           .exists({checkFalsy: true})
-           .withMessage("Application name is required"),
-       (req, res, next) => {
-           const error = validationResult(req).formatWith(( {msg} ) => ({msg, errorcode:'400'}));
-           const hasError = !error.isEmpty();
 
-            if (hasError) {
-            res.status(400).json({ errors: error.array() });
-            } else {
-            next();
-            }
-        }
-    ];
 
-    exports.tagsDeleteByIdValidator = 
+exports.resultsDeleteByIdValidator = 
     [
        check("_id")
            .exists({checkFalsy: true})
-           .withMessage("Application id is required"),
+           .withMessage("results id is required"),
        (req, res, next) => {
            const error = validationResult(req).formatWith(( {msg} ) => ({msg, errorcode:'400'}));
            const hasError = !error.isEmpty();
@@ -76,14 +76,15 @@ exports.tagsDeleteValidator =
            }
        }
    ]; 
-  
-   exports.tagsInfoValidator = 
+   
+   
+exports.resultsInfoValidator = 
    [
        check("_id")
            .exists({checkFalsy: true})
-           .withMessage("tag id is required")
+           .withMessage("results id is required")
            .isString()
-           .withMessage("tag id should be string"),
+           .withMessage("results id should be string"),
            (req, res, next) => {
                const error = validationResult(req).formatWith(({ msg }) => ({msg,errorcode:'401'}));
 
@@ -96,3 +97,4 @@ exports.tagsDeleteValidator =
                }
            }    
    ];
+

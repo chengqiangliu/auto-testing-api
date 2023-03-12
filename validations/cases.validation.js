@@ -1,13 +1,18 @@
 //removed body from the source code and added check and validation instead
 const { check, validationResult } = require("express-validator");
 
-exports.tagsAddValidator = 
+exports.casesAddValidator = 
     [
-        check("tagsname")
+        check("title")
             .exists({checkFalsy: true})
-            .withMessage(" Tagname is required")
+            .withMessage(" casename is required")
             .isString()
-            .withMessage("Tagname should be string"),
+            .withMessage("casename should be string"),
+        check("external_id")
+            .exists({checkFalsy: true})
+            .withMessage(" external id is required")
+            .isString()
+            .withMessage("external id should be string"),
             (req, res, next) => {
                 const error = validationResult(req).formatWith(({ msg }) => ({msg,errorcode:'401'}));
 
@@ -21,13 +26,13 @@ exports.tagsAddValidator =
             }    
     ];
 
-exports.tagsUpdateValidator = 
+exports.casesUpdateValidator = 
      [
         check("_id")
             .exists({checkFalsy: true})
-            .withMessage("Application ID is required")
+            .withMessage("case ID is required")
             .isString()
-            .withMessage("Application ID should be string"),
+            .withMessage("case ID should be string"),
             (req, res, next) => {
                 const error = validationResult(req).formatWith(({ msg }) => ({msg,errorcode:'401'}));
 
@@ -43,11 +48,11 @@ exports.tagsUpdateValidator =
     ];
 
 
-exports.tagsDeleteValidator = 
+exports.casesDeleteValidator = 
      [
-       check("tagsname")
+       check("title")
            .exists({checkFalsy: true})
-           .withMessage("Application name is required"),
+           .withMessage("case name is required"),
        (req, res, next) => {
            const error = validationResult(req).formatWith(( {msg} ) => ({msg, errorcode:'400'}));
            const hasError = !error.isEmpty();
@@ -60,11 +65,11 @@ exports.tagsDeleteValidator =
         }
     ];
 
-    exports.tagsDeleteByIdValidator = 
+exports.casesDeleteByIdValidator = 
     [
        check("_id")
            .exists({checkFalsy: true})
-           .withMessage("Application id is required"),
+           .withMessage("case id is required"),
        (req, res, next) => {
            const error = validationResult(req).formatWith(( {msg} ) => ({msg, errorcode:'400'}));
            const hasError = !error.isEmpty();
@@ -76,14 +81,15 @@ exports.tagsDeleteValidator =
            }
        }
    ]; 
-  
-   exports.tagsInfoValidator = 
+   
+   
+   exports.casesInfoValidator = 
    [
        check("_id")
            .exists({checkFalsy: true})
-           .withMessage("tag id is required")
+           .withMessage("cases id is required")
            .isString()
-           .withMessage("tag id should be string"),
+           .withMessage("cases id should be string"),
            (req, res, next) => {
                const error = validationResult(req).formatWith(({ msg }) => ({msg,errorcode:'401'}));
 

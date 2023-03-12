@@ -75,6 +75,7 @@ const userLogin = async (req, res, next) => {
 const userAdd = async (req, res, next) => {
     logger.addContext(Constants.FILE_NAME, path.basename(__filename));
     logger.info('The user add controller is started');
+   
     try {
         // validation
         const validateResult = validate(req);
@@ -83,24 +84,26 @@ const userAdd = async (req, res, next) => {
         }
 
         // read req parameter data
-        const {username, password} = req.body
+        
         // if username already exists, return error or else create a new user
         
+        const {username, password} = req.body
         const user = await UserModel.findOne({username});
-        logger.info(user);
         if (user) {
             logger.warn(`the username already exists, ${user.username}`);
             return res.status(400).json({success: false, errors: {errormessage:'user already exists',errorcode:'400'}});
         } else { 
-            await UserModel.create({...req.body, password: md5(password)});
+            const accessToken = generateToken({username: username, createTime: formattedDate}, 'AccessToken');
+            await UserModel.create({accessToken,...req.body, password: md5(password)});
             const user = await UserModel.findOne({username});
-            logger.info(user)
+            //logger.info(user)
             logger.info(`add user successful, ${user.username}`);
-            return res.status(200).json({success: true, data: {username}});
+            return res.status(200).json({success: true, data: {username,accessToken}});
         }
+        
     } catch (err) {
         logger.error(`add user failed, system error。${err}`);
-        return res.status(500).json({success: false, errors: {errormessage:'error, system error!',errorcode:'500'}});
+        return res.status(500).json({success: false, errors: {errormessage:`add user failed.${err}`,errorcode:'500'}});
     }
 };
 

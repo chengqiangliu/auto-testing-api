@@ -1,6 +1,9 @@
 const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
+const jwt = require("jsonwebtoken");
+const { secret } = require('./config');
+
 
 // mongodb connection
 const connection = require('./db/connection');
@@ -15,12 +18,32 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+
 // import cookieParser
 const cookieParser = require('cookie-parser');
 app.use(cookieParser());
 
+//import verify token middleware
+const verifyToken = require('./verifyTock')
+var unless = function(path, middleware) {
+  return function(req, res, next) {
+      if (path === req.path) {
+          return next();
+      } else {
+          return middleware(req, res, next);
+      }
+  };
+};
+app.use(unless('/api/user/add',verifyToken))
+
+
 const userRouter = require('./routes/user.route');
+const { verify } = require('crypto');
 app.use('/api/user', userRouter);
+const ciRouter = require('./routes/ci.route');
+app.use('/api/ci', ciRouter);
+const configurationRouter = require('./routes/configuration.route');
+app.use('/api/configuration', configurationRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -34,9 +57,10 @@ app.use(function(err, req, res, next) {
   res.locals.error = req.app.get('env') === 'development' ? err : {};
 
   // render the error page
-  res.status(err.status || 500);
+  //res.status(err.status || 500);
   logger.error(`Error Occur. Error Status: ${err.status}, Error Message: ${err.message}`)
-  res.send('error');
+  //res.send('error');
+  res.status(401).json({success: false, errors: {errormessage:`update user failed,${err}`,errorcode:'401'}});
 });
 
 // mongodb is connected

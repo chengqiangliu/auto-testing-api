@@ -15,7 +15,8 @@ const userSchema = new mongoose.Schema({
   email: String,
   create_time: {type: String, default: formattedDate},
   role_id: String,
-  clientId: {type: String, required: true}
+  clientId: {type: String, required: true},
+  accessToken: {type: String, required: true}
 })
 
 
