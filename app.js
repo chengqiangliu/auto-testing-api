@@ -40,6 +40,10 @@ app.use(unless('/api/user/add',verifyToken))
 const userRouter = require('./routes/user.route');
 const { verify } = require('crypto');
 app.use('/api/user', userRouter);
+const ciRouter = require('./routes/ci.route');
+app.use('/api/ci', ciRouter);
+const configurationRouter = require('./routes/configuration.route');
+app.use('/api/configuration', configurationRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
