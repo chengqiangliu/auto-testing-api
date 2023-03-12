@@ -5,7 +5,7 @@ const {
     tagsUpdateValidator,
     tagsDeleteValidator,
     tagsDeleteByIdValidator,
-    //tagsInfoValidator
+    tagsInfoValidator
 } = require("../validations/tags.validation");
 
 const {
@@ -13,7 +13,7 @@ const {
     tagsUpdate,
     tagsDelete,
     tagsDeleteById,
-    //tagsGetInfo
+    tagsGet
 } = require("../controllers/tags.controller");
 
 // tags add 
@@ -29,6 +29,7 @@ router.post('/deleteByName', tagsDeleteValidator, tagsDelete);
 router.post('/deleteById', tagsDeleteByIdValidator, tagsDeleteById);
 
 // tags Information
-//router.get('/getInfo', tagsInfoValidator, tagsGetInfo);
+router.get('/get', tagsInfoValidator, tagsGet);
 
 module.exports = router;
+
