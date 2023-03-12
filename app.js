@@ -4,7 +4,6 @@ const path = require('path');
 const jwt = require("jsonwebtoken");
 const { secret } = require('./config');
 
-
 // mongodb connection
 const connection = require('./db/connection');
 
@@ -40,6 +39,8 @@ app.use(unless('/api/user/add',verifyToken))
 const userRouter = require('./routes/user.route');
 const { verify } = require('crypto');
 app.use('/api/user', userRouter);
+const appsRouter = require('./routes/apps.route');
+app.use('/api/apps', appsRouter);
 const ciRouter = require('./routes/ci.route');
 app.use('/api/ci', ciRouter);
 const configurationRouter = require('./routes/configuration.route');
