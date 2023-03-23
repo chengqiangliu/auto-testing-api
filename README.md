@@ -4,6 +4,8 @@ Commands to run the code(app.js):
 * cd `<project folder>`
 * npm install
 * npm i moment
+* npm i swagger-ui-express
+* npm i swagger-jsdoc
 * npm run dev 
 
 moment is for tracking time. \
