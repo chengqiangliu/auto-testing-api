@@ -23,7 +23,7 @@ exports.configurationAddValidator =
 
 exports.configurationUpdateValidator = 
      [
-        check("_id")
+        check("id")
             .exists({checkFalsy: true})
             .withMessage("configuration ID is required")
             .isString()
@@ -62,7 +62,7 @@ exports.configurationDeleteValidator =
 
     exports.configurationDeleteByIdValidator = 
     [
-       check("_id")
+       check("id")
            .exists({checkFalsy: true})
            .withMessage("configuration id is required"),
        (req, res, next) => {
@@ -78,9 +78,9 @@ exports.configurationDeleteValidator =
    ]; 
    
    
-   exports.configurationInfoValidator = 
+   exports.configurationGetValidator = 
    [
-       check("_id")
+       check("id")
            .exists({checkFalsy: true})
            .withMessage("configuration id is required")
            .isString()
