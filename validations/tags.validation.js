@@ -23,11 +23,11 @@ exports.tagsAddValidator =
 
 exports.tagsUpdateValidator = 
      [
-        check("_id")
+        check("id")
             .exists({checkFalsy: true})
-            .withMessage("Tag ID is required")
+            .withMessage("tag ID is required")
             .isString()
-            .withMessage("Tag ID should be string"),
+            .withMessage("tag ID should be string"),
             (req, res, next) => {
                 const error = validationResult(req).formatWith(({ msg }) => ({msg,errorcode:'401'}));
 
@@ -47,7 +47,7 @@ exports.tagsDeleteValidator =
      [
        check("tagsname")
            .exists({checkFalsy: true})
-           .withMessage("Tag name is required"),
+           .withMessage("tag name is required"),
        (req, res, next) => {
            const error = validationResult(req).formatWith(( {msg} ) => ({msg, errorcode:'400'}));
            const hasError = !error.isEmpty();
@@ -62,9 +62,9 @@ exports.tagsDeleteValidator =
 
     exports.tagsDeleteByIdValidator = 
     [
-       check("_id")
+       check("id")
            .exists({checkFalsy: true})
-           .withMessage("Tag id is required"),
+           .withMessage("tag id is required"),
        (req, res, next) => {
            const error = validationResult(req).formatWith(( {msg} ) => ({msg, errorcode:'400'}));
            const hasError = !error.isEmpty();
@@ -76,10 +76,11 @@ exports.tagsDeleteValidator =
            }
        }
    ]; 
-  
+   
+   
    exports.tagsInfoValidator = 
    [
-       check("_id")
+       check("id")
            .exists({checkFalsy: true})
            .withMessage("tag id is required")
            .isString()
@@ -96,3 +97,4 @@ exports.tagsDeleteValidator =
                }
            }    
    ];
+
