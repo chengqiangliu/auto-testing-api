@@ -28,7 +28,7 @@ exports.casesAddValidator =
 
 exports.casesUpdateValidator = 
      [
-        check("_id")
+        check("id")
             .exists({checkFalsy: true})
             .withMessage("case ID is required")
             .isString()
@@ -67,7 +67,7 @@ exports.casesDeleteValidator =
 
 exports.casesDeleteByIdValidator = 
     [
-       check("_id")
+       check("id")
            .exists({checkFalsy: true})
            .withMessage("case id is required"),
        (req, res, next) => {
@@ -85,7 +85,7 @@ exports.casesDeleteByIdValidator =
    
    exports.casesInfoValidator = 
    [
-       check("_id")
+       check("id")
            .exists({checkFalsy: true})
            .withMessage("cases id is required")
            .isString()
