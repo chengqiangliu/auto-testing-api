@@ -5,7 +5,8 @@ const md5 = require('blueimp-md5')
 const moment = require("moment");
 //date formating to display it with the time as well
 const date = new Date();
-const formattedDate = moment(date).format("YYYY-MM-DD HH:mm:ss");
+const Constants = require('../lib/constants');
+const formattedDate = moment(date).format(Constants.DATE_TIME_FORMAT);
 
 //device schema
 const deviceSchema = new mongoose.Schema({
