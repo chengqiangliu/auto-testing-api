@@ -2,6 +2,7 @@ const { expressjwt } = require('express-jwt');
 const { secret } = require('../config');
 const jwt = require('jsonwebtoken');
 const logger = require('../lib/logger').API;
+const UserModel = require("../models/UserModel");
 
 const generateToken = (payload, type) => {
     logger.info('The generateToken started');
@@ -49,9 +50,27 @@ const errorTokenHandler = (err, req, res, next) => {
     }
 };
 
+function autho(req){
+    const authorization = req.header("Authorization");
+
+        if (!authorization) {
+            return 401;
+        }
+        else{
+            const token = authorization.split(" ")[1];
+
+            const decoded = jwt.verify(token, secret);
+            
+            const username = decoded.username;
+           
+            return username;
+        }
+}
+
 module.exports = {
     generateToken,
     verifyToken,
     verifyRefreshToken,
-    errorTokenHandler
+    errorTokenHandler,
+    autho
 };
