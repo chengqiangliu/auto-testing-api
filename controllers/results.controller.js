@@ -3,7 +3,7 @@ const path = require('path');
 const ResultsModel = require("../models/ResultsModel");
 const UserModel = require('../models/UserModel');
 const ErrorsModel = require("../models/ErrorsModel");
-const RunsModel = require("../models/RunsModel");
+//const RunsModel = require("../models/RunsModel");
 const CasesModel = require("../models/CasesModel");
 const { validate } = require('./common.controller');
 const {autho} = require('../auth/index')
@@ -11,10 +11,10 @@ const {autho} = require('../auth/index')
 const Constants = require('../lib/constants');
 const logger = require('../lib/logger').API;
 
-// adding a case tag
+// adding a results
 const resultsAdd = async (req, res, next) => {
     logger.addContext(Constants.FILE_NAME, path.basename(__filename));
-    logger.info('The case tags add controller is started');
+    logger.info('The resultss add controller is started');
 
     try {
         // validation
@@ -55,7 +55,7 @@ const resultsAdd = async (req, res, next) => {
         
     } catch (err) {
         logger.error(`add results failed, system error。${err}`);
-        return res.status(500).json({success: false, error: {message: 'add case tags failed, system error!',code:'500'}});
+        return res.status(500).json({success: false, error: {message: 'add resultss failed, system error!',code:'500'}});
     }
 };
 
@@ -165,7 +165,7 @@ const resultsGetInfo = async (req, res, next) => {
             return res.status(404).json({success:false,error:[{msg:id+'does not exist',code:"404"}]});
         }
     } catch (err) {
-        logger.error(`get case tags info failed, system error。${err}`);
+        logger.error(`get resultss info failed, system error。${err}`);
         return res.status(500).json({success: false, error: ['get results info failed, system error!']});
     }
 };
