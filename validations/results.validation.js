@@ -38,7 +38,7 @@ exports.resultsAddValidator =
 
 exports.resultsUpdateValidator = 
      [
-        check("_id")
+        check("id")
             .exists({checkFalsy: true})
             .withMessage("results ID is required")
             .isString()
@@ -62,7 +62,7 @@ exports.resultsUpdateValidator =
 
 exports.resultsDeleteByIdValidator = 
     [
-       check("_id")
+       check("id")
            .exists({checkFalsy: true})
            .withMessage("results id is required"),
        (req, res, next) => {
@@ -80,7 +80,7 @@ exports.resultsDeleteByIdValidator =
    
 exports.resultsInfoValidator = 
    [
-       check("_id")
+       check("id")
            .exists({checkFalsy: true})
            .withMessage("results id is required")
            .isString()
