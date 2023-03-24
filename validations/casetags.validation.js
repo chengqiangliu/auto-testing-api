@@ -28,7 +28,7 @@ exports.casetagsAddValidator =
 
 exports.casetagsUpdateValidator = 
      [
-        check("_id")
+        check("id")
             .exists({checkFalsy: true})
             .withMessage("casetags ID is required")
             .isString()
@@ -50,7 +50,7 @@ exports.casetagsUpdateValidator =
 
 exports.casetagsDeleteByIdValidator = 
     [
-       check("_id")
+       check("id")
            .exists({checkFalsy: true})
            .withMessage("casetags id is required"),
        (req, res, next) => {
@@ -68,7 +68,7 @@ exports.casetagsDeleteByIdValidator =
    
 exports.casetagsInfoValidator = 
    [
-       check("_id")
+       check("id")
            .exists({checkFalsy: true})
            .withMessage("casetags id is required")
            .isString()
