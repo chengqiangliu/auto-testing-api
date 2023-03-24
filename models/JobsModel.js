@@ -3,7 +3,8 @@ const mongoose = require('mongoose')
 const moment = require("moment");
 //date formating to display it with the time as well
 const date = new Date();
-const formattedDate = moment(date).format("YYYY-MM-DD HH:mm:ss");
+const Constants = require('../lib/constants');
+const formattedDate = moment(date).format(Constants.DATE_TIME_FORMAT);
 
 // 2.Defining Schema
 const jobsSchema = new mongoose.Schema({
