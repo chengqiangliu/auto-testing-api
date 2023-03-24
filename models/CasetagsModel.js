@@ -10,7 +10,21 @@ const casetagsSchema = new mongoose.Schema({
   tag_id: {type: String, required: true},
   case_id:{type:String,required:true},
   create_time: {type: String, default: formattedDate},
-},{versionKey: false})
+  deleteFlag:{type:Number ,default:0,required:true},
+  create_user:{type:String},
+  update_user:{type:String}
+},{versionKey: false},{
+  timestamps:
+  {createdAt:"create_time",updatedAt:"update_time"}})
+
+casetagsSchema.virtual('id').get(function(){
+  return this._id.toHexString();
+ });
+ 
+casetagsSchema.set('toJSON', {
+ virtuals: true,
+ transform: function (doc, ret) { delete ret._id  }
+ });
 
 // 3. Creating case tags Model
 const CasetagsModel = mongoose.model('casetags', casetagsSchema)

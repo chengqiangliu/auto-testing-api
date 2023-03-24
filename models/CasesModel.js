@@ -15,9 +15,21 @@ const casesSchema = new mongoose.Schema({
   location:{type:String},
   reference:{type:String},
   create_time: {type: String, default: formattedDate},
+  deleteFlag:{type:Number ,default:0,required:true},
+  create_user:{type:String},
+  update_user:{type:String}
+},{
+  timestamps:
+  {createdAt:"create_time",updatedAt:"update_time"}})
 
-})
-
+casesSchema.virtual('id').get(function(){
+  return this._id.toHexString();
+ });
+ 
+casesSchema.set('toJSON', {
+ virtuals: true,
+ transform: function (doc, ret) { delete ret._id  }
+ });
 
 const CasesModel = mongoose.model('cases', casesSchema)
 

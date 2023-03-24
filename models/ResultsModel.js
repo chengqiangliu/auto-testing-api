@@ -13,7 +13,21 @@ const resultsSchema = new mongoose.Schema({
   error:{type:String, required:true},
   run:{type:String,required:true},
   case:{type:String,required:true},
-},{versionKey: false})
+  deleteFlag:{type:Number ,default:0,required:true},
+  create_user:{type:String},
+  update_user:{type:String}
+},{versionKey: false},{
+  timestamps:
+  {createdAt:"create_time",updatedAt:"update_time"}})
+
+resultsSchema.virtual('id').get(function(){
+  return this._id.toHexString();
+ });
+ 
+resultsSchema.set('toJSON', {
+ virtuals: true,
+ transform: function (doc, ret) {   delete ret._id  }
+ });
 
 // 3. Creating case tags Model
 const ResultsModel = mongoose.model('results', resultsSchema)
