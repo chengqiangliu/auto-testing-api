@@ -15,6 +15,15 @@ const appsSchema = new mongoose.Schema({
   create_time: {type: String, default: formattedDate},
 },{versionKey: false})
 
+appsSchema.virtual('id').get(function(){
+  return this._id.toHexString();
+});
+
+appsSchema.set('toJSON', {
+  virtuals: true,
+  transform: function (doc, ret) {   delete ret._id  }
+});
+
 // 3. Creating Application Model
 const AppsModel = mongoose.model('apps', appsSchema)
 
