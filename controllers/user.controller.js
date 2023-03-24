@@ -1,5 +1,6 @@
 const md5 = require("blueimp-md5");
 const path = require('path');
+const jwt = require("jsonwebtoken");
 
 const UserModel = require("../models/UserModel");
 const RoleModel = require("../models/RoleModel");
@@ -10,9 +11,21 @@ const Constants = require('../lib/constants');
 const { validate } = require("./common.controller");
 const logger = require('../lib/logger').API;
 const { generateToken } = require('../auth');
+const { access } = require("fs");
+const { verifyRefreshToken } = require('../auth');
+const aut = require('../auth')
+const { secret } = require("../config");
+
+const moment = require("moment");
+const date = new Date();
+const formattedDate = moment(date).format("YYYY-MM-DD HH:mm:ss");
+
+const validationExport = require('../getInfo')
 
 //user functionalities
 //user login
+
+
 const userLogin = async (req, res, next) => {
     logger.addContext(Constants.FILE_NAME, path.basename(__filename));
     logger.info('The user login controller is started');
@@ -41,11 +54,12 @@ const userLogin = async (req, res, next) => {
             //if case should contain if(client),but since client related data is not present, for now we are assuming that we have a client
             // with the same clientID as the user, hence if(1)
             if(1) {
-                const accessToken = generateToken({userId: user._id, createTime: new Date()}, 'AccessToken');
-                const refreshToken = generateToken({userId: user._id, createTime: new Date()}, 'RefreshToken');
-                await RefreshTokenModel.create({refreshToken, clientId: user.clientId, userId: user._id});
+                const accessToken = generateToken({userId: user.id, createTime: formattedDate}, 'AccessToken');
+                const refreshToken = generateToken({userId: user.id, createTime: formattedDate}, 'RefreshToken');
+            
+                await RefreshTokenModel.create({refreshToken, client: user.clientId, username: user.username});
                 if (user.role_id) {
-                    const role = await RoleModel.findOne({_id: user.role_id});
+                    const role = await RoleModel.findOne({id: user.role_id});
                     logger.info(`login success, ${user.username}`);
                     return res.status(200).json({success: true, data: {username,accessToken, refreshToken}});
                 } else {
@@ -117,10 +131,9 @@ const userUpdate = async (req, res, next) => {
         if (!validateResult.success) {
             return res.status(validateResult.status).json({success: false, errors: validateResult.errors});
         }
-        
+    
         const user = req.body;
-        
-        const oldUser = await UserModel.findOneAndUpdate({_id: user._id}, user);
+            const oldUser = await UserModel.findOneAndUpdate({id: user.id}, user);
         // after updating the user, we need to get the user object data without the password in it.
         var dict={};
         for(const i in Object.keys(user)){
@@ -135,37 +148,35 @@ const userUpdate = async (req, res, next) => {
         
         logger.info(`update user successful, ${user.username}`);
         return res.status(200).json({success: true, data:dict});
+    
     } catch (err) {
         logger.error(`update user failed, system error。${err}`);
-        return res.status(500).json({success: false, errors: {errormessage:'update user failed,system error',errorcode:'500'}});
+        return res.status(401).json({success: false, errors: {errormessage:`update user failed,${err}`,errorcode:'401'}});
     }
 };
 
 // 删除用户
 const userDelete = async (req, res, next) => {
     logger.addContext(Constants.FILE_NAME, path.basename(__filename));
-    logger.info('The user delete by Username controller is started');
+    logger.info('The user delete controller is started');
     try {
         // validation
         const validateResult = validate(req);
         if (!validateResult.success) {
             return res.status(validateResult.status).json({success: false, errors: validateResult.errors});
         }
-        const {username} = req.body;
-        const user = await UserModel.findOne({username});
-        if(user){
-            await UserModel.deleteOne({username: username});
-            logger.info(`delete user successful, ${username}`);
-            return res.status(200).json({success: true, message: username + ' successfully deleted'});
-        }
-        else{
-            return res.status(404).json({success: false, error:[ {msg: username + ' does not exist', errorcode: "404"}] });
-        }
+
+        const {userId} = req.body;
+        await UserModel.deleteOne({id: userId});
+
+        logger.info(`delete user successful, ${user.username}`);
+        return res.status(200).json({success: true});
     } catch (err) {
         logger.error(`delete user failed, system error。${err}`);
-        return res.status(500).json({success: false, errors:[{ msg: '用户删除异常, 请重新尝试!', errorcode: '500'}]});
+        return res.status(500).json({success: false, errors: ['用户删除异常, 请重新尝试!']});
     }
 };
+
 const userDeleteById = async (req, res, next) => {
     logger.addContext(Constants.FILE_NAME, path.basename(__filename));
     logger.info('The user delete by ClientId controller is started');
@@ -189,7 +200,7 @@ const userDeleteById = async (req, res, next) => {
         }
     } catch (err) {
         logger.error(`delete user failed, system error。${err}`);
-         return res.status(500).json({success: false, errors:[{ msg: '用户删除异常, 请重新尝试!', errorcode: '500'}]});
+         return res.status(500).json({success: false, errors:[{ msg: 'System error!', errorcode: '500'}]});
     }
 };
 
@@ -198,11 +209,12 @@ const userList = async (req, res, next) => {
     logger.addContext(Constants.FILE_NAME, path.basename(__filename));
     logger.info('The user list controller is started');
     try {
-        // validation
+        //validation
         const validateResult = validate(req);
         if (!validateResult.success) {
             return res.status(validateResult.status).json({success: false, errors: validateResult.errors});
         }
+        //validationExport(req,res);
 
         const users = await UserModel.find({username: {'$ne': 'admin'}});
         //the following line can be uncommented if the users have roles defined
@@ -239,3 +251,5 @@ const userList = async (req, res, next) => {
 };
 
 module.exports = { userLogin, userAdd, userUpdate, userDelete, userDeleteById, userList };
+
+
