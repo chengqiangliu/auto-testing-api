@@ -13,6 +13,15 @@ const ciSchema = new mongoose.Schema({
   create_time: {type: String, default: formattedDate},
 },{versionKey: false})
 
+ciSchema.virtual('id').get(function(){
+  return this._id.toHexString();
+});
+
+ciSchema.set('toJSON', {
+  virtuals: true,
+  transform: function (doc, ret) {   delete ret._id  }
+});
+
 // 3. Creating ci Model
 const CiModel = mongoose.model('ci', ciSchema)
 
