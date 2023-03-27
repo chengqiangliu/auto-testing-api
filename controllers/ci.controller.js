@@ -2,10 +2,12 @@ const path = require('path');
 
 const CiModel = require("../models/CiModel");
 const { validate } = require('./common.controller');
+const UserModel = require('../models/UserModel');
 
 const Constants = require('../lib/constants');
 const logger = require('../lib/logger').API;
 const errorStatements = require('../lib/errorStatements');
+const {autho} = require('../auth/index')
 
 // adding a ci
 const ciAdd = async (req, res, next) => {
@@ -21,20 +23,25 @@ const ciAdd = async (req, res, next) => {
 
         // read request parameter data
         const {ci_url} = req.body
+        //accesstoken checking
+        const username = autho(req)
+        let user = await UserModel.findOne({username:username});
+        let userid = user._id
+
         // if ci_url already exists, return error or else create a new apps
         const ci = await CiModel.findOne({ci_url});
         if (ci) {
             logger.warn(`the ci_url already exists, ${ci.ci_url}`);
             return res.status(400).json({success: false, errors: {errormessage:'Ci already exists',errorcode:'400'}});
         } else { 
-            await CiModel.create({...req.body});
+            await CiModel.create({create_user:userid,update_user:userid,...req.body});
             const ci = await CiModel.findOne({ci_url});
             logger.info(`add ci successful, ${ci.ci_url}`);
             return res.status(200).json({success: true, data: ci});
         }
     } catch (err) {
         logger.error(JSON.stringify(errorStatements.CatchBlockErr)+`${err}`);
-         return res.status(500).json({success: false, error: [{message : (errorStatements.CatchBlockErr.message), code: 500}]});
+         return res.status(500).json({success: false, error: [{message : (errorStatements.CatchBlockErr.split("|")[1]), code: 500}]});
     }
 };
 
@@ -50,6 +57,12 @@ const ciUpdate = async (req, res, next) => {
         }
 
         const ci = req.body;
+        //accesstoken checking
+        const username = autho(req)
+        let user = await UserModel.findOne({username:username});
+        let userid = user._id
+        tags['update_user']=userid;
+
         const oldCi = await CiModel.findOneAndUpdate({id: ci.id}, ci);
         // after updating the ci, we need to get the ci object data.
         var dict={};
@@ -66,7 +79,7 @@ const ciUpdate = async (req, res, next) => {
         return res.status(200).json({success: true, data: data});
     } catch (err) {
         logger.error(JSON.stringify(errorStatements.CatchBlockErr)+`${err}`);
-         return res.status(500).json({success: false, error: [{message : (errorStatements.CatchBlockErr.message), code: 500}]});
+         return res.status(500).json({success: false, error: [{message : (errorStatements.CatchBlockErr.split("|")[1]), code: 500}]});
     }
 };
 
@@ -92,7 +105,7 @@ const ciDelete = async (req, res, next) => {
         }
     } catch (err) {
         logger.error(JSON.stringify(errorStatements.CatchBlockErr)+`${err}`);
-         return res.status(500).json({success: false, error: [{message : (errorStatements.CatchBlockErr.message), code: 500}]});
+         return res.status(500).json({success: false, error: [{message : (errorStatements.CatchBlockErr.split("|")[1]), code: 500}]});
     }
 };
 
@@ -118,7 +131,7 @@ const ciDeleteById = async (req, res, next) => {
         }
     } catch (err) {
         logger.error(JSON.stringify(errorStatements.CatchBlockErr)+`${err}`);
-         return res.status(500).json({success: false, error: [{message : (errorStatements.CatchBlockErr.message), code: 500}]});
+         return res.status(500).json({success: false, error: [{message : (errorStatements.CatchBlockErr.split("|")[1]), code: 500}]});
     }
 };
 
@@ -143,7 +156,7 @@ const ciGet = async (req, res, next) => {
         }
     } catch (err) {
         logger.error(JSON.stringify(errorStatements.CatchBlockErr)+`${err}`);
-         return res.status(500).json({success: false, error: [{message : (errorStatements.CatchBlockErr.message), code: 500}]});
+         return res.status(500).json({success: false, error: [{message : (errorStatements.CatchBlockErr.split("|")[1]), code: 500}]});
     }
 };
 
