@@ -20,7 +20,7 @@ const moment = require("moment");
 const date = new Date();
 const formattedDate = moment(date).format("YYYY-MM-DD HH:mm:ss");
 
-const validationExport = require('../getInfo')
+//const validationExport = require('../getInfo')
 
 //user functionalities
 //user login
