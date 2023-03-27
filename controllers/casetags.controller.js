@@ -2,8 +2,10 @@ const path = require('path');
 
 const CasetagsModel = require("../models/CasetagsModel");
 const CasesModel = require("../models/CasesModel");
+const UserModel = require('../models/UserModel');
 const TagsModel = require("../models/TagsModel");
 const { validate } = require('./common.controller');
+const {autho} = require('../auth/index');
 
 const Constants = require('../lib/constants');
 const logger = require('../lib/logger').API;
@@ -22,6 +24,12 @@ const casetagsAdd = async (req, res, next) => {
 
         // read request parameter data
         const {case_id,tag_id} = req.body
+        //accesstoken checking
+
+        const username = autho(req)
+        let user = await UserModel.findOne({username:username});
+        let userid = user._id
+
         const cases = await CasesModel.findOne({_id:case_id});
         const tags= await TagsModel.findOne({_id:tag_id});
         if(cases && tags){
@@ -31,7 +39,7 @@ const casetagsAdd = async (req, res, next) => {
                 logger.warn(`the casetag already exists`);
                 return res.status(400).json({success: false, error: {message:'case tags already exists',code:'400'}});
             } else { 
-                await CasetagsModel.create({...req.body});
+                await CasetagsModel.create({create_user:userid,update_user:userid,...req.body});
                 const casetags = await CasetagsModel.findOne({case_id:case_id,tag_id:tag_id});
                 logger.info(`add case tag successful`);
                 return res.status(200).json({success: true, data: casetags});
@@ -81,6 +89,13 @@ const casetagsUpdate = async (req, res, next) => {
             logger.info('tags attribute is present')
             Rtags= await TagsModel.findOne({_id:casetags.tag_id})
         }
+
+         //accesstoken checking
+         const username = autho(req)
+         let user = await UserModel.findOne({username:username});
+         let userid = user._id
+         casetags['update_user']=userid;
+
         if(Rtags && Rcases){
         const oldcasetags = await CasetagsModel.findOneAndUpdate({_id: casetags._id}, casetags);
         // after updating the casetags, we need to get the casetags object data.
@@ -116,15 +131,15 @@ const casetagsDeleteById = async (req, res, next) => {
         if (!validateResult.success) {
             return res.status(validateResult.status).json({success: false, errors: validateResult.errors});
         }
-        const {_id} = req.body;
-        const casetags = await CasetagsModel.findOne({_id});
+        const {id} = req.body;
+        const casetags = await CasetagsModel.findOne({id});
         if(casetags){
-            await CasetagsModel.deleteOne({_id: _id});
-            logger.info(`delete casetags successful, ${_id}`);
-            return res.status(200).json({success: true, message: casetags._id + ' successfully deleted'});
+            await CasetagsModel.deleteOne({_id: id});
+            logger.info(`delete casetags successful, ${id}`);
+            return res.status(200).json({success: true, message: casetags.id + ' successfully deleted'});
         }
         else{
-            return res.status(404).json({success: false, error:[ {msg: casetags._id + ' does not exist', code: "404"}] });
+            return res.status(404).json({success: false, error:[ {msg: casetags.id + ' does not exist', code: "404"}] });
         }
     } catch (err) {
         logger.error(`delete casetags failed, system error。${err}`);
@@ -133,7 +148,7 @@ const casetagsDeleteById = async (req, res, next) => {
 };
 
 // fetch information of the casetags
-const casetagsGet = async (req, res, next) => {
+const casetagsGetInfo = async (req, res, next) => {
     logger.addContext(Constants.FILE_NAME, path.basename(__filename));
     logger.info('The casetags info controller is started');
     try {
@@ -143,13 +158,13 @@ const casetagsGet = async (req, res, next) => {
             return res.status(validateResult.status).json({success: false, errors: validateResult.errors});
         }
 
-        const {_id} = req.body;
-        const casetags = await CasetagsModel.findOne({_id});
+        const {id} = req.body;
+        const casetags = await CasetagsModel.findOne({id});
         if(casetags){
             return res.status(200).json({success:true, data: casetags});
         }
         else{
-            return res.status(404).json({success:false,error:[{msg:_id+'does not exist',code:"404"}]});
+            return res.status(404).json({success:false,error:[{msg:id+'does not exist',code:"404"}]});
         }
     } catch (err) {
         logger.error(`get case tags info failed, system error。${err}`);
@@ -162,5 +177,5 @@ module.exports = {
     casetagsAdd,
     casetagsUpdate,
     casetagsDeleteById,
-    casetagsGet
+    casetagsGetInfo
 };

@@ -28,7 +28,7 @@ exports.errorsAddValidator =
 
 exports.errorsUpdateValidator = 
      [
-        check("_id")
+        check("id")
             .exists({checkFalsy: true})
             .withMessage("error id is required")
             .isString()
@@ -52,7 +52,7 @@ exports.errorsUpdateValidator =
 
 exports.errorsDeleteByIdValidator = 
     [
-       check("_id")
+       check("id")
            .exists({checkFalsy: true})
            .withMessage("error id is required"),
        (req, res, next) => {
@@ -69,7 +69,7 @@ exports.errorsDeleteByIdValidator =
    
 exports.errorsInfoValidator = 
    [
-       check("_id")
+       check("id")
            .exists({checkFalsy: true})
            .withMessage("errors id is required")
            .isString()

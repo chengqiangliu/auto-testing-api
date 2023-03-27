@@ -1,18 +1,20 @@
 const path = require('path');
 
 const ResultsModel = require("../models/ResultsModel");
+const UserModel = require('../models/UserModel');
 const ErrorsModel = require("../models/ErrorsModel");
-const RunsModel = require("../models/RunsModel");
+//const RunsModel = require("../models/RunsModel");
 const CasesModel = require("../models/CasesModel");
 const { validate } = require('./common.controller');
+const {autho} = require('../auth/index')
 
 const Constants = require('../lib/constants');
 const logger = require('../lib/logger').API;
 
-// adding a case tag
+// adding a results
 const resultsAdd = async (req, res, next) => {
     logger.addContext(Constants.FILE_NAME, path.basename(__filename));
-    logger.info('The case tags add controller is started');
+    logger.info('The resultss add controller is started');
 
     try {
         // validation
@@ -27,6 +29,11 @@ const resultsAdd = async (req, res, next) => {
         const Rruns = await RunsModel.findOne({_id:results.run})
         const Rcases= await CasesModel.findOne({_id:results.case})
 
+        //accesstoken checking
+        const username = autho(req)
+        let user = await UserModel.findOne({username:username});
+        let userid = user._id
+
         if(Rerror && Rcases && Rruns){
             // if results already exists, return error or else create a new result
             const result = await ResultsModel.findOne({error:results.error,case:results.case,run:results.run});
@@ -34,7 +41,7 @@ const resultsAdd = async (req, res, next) => {
                 logger.warn(`the result already exists`);
                 return res.status(400).json({success: false, error: {message:'result already exists',code:'400'}});
             } else { 
-                await ResultsModel.create({...req.body});
+                await ResultsModel.create({create_user:userid,update_user:userid,...req.body});
                 const result = await ResultsModel.findOne({error:results.error,case:results.case,run:results.run});
                 logger.info(`add results successful`);
                 return res.status(200).json({success: true, data: result});
@@ -48,7 +55,7 @@ const resultsAdd = async (req, res, next) => {
         
     } catch (err) {
         logger.error(`add results failed, system error。${err}`);
-        return res.status(500).json({success: false, error: {message: 'add case tags failed, system error!',code:'500'}});
+        return res.status(500).json({success: false, error: {message: 'add resultss failed, system error!',code:'500'}});
     }
 };
 
@@ -82,6 +89,12 @@ const resultsUpdate = async (req, res, next) => {
             Rcases= await CasesModel.findOne({_id:results.case})
         }
         
+        //accesstoken checking
+        const username = autho(req)
+        let user = await UserModel.findOne({username:username});
+        let userid = user._id
+        results['update_user']=userid;
+
         if(Rerror && Rcases && Rruns){
         const oldresults = await ResultsModel.findOneAndUpdate({_id: results._id}, results);
         // after updating the results, we need to get the results object data.
@@ -116,11 +129,11 @@ const resultsDeleteById = async (req, res, next) => {
         if (!validateResult.success) {
             return res.status(validateResult.status).json({success: false, errors: validateResult.errors});
         }
-        const {_id} = req.body;
-        const results = await ResultsModel.findOne({_id});
+        const {id} = req.body;
+        const results = await ResultsModel.findOne({id});
         if(results){
-            await ResultsModel.deleteOne({_id: _id});
-            logger.info(`delete results successful, ${_id}`);
+            await ResultsModel.deleteOne({_id: id});
+            logger.info(`delete results successful, ${id}`);
             return res.status(200).json({success: true, message: results._id + ' successfully deleted'});
         }
         else{
@@ -133,7 +146,7 @@ const resultsDeleteById = async (req, res, next) => {
 };
 
 // fetch information of the results
-const resultsGet = async (req, res, next) => {
+const resultsGetInfo = async (req, res, next) => {
     logger.addContext(Constants.FILE_NAME, path.basename(__filename));
     logger.info('The results info controller is started');
     try {
@@ -143,16 +156,16 @@ const resultsGet = async (req, res, next) => {
             return res.status(validateResult.status).json({success: false, errors: validateResult.errors});
         }
 
-        const {_id} = req.body;
-        const results = await ResultsModel.findOne({_id});
+        const {id} = req.body;
+        const results = await ResultsModel.findOne({id});
         if(results){
             return res.status(200).json({success:true, data: results});
         }
         else{
-            return res.status(404).json({success:false,error:[{msg:_id+'does not exist',code:"404"}]});
+            return res.status(404).json({success:false,error:[{msg:id+'does not exist',code:"404"}]});
         }
     } catch (err) {
-        logger.error(`get case tags info failed, system error。${err}`);
+        logger.error(`get resultss info failed, system error。${err}`);
         return res.status(500).json({success: false, error: ['get results info failed, system error!']});
     }
 };
@@ -162,5 +175,5 @@ module.exports = {
     resultsAdd,
     resultsUpdate,
     resultsDeleteById,
-    resultsGet
+    resultsGetInfo
 };

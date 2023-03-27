@@ -1,12 +1,14 @@
 const path = require('path');
 
 const CasesModel = require("../models/CasesModel");
+const UserModel = require('../models/UserModel');
 const { validate } = require('./common.controller');
+const {autho} = require('../auth/index')
 
 const Constants = require('../lib/constants');
 const logger = require('../lib/logger').API;
 
-// adding a new tag
+// adding a new case
 const casesAdd = async (req, res, next) => {
     logger.addContext(Constants.FILE_NAME, path.basename(__filename));
     logger.info('The cases add controller is started');
@@ -20,20 +22,28 @@ const casesAdd = async (req, res, next) => {
 
         // read request parameter data
         let {title,external_id} = req.body
+
+         //accesstoken checking
+         const username = autho(req)
+         let user = await UserModel.findOne({username:username});
+         let userid = user._id
+         
         // if title already exists, return error or else create new cases
         let cases = await CasesModel.findOne({title,external_id});
+        logger.info(cases);
         if (cases) {
-            logger.warn(`Tag name already exists`);
-            return res.status(400).json({success: false, errors: {errormessage:'Tag already exists',errorcode:'400'}});
+            logger.warn(`case name already exists`);
+            return res.status(400).json({success: false, errors: {errormessage:'case already exists',errorcode:'400'}});
         } else { 
-            await CasesModel.create({...req.body});
+            await CasesModel.create({create_user:userid,update_user:userid,...req.body});
             const cases = await CasesModel.findOne({title,external_id});
-            logger.info(`add tag successful, ${title}`);
+            logger.info(cases)
+            logger.info(`add case successful, ${title}`);
             return res.status(200).json({success: true, data:{title: title,external_id:external_id}});
         }
     } catch (err) {
-        logger.error(`add tag failed, system error。${err}`);
-        return res.status(500).json({success: false, errors: {errormessage: 'add tag failed, system error!',errorcode:'500'}});
+        logger.error(`add case failed, system error。${err}`);
+        return res.status(500).json({success: false, errors: {errormessage: 'add case failed, system error!',errorcode:'500'}});
     }
 };
 
@@ -49,7 +59,13 @@ const casesUpdate = async (req, res, next) => {
         }
 
         const cases = req.body;
-        //logger.info(apps);
+
+        //accesstoken checking
+        const username = autho(req)
+        let user = await UserModel.findOne({username:username});
+        let userid = user._id
+        cases['update_user']=userid;
+       
         const oldCases = await CasesModel.findOneAndUpdate({_id: cases._id}, cases);
         // after updating the cases, we need to get the cases object data.
         var dict={};
@@ -62,7 +78,7 @@ const casesUpdate = async (req, res, next) => {
 
         //dict returns the cases information
         const data = Object.assign(oldCases, cases);
-        logger.info(`update cases successful, TagName: ${cases.title}, caseId: ${cases._id}`);
+        logger.info(`update cases successful, caseName: ${cases.title}, caseId: ${cases._id}`);
         return res.status(200).json({success: true, data: data});
     } catch (err) {
         logger.error(`update cases failed, system error。${err}`);
@@ -84,7 +100,7 @@ const casesDelete = async (req, res, next) => {
         const cases = await CasesModel.findOne({title});
         if(cases){
             await CasesModel.deleteOne({title: title});
-            logger.info(`delete tag successful, ${title}`);
+            logger.info(`delete case successful, ${title}`);
             return res.status(200).json({success: true, message: title + ' successfully deleted'});
         }
         else{
@@ -106,15 +122,15 @@ const casesDeleteById = async (req, res, next) => {
         if (!validateResult.success) {
             return res.status(validateResult.status).json({success: false, errors: validateResult.errors});
         }
-        const {_id} = req.body;
-        const cases = await CasesModel.findOne({_id});
+        const {id} = req.body;
+        const cases = await CasesModel.findOne({id});
         if(cases){
-            await CasesModel.deleteOne({_id: _id});
-            logger.info(`delete cases successful, ${_id}`);
+            await CasesModel.deleteOne({_id: id});
+            logger.info(`delete cases successful, ${id}`);
             return res.status(200).json({success: true, message:' successfully deleted'});
         }
         else{
-            return res.status(404).json({success: false, error:[ {msg:'tagname does not exist', errorcode: "404"}] });
+            return res.status(404).json({success: false, error:[ {msg:'casename does not exist', errorcode: "404"}] });
         }
     } catch (err) {
         logger.error(`delete cases failed, system error。${err}`);
@@ -125,7 +141,7 @@ const casesDeleteById = async (req, res, next) => {
 //fetch information of the cases
 const casesGet = async (req, res, next) => {
     logger.addContext(Constants.FILE_NAME, path.basename(__filename));
-    logger.info('The cases info controller is started');
+    logger.info('The apps info controller is started');
     try {
         // validation
         const validateResult = validate(req);
@@ -133,13 +149,13 @@ const casesGet = async (req, res, next) => {
             return res.status(validateResult.status).json({success: false, errors: validateResult.errors});
         }
 
-        const {_id} = req.body;
-        const cases = await CasesModel.findOne({_id});
+        const {id} = req.body;
+        const cases = await CasesModel.findOne({id});
         if(cases){
             return res.status(200).json({success:true, data: cases});
         }
         else{
-            return res.status(404).json({success:false,errors:[{msg:_id+'does not exist',code:"404"}]});
+            return res.status(404).json({success:false,errors:[{msg:id+'does not exist',code:"404"}]});
         }
     } catch (err) {
         logger.error(`get cases info failed, system error。${err}`);
