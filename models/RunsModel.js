@@ -13,8 +13,12 @@ const runsSchema = new mongoose.Schema({
   finished_at: {type: String, required: true},
   total: {type: String, required: true},
   status: {type: String, required: true},
-  create_time: {type: String, default: formattedDate},
-},{versionKey: false})
+  deleteFlag:{type:Number ,default:0,required:true},
+  create_user:{type:String},
+  update_user:{type:String}
+},{versionKey: false},{
+  timestamps:
+  {createdAt:"create_time",updatedAt:"update_time"}})
 
 runsSchema.virtual('id').get(function(){
   return this._id.toHexString();
