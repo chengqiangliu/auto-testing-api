@@ -15,11 +15,14 @@ const deviceSchema = new mongoose.Schema({
     type: String,
     create_time: {type: String, default: formattedDate},
     update_time: {type: String, default: formattedDate},
-    create_user: {type: String, required: true}, 
-    update_user: String,
-    delete_flag: String,
+    deleteFlag:{type:Number ,default:0,required:true},
+    create_user: {type: String, required: true},
     platform: String,
-},{versionKey: false})
+    create_user:{type:String},
+    update_user:{type:String}
+},{versionKey: false},{
+    timestamps:
+    {createdAt:"create_time",updatedAt:"update_time"}})
 
 deviceSchema.virtual('id').get(function(){
     return this._id.toHexString();
