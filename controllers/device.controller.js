@@ -4,10 +4,12 @@ const moment = require("moment");
 
 const DeviceModel = require("../models/DeviceModel");
 const { validate } = require("./common.controller");
+const UserModel = require('../models/UserModel');
 
 const Constants = require('../lib/constants');
 const logger = require('../lib/logger').API;
 const errorStatements = require('../lib/errorStatements');
+const {autho} = require('../auth/index')
 
 //add a device
 const deviceAdd = async (req, res, next) => {
@@ -22,6 +24,11 @@ const deviceAdd = async (req, res, next) => {
 
         // read req parameter data
         const {deviceName} = req.body
+        //accesstoken checking
+        const username = autho(req)
+        let user = await UserModel.findOne({username:username});
+        let userid = user._id
+
         // if username already exists, return error or else create a new user
 
         const device = await DeviceModel.findOne({deviceName});
@@ -29,13 +36,13 @@ const deviceAdd = async (req, res, next) => {
             logger.warn(`the device id already exists, ${device.deviceName}`);
             return res.status(400).json({success: false, errors: {message:'device already exists',code:'400'}});
         } else { 
-            const device = await DeviceModel.create({...req.body});
+            const device = await DeviceModel.create({create_user:userid,update_user:userid,...req.body});
             logger.info('add device successful ' + deviceName);
             return res.status(200).json({success: true, data: device});
         }
     } catch (err) {
         logger.error(JSON.stringify(errorStatements.CatchBlockErr)+`${err}`);
-         return res.status(500).json({success: false, error: [{message : (errorStatements.CatchBlockErr.message), code: 500}]});
+         return res.status(500).json({success: false, error: [{message : (errorStatements.CatchBlockErr.split("|")[1]), code: 500}]});
     }
 };
 
@@ -54,13 +61,19 @@ const deviceUpdate = async (req, res, next) => {
         const date = new Date();
         const formattedDate = moment(date).format("YYYY-MM-DD HH:mm:ss");
         device.update_time = formattedDate; 
+        //accesstoken checking
+        const username = autho(req)
+        let user = await UserModel.findOne({username:username});
+        let userid = user._id
+        tags['update_user']=userid;
+
         const olddevice = await DeviceModel.findOneAndUpdate({deviceName: device.deviceName}, device);
 
         logger.info(`update device successful, ${device.deviceName}`);
         return res.status(200).json({success: true, data:device});
     } catch (err) {
         logger.error(JSON.stringify(errorStatements.CatchBlockErr)+`${err}`);
-         return res.status(500).json({success: false, error: [{message : (errorStatements.CatchBlockErr.message), code: 500}]});
+         return res.status(500).json({success: false, error: [{message : (errorStatements.CatchBlockErr.split("|")[1]), code: 500}]});
     }
 };
 
@@ -86,7 +99,7 @@ const deviceDelete = async (req, res, next) => {
         }
     } catch (err) {
         logger.error(JSON.stringify(errorStatements.CatchBlockErr)+`${err}`);
-         return res.status(500).json({success: false, error: [{message : (errorStatements.CatchBlockErr.message), code: 500}]});
+         return res.status(500).json({success: false, error: [{message : (errorStatements.CatchBlockErr.split("|")[1]), code: 500}]});
     }
 };
 
@@ -110,7 +123,7 @@ const deviceGet = async (req, res, next) => {
         }
     } catch (err) {
         logger.error(JSON.stringify(errorStatements.CatchBlockErr)+`${err}`);
-         return res.status(500).json({success: false, error: [{message : (errorStatements.CatchBlockErr.message), code: 500}]});
+         return res.status(500).json({success: false, error: [{message : (errorStatements.CatchBlockErr.split("|")[1]), code: 500}]});
     }
 };
 
