@@ -42,8 +42,8 @@ const casesAdd = async (req, res, next) => {
             return res.status(200).json({success: true, data:{title: title,external_id:external_id}});
         }
     } catch (err) {
-        logger.error(`add case failed, system error。${err}`);
-        return res.status(500).json({success: false, errors: {errormessage: 'add case failed, system error!',errorcode:'500'}});
+        logger.error(JSON.stringify(errorStatements.CatchBlockErr)+`${err}`);
+        return res.status(500).json({success: false, error: [{message : (errorStatements.CatchBlockErr.split("|")[1]), code: 500}]});
     }
 };
 
@@ -81,8 +81,8 @@ const casesUpdate = async (req, res, next) => {
         logger.info(`update cases successful, caseName: ${cases.title}, caseId: ${cases._id}`);
         return res.status(200).json({success: true, data: data});
     } catch (err) {
-        logger.error(`update cases failed, system error。${err}`);
-        return res.status(500).json({success: false, errors: {errormessage: 'update cases failed, system error!',errorcode:'500'}});
+        logger.error(JSON.stringify(errorStatements.CatchBlockErr)+`${err}`);
+        return res.status(500).json({success: false, error: [{message : (errorStatements.CatchBlockErr.split("|")[1]), code: 500}]});
     }
 };
 
@@ -107,8 +107,8 @@ const casesDelete = async (req, res, next) => {
             return res.status(404).json({success: false, error:[ {msg: title + ' does not exist', errorcode: "404"}] });
         }
     } catch (err) {
-        logger.error(`delete cases failed, system error。${err}`);
-        return res.status(500).json({success: false, errors:[{ msg: 'delete cases failed, system error!', errorcode: '500'}]});
+        logger.error(JSON.stringify(errorStatements.CatchBlockErr)+`${err}`);
+        return res.status(500).json({success: false, error: [{message : (errorStatements.CatchBlockErr.split("|")[1]), code: 500}]});
     }
 };
 
@@ -133,8 +133,8 @@ const casesDeleteById = async (req, res, next) => {
             return res.status(404).json({success: false, error:[ {msg:'casename does not exist', errorcode: "404"}] });
         }
     } catch (err) {
-        logger.error(`delete cases failed, system error。${err}`);
-        return res.status(500).json({success: false, errors:[{ msg: 'delete cases failed, system error!', errorcode: '500'}]});
+        logger.error(JSON.stringify(errorStatements.CatchBlockErr)+`${err}`);
+        return res.status(500).json({success: false, error: [{message : (errorStatements.CatchBlockErr.split("|")[1]), code: 500}]});
     }
 };
 
@@ -158,8 +158,8 @@ const casesGet = async (req, res, next) => {
             return res.status(404).json({success:false,errors:[{msg:id+'does not exist',code:"404"}]});
         }
     } catch (err) {
-        logger.error(`get cases info failed, system error。${err}`);
-        return res.status(500).json({success: false, errors: ['get cases info failed, system error!']});
+        logger.error(JSON.stringify(errorStatements.CatchBlockErr)+`${err}`);
+         return res.status(500).json({success: false, error: [{message : (errorStatements.CatchBlockErr.split("|")[1]), code: 500}]});
     }
 };
 

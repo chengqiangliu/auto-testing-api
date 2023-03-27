@@ -18,7 +18,7 @@ const { secret } = require("../config");
 
 const moment = require("moment");
 const date = new Date();
-const formattedDate = moment(date).format("YYYY-MM-DD HH:mm:ss");
+const formattedDate = moment(date).format(Constants.DATE_TIME_FORMAT);
 
 //const validationExport = require('../getInfo')
 
@@ -80,8 +80,8 @@ const userLogin = async (req, res, next) => {
         }
        
     } catch (err) {
-        logger.error(`login failed, system error。${err}`);
-        return res.status(500).json({success: false, errors: {errormessage:'login failed, system error',errorcode:'500'}});
+        logger.error(JSON.stringify(errorStatements.CatchBlockErr)+`${err}`);
+         return res.status(500).json({success: false, error: [{message : (errorStatements.CatchBlockErr.split("|")[1]), code: 500}]});
     }
 };
 
@@ -116,8 +116,8 @@ const userAdd = async (req, res, next) => {
         }
         
     } catch (err) {
-        logger.error(`add user failed, system error。${err}`);
-        return res.status(500).json({success: false, errors: {errormessage:`add user failed.${err}`,errorcode:'500'}});
+        logger.error(JSON.stringify(errorStatements.CatchBlockErr)+`${err}`);
+         return res.status(500).json({success: false, error: [{message : (errorStatements.CatchBlockErr.split("|")[1]), code: 500}]});
     }
 };
 
@@ -150,8 +150,8 @@ const userUpdate = async (req, res, next) => {
         return res.status(200).json({success: true, data:dict});
     
     } catch (err) {
-        logger.error(`update user failed, system error。${err}`);
-        return res.status(401).json({success: false, errors: {errormessage:`update user failed,${err}`,errorcode:'401'}});
+        logger.error(JSON.stringify(errorStatements.CatchBlockErr)+`${err}`);
+         return res.status(500).json({success: false, error: [{message : (errorStatements.CatchBlockErr.split("|")[1]), code: 500}]});
     }
 };
 
@@ -172,8 +172,8 @@ const userDelete = async (req, res, next) => {
         logger.info(`delete user successful, ${user.username}`);
         return res.status(200).json({success: true});
     } catch (err) {
-        logger.error(`delete user failed, system error。${err}`);
-        return res.status(500).json({success: false, errors: ['用户删除异常, 请重新尝试!']});
+        logger.error(JSON.stringify(errorStatements.CatchBlockErr)+`${err}`);
+        return res.status(500).json({success: false, error: [{message : (errorStatements.CatchBlockErr.split("|")[1]), code: 500}]});
     }
 };
 
@@ -199,8 +199,8 @@ const userDeleteById = async (req, res, next) => {
             return res.status(404).json({success: false, error:[ {msg: clientId + ' does not exist', errorcode: "404"}] });
         }
     } catch (err) {
-        logger.error(`delete user failed, system error。${err}`);
-         return res.status(500).json({success: false, errors:[{ msg: 'System error!', errorcode: '500'}]});
+        logger.error(JSON.stringify(errorStatements.CatchBlockErr)+`${err}`);
+         return res.status(500).json({success: false, error: [{message : (errorStatements.CatchBlockErr.split("|")[1]), code: 500}]});
     }
 };
 
@@ -245,8 +245,8 @@ const userList = async (req, res, next) => {
         logger.info(`get user list successful.`);
         return res.status(200).json({success: true, data: Object.values(dict)});
     } catch (err) {
-        logger.error(`get user list failed, system error。${err}`);
-        return res.status(500).json({success: false, errors: ['Get user list exception, please try again!']});
+        logger.error(JSON.stringify(errorStatements.CatchBlockErr)+`${err}`);
+        return res.status(500).json({success: false, error: [{message : (errorStatements.CatchBlockErr.split("|")[1]), code: 500}]});
     }
 };
 

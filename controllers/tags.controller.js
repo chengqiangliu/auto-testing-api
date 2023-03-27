@@ -14,7 +14,7 @@ const {autho} = require('../auth/index')
 
 const moment = require("moment");
 const date = new Date();
-const formattedDate = moment(date).format("YYYY-MM-DD HH:mm:ss");
+const formattedDate = moment(date).format(Constants.DATE_TIME_FORMAT);
 
 // adding a new tag
 const tagsAdd = async (req, res, next) => {
@@ -51,8 +51,8 @@ const tagsAdd = async (req, res, next) => {
             return res.status(200).json({success: true, data:tags});
         }
     } catch (err) {
-        logger.error(`add tag failed, system error。${err}`);
-        return res.status(500).json({success: false, errors: {message: 'add tag failed, system error!',code:'500'}});
+        logger.error(JSON.stringify(errorStatements.CatchBlockErr)+`${err}`);
+        return res.status(500).json({success: false, error: [{message : (errorStatements.CatchBlockErr.split("|")[1]), code: 500}]});
     }
 };
 
@@ -93,8 +93,8 @@ const tagsUpdate = async (req, res, next) => {
         logger.info(`update tags successful, TagName: ${tags.tagsname}, tagId: ${tags.id}`);
         return res.status(200).json({success: true, data:{tagsname:tags.tagsname}});
     } catch (err) {
-        logger.error(`update tags failed, system error。${err}`);
-        return res.status(500).json({success: false, errors: {message: 'update tags failed, system error!',code:'500'}});
+        logger.error(JSON.stringify(errorStatements.CatchBlockErr)+`${err}`);
+         return res.status(500).json({success: false, error: [{message : (errorStatements.CatchBlockErr.split("|")[1]), code: 500}]});
     }
 };
 
@@ -120,8 +120,8 @@ const tagsDelete = async (req, res, next) => {
             return res.status(404).json({success: false, error:[ {msg: tagsname + ' does not exist', code: "404"}] });
         }
     } catch (err) {
-        logger.error(`delete tags failed, system error。${err}`);
-        return res.status(500).json({success: false, errors:[{ msg: 'delete tags failed, system error!', code: '500'}]});
+        logger.error(JSON.stringify(errorStatements.CatchBlockErr)+`${err}`);
+        return res.status(500).json({success: false, error: [{message : (errorStatements.CatchBlockErr.split("|")[1]), code: 500}]});
     }
 };
 
@@ -146,8 +146,8 @@ const tagsDeleteById = async (req, res, next) => {
             return res.status(404).json({success: false, error:[ {msg:'tagname does not exist', code: "404"}] });
         }
     } catch (err) {
-        logger.error(`delete tags failed, system error。${err}`);
-        return res.status(500).json({success: false, errors:[{ msg: 'delete tags failed, system error!', errorcode: '500'}]});
+        logger.error(JSON.stringify(errorStatements.CatchBlockErr)+`${err}`);
+        return res.status(500).json({success: false, error: [{message : (errorStatements.CatchBlockErr.split("|")[1]), code: 500}]});
     }
 };
 
@@ -173,8 +173,8 @@ const tagsGet = async (req, res, next) => {
         }
         //getInformation(req, res,TagsModel);
     } catch (err) {
-        logger.error(`get tags info failed, system error。${err}`);
-        return res.status(500).json({success: false, errors: ['get tags info failed, system error!']});
+        logger.error(JSON.stringify(errorStatements.CatchBlockErr)+`${err}`);
+         return res.status(500).json({success: false, error: [{message : (errorStatements.CatchBlockErr.split("|")[1]), code: 500}]});
     }
 };
 

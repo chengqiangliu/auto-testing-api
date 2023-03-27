@@ -62,8 +62,8 @@ const casetagsAdd = async (req, res, next) => {
         }
         
     } catch (err) {
-        logger.error(`add casetags failed, system error。${err}`);
-        return res.status(500).json({success: false, error: {message: 'add case tags failed, system error!',code:'500'}});
+        logger.error(JSON.stringify(errorStatements.CatchBlockErr)+`${err}`);
+        return res.status(500).json({success: false, error: [{message : (errorStatements.CatchBlockErr.split("|")[1]), code: 500}]});
     }
 };
 
@@ -115,8 +115,8 @@ const casetagsUpdate = async (req, res, next) => {
         logger.info('one of required attributes doesnt exist in the parent table');
     }
     } catch (err) {
-        logger.error(`update casetags failed, system error。${err}`);
-        return res.status(500).json({success: false, error: {message: 'update casetags failed, system error!',code:'500'}});
+        logger.error(JSON.stringify(errorStatements.CatchBlockErr)+`${err}`);
+        return res.status(500).json({success: false, error: [{message : (errorStatements.CatchBlockErr.split("|")[1]), code: 500}]});
     }
 };
 
@@ -142,8 +142,8 @@ const casetagsDeleteById = async (req, res, next) => {
             return res.status(404).json({success: false, error:[ {msg: casetags.id + ' does not exist', code: "404"}] });
         }
     } catch (err) {
-        logger.error(`delete casetags failed, system error。${err}`);
-        return res.status(500).json({success: false, error:[{ msg: 'delete casetags failed, system error!', code: '500'}]});
+        logger.error(JSON.stringify(errorStatements.CatchBlockErr)+`${err}`);
+        return res.status(500).json({success: false, error: [{message : (errorStatements.CatchBlockErr.split("|")[1]), code: 500}]});
     }
 };
 
@@ -167,8 +167,8 @@ const casetagsGetInfo = async (req, res, next) => {
             return res.status(404).json({success:false,error:[{msg:id+'does not exist',code:"404"}]});
         }
     } catch (err) {
-        logger.error(`get case tags info failed, system error。${err}`);
-        return res.status(500).json({success: false, error: ['get casetags info failed, system error!']});
+        logger.error(JSON.stringify(errorStatements.CatchBlockErr)+`${err}`);
+        return res.status(500).json({success: false, error: [{message : (errorStatements.CatchBlockErr.split("|")[1]), code: 500}]});
     }
 };
 
