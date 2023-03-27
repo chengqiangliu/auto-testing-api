@@ -26,7 +26,7 @@ exports.ciAddValidator =
 
 exports.ciUpdateValidator = 
      [
-        check("_id")
+        check("id")
             .exists({checkFalsy: true})
             .withMessage("ci ID is required")
             .isString()
@@ -65,7 +65,7 @@ exports.ciDeleteValidator =
 
     exports.ciDeleteByIdValidator = 
     [
-       check("_id")
+       check("id")
            .exists({checkFalsy: true})
            .withMessage("ci id is required"),
        (req, res, next) => {
@@ -81,9 +81,9 @@ exports.ciDeleteValidator =
    ]; 
    
    
-   exports.ciInfoValidator = 
+   exports.ciGetValidator = 
    [
-       check("_id")
+       check("id")
            .exists({checkFalsy: true})
            .withMessage("ci id is required")
            .isString()

@@ -5,6 +5,7 @@ const { validate } = require('./common.controller');
 
 const Constants = require('../lib/constants');
 const logger = require('../lib/logger').API;
+const errorStatements = require('../lib/errorStatements');
 
 // adding an application
 const appsAdd = async (req, res, next) => {
@@ -34,8 +35,8 @@ const appsAdd = async (req, res, next) => {
             return res.status(200).json({success: true, data: apps});
         }
     } catch (err) {
-        logger.error(`add apps failed, system error。${err}`);
-        return res.status(500).json({success: false, errors: {errormessage: 'add apps failed, system error!',errorcode:'500'}});
+        logger.error(JSON.stringify(errorStatements.CatchBlockErr)+`${err}`);
+         return res.status(500).json({success: false, error: [{message : (errorStatements.CatchBlockErr.message), code: 500}]});
     }
 };
 
@@ -52,7 +53,7 @@ const appsUpdate = async (req, res, next) => {
 
         const apps = req.body;
         logger.info(apps);
-        const oldApps = await AppsModel.findOneAndUpdate({_id: apps._id}, apps);
+        const oldApps = await AppsModel.findOneAndUpdate({id: apps.id}, apps);
         // after updating the apps, we need to get the apps object data.
         var dict={};
         for(const i in Object.keys(apps)){
@@ -64,11 +65,11 @@ const appsUpdate = async (req, res, next) => {
 
         //dict returns the apps information
         const data = Object.assign(oldApps, apps);
-        logger.info(`update apps successful, appsName: ${apps.appsname}, appsId: ${apps._id}`);
+        logger.info(`update apps successful, appsName: ${apps.appsname}, appsId: ${apps.id}`);
         return res.status(200).json({success: true, data: data});
     } catch (err) {
-        logger.error(`update apps failed, system error。${err}`);
-        return res.status(500).json({success: false, errors: {errormessage: 'update apps failed, system error!',errorcode:'500'}});
+        logger.error(JSON.stringify(errorStatements.CatchBlockErr)+`${err}`);
+         return res.status(500).json({success: false, error: [{message : (errorStatements.CatchBlockErr.message), code: 500}]});
     }
 };
 
@@ -93,39 +94,39 @@ const appsDelete = async (req, res, next) => {
             return res.status(404).json({success: false, error:[ {msg: appsname + ' does not exist', errorcode: "404"}] });
         }
     } catch (err) {
-        logger.error(`delete apps failed, system error。${err}`);
-        return res.status(500).json({success: false, errors:[{ msg: 'delete apps failed, system error!', errorcode: '500'}]});
+        logger.error(JSON.stringify(errorStatements.CatchBlockErr)+`${err}`);
+         return res.status(500).json({success: false, error: [{message : (errorStatements.CatchBlockErr.message), code: 500}]});
     }
 };
 
 // apps delete by ID
 const appsDeleteById = async (req, res, next) => {
     logger.addContext(Constants.FILE_NAME, path.basename(__filename));
-    logger.info('The apps delete by Appsname controller is started');
+    logger.info('The apps delete by Apps Id controller is started');
     try {
         // validation
         const validateResult = validate(req);
         if (!validateResult.success) {
             return res.status(validateResult.status).json({success: false, errors: validateResult.errors});
         }
-        const {_id} = req.body;
-        const apps = await AppsModel.findOne({_id});
+        const {id} = req.body;
+        const apps = await AppsModel.findOne({id});
         if(apps){
-            await AppsModel.deleteOne({_id: _id});
-            logger.info(`delete apps successful, ${_id}`);
+            await AppsModel.deleteOne({id: id});
+            logger.info(`delete apps successful, ${id}`);
             return res.status(200).json({success: true, message: apps.appsname + ' successfully deleted'});
         }
         else{
             return res.status(404).json({success: false, error:[ {msg: apps.appsname + ' does not exist', errorcode: "404"}] });
         }
     } catch (err) {
-        logger.error(`delete apps failed, system error。${err}`);
-        return res.status(500).json({success: false, errors:[{ msg: 'delete apps failed, system error!', errorcode: '500'}]});
+        logger.error(JSON.stringify(errorStatements.CatchBlockErr)+`${err}`);
+         return res.status(500).json({success: false, error: [{message : (errorStatements.CatchBlockErr.message), code: 500}]});
     }
 };
 
 // fetch information of the applications
-const appsGetInfo = async (req, res, next) => {
+const appsGet = async (req, res, next) => {
     logger.addContext(Constants.FILE_NAME, path.basename(__filename));
     logger.info('The apps info controller is started');
     try {
@@ -135,17 +136,17 @@ const appsGetInfo = async (req, res, next) => {
             return res.status(validateResult.status).json({success: false, errors: validateResult.errors});
         }
 
-        const {_id} = req.body;
-        const apps = await AppsModel.findOne({_id});
+        const {id} = req.body;
+        const apps = await AppsModel.findOne({id});
         if(apps){
             return res.status(200).json({success:true, data: apps});
         }
         else{
-            return res.status(404).json({success:false,errors:[{msg:_id+'does not exist',code:"404"}]});
+            return res.status(404).json({success:false,errors:[{msg:id+'does not exist',code:"404"}]});
         }
     } catch (err) {
-        logger.error(`get apps info failed, system error。${err}`);
-        return res.status(500).json({success: false, errors: ['get apps info failed, system error!']});
+        logger.error(JSON.stringify(errorStatements.CatchBlockErr)+`${err}`);
+         return res.status(500).json({success: false, error: [{message : (errorStatements.CatchBlockErr.message), code: 500}]});
     }
 };
 
@@ -155,5 +156,5 @@ module.exports = {
     appsUpdate,
     appsDelete,
     appsDeleteById,
-    appsGetInfo
+    appsGet
 };

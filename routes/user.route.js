@@ -32,14 +32,7 @@ const generateToken = (payload, type) => {
         return jwt.sign(payload, secret, {expiresIn: "24h"});
     }
 }
-// login
-// router.post('/login',  function(req, res, next) {
-//     let {username, password} = req.body;
-//     logger.info(`username: ${username}, password: ${password}`)
-//     //return res.status(200).json({success: true, data: {id: "test"}});
-//     const accessToken = generateToken({userId: 1, createTime: new Date()}, 'AccessToken');
-//     return res.status(200).json({success: true, data: {id: 1, username, accessToken}});
-// });
+
 
 /**
  * @swagger
@@ -287,6 +280,7 @@ router.post('/deleteById', userDeleteByIdValidator, userDeleteById);
  *               items:
  *                 $ref: '#/components/schemas/User'
  */
+
 router.get('/list', userList);
 
 module.exports = router;
