@@ -13,8 +13,12 @@ const appsSchema = new mongoose.Schema({
   //version: {type: String, required: true},
   version: {type: String},
   build: {type: String, required: true},
-  create_time: {type: String, default: formattedDate},
-},{versionKey: false})
+  deleteFlag:{type:Number ,default:0,required:true},
+  create_user:{type:String},
+  update_user:{type:String}
+},{versionKey: false},{
+  timestamps:
+  {createdAt:"create_time",updatedAt:"update_time"}})
 
 appsSchema.virtual('id').get(function(){
   return this._id.toHexString();
