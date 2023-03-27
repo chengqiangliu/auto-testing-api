@@ -23,7 +23,7 @@ exports.appsAddValidator =
 
 exports.appsUpdateValidator = 
      [
-        check("_id")
+        check("id")
             .exists({checkFalsy: true})
             .withMessage("Application ID is required")
             .isString()
@@ -62,7 +62,7 @@ exports.appsDeleteValidator =
 
     exports.appsDeleteByIdValidator = 
     [
-       check("_id")
+       check("id")
            .exists({checkFalsy: true})
            .withMessage("Application id is required"),
        (req, res, next) => {
@@ -78,9 +78,9 @@ exports.appsDeleteValidator =
    ]; 
    
    
-   exports.appsInfoValidator = 
+   exports.appsGetValidator = 
    [
-       check("_id")
+       check("id")
            .exists({checkFalsy: true})
            .withMessage("Application id is required")
            .isString()

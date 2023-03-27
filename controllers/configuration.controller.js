@@ -5,8 +5,9 @@ const { validate } = require('./common.controller');
 
 const Constants = require('../lib/constants');
 const logger = require('../lib/logger').API;
+const errorStatements = require('../lib/errorStatements');
 
-// adding an application
+// adding a configuration
 const configurationAdd = async (req, res, next) => {
     logger.addContext(Constants.FILE_NAME, path.basename(__filename));
     logger.info('The configuration add controller is started');
@@ -22,20 +23,18 @@ const configurationAdd = async (req, res, next) => {
         const {key} = req.body
         // if key already exists, return error or else create a new apps
         const configuration = await ConfigurationModel.findOne({key});
-        logger.info(configuration);
         if (configuration) {
             logger.warn(`the key already exists, ${configuration.key}`);
-            return res.status(400).json({success: false, errors: {errormessage:'Configuration already exists',errorcode:'400'}});
+            return res.status(400).json({success: false, error: {message:'Configuration already exists',code:'400'}});
         } else { 
             await ConfigurationModel.create({...req.body});
             const configuration = await ConfigurationModel.findOne({key});
-            logger.info(configuration)
             logger.info(`add configuration successful, ${configuration.key}`);
             return res.status(200).json({success: true, data: configuration});
         }
     } catch (err) {
-        logger.error(`add configuration failed, system error。${err}`);
-        return res.status(500).json({success: false, errors: {errormessage: 'add configuration failed, system error!',errorcode:'500'}});
+        logger.error(JSON.stringify(errorStatements.CatchBlockErr)+`${err}`);
+         return res.status(500).json({success: false, error: [{message : (errorStatements.CatchBlockErr.message), code: 500}]});
     }
 };
 
@@ -51,8 +50,7 @@ const configurationUpdate = async (req, res, next) => {
         }
 
         const configuration = req.body;
-        logger.info(configuration);
-        const oldConfiguration = await ConfigurationModel.findOneAndUpdate({_id: configuration._id}, configuration);
+        const oldConfiguration = await ConfigurationModel.findOneAndUpdate({id: configuration.id}, configuration);
         // after updating the configuration, we need to get the configuration object data.
         var dict={};
         for(const i in Object.keys(configuration)){
@@ -64,11 +62,11 @@ const configurationUpdate = async (req, res, next) => {
 
         //dict returns the configuration information
         const data = Object.assign(oldConfiguration, configuration);
-        logger.info(`update configuration successful, key: ${configuration.key}, configurationId: ${configuration._id}`);
+        logger.info(`update configuration successful, key: ${configuration.key}, configurationId: ${configuration.id}`);
         return res.status(200).json({success: true, data: data});
     } catch (err) {
-        logger.error(`update configuration failed, system error。${err}`);
-        return res.status(500).json({success: false, errors: {errormessage: 'update configuration failed, system error!',errorcode:'500'}});
+        logger.error(JSON.stringify(errorStatements.CatchBlockErr)+`${err}`);
+         return res.status(500).json({success: false, error: [{message : (errorStatements.CatchBlockErr.message), code: 500}]});
     }
 };
 
@@ -90,11 +88,11 @@ const configurationDelete = async (req, res, next) => {
             return res.status(200).json({success: true, message: key + ' successfully deleted'});
         }
         else{
-            return res.status(404).json({success: false, error:[ {msg: key + ' does not exist', errorcode: "404"}] });
+            return res.status(404).json({success: false, error:[ {msg: key + ' does not exist', code: "404"}] });
         }
     } catch (err) {
-        logger.error(`delete configuration failed, system error。${err}`);
-        return res.status(500).json({success: false, errors:[{ msg: 'delete configuration failed, system error!', errorcode: '500'}]});
+        logger.error(JSON.stringify(errorStatements.CatchBlockErr)+`${err}`);
+         return res.status(500).json({success: false, error: [{message : (errorStatements.CatchBlockErr.message), code: 500}]});
     }
 };
 
@@ -108,24 +106,24 @@ const configurationDeleteById = async (req, res, next) => {
         if (!validateResult.success) {
             return res.status(validateResult.status).json({success: false, errors: validateResult.errors});
         }
-        const {_id} = req.body;
-        const configuration = await ConfigurationModel.findOne({_id});
+        const {id} = req.body;
+        const configuration = await ConfigurationModel.findOne({id});
         if(configuration){
-            await ConfigurationModel.deleteOne({_id: _id});
-            logger.info(`delete configuration successful, ${_id}`);
+            await ConfigurationModel.deleteOne({id: id});
+            logger.info(`delete configuration successful, ${id}`);
             return res.status(200).json({success: true, message: configuration.key + ' successfully deleted'});
         }
         else{
-            return res.status(404).json({success: false, error:[ {msg: configuration.key + ' does not exist', errorcode: "404"}] });
+            return res.status(404).json({success: false, error:[ {msg: configuration.key + ' does not exist', code: "404"}] });
         }
     } catch (err) {
-        logger.error(`delete configuration failed, system error。${err}`);
-        return res.status(500).json({success: false, errors:[{ msg: 'delete configuration failed, system error!', errorcode: '500'}]});
+        logger.error(JSON.stringify(errorStatements.CatchBlockErr)+`${err}`);
+         return res.status(500).json({success: false, error: [{message : (errorStatements.CatchBlockErr.message), code: 500}]});
     }
 };
 
 // fetch information of the configuration
-const configurationGetInfo = async (req, res, next) => {
+const configurationGet = async (req, res, next) => {
     logger.addContext(Constants.FILE_NAME, path.basename(__filename));
     logger.info('The configuration info controller is started');
     try {
@@ -135,17 +133,17 @@ const configurationGetInfo = async (req, res, next) => {
             return res.status(validateResult.status).json({success: false, errors: validateResult.errors});
         }
 
-        const {_id} = req.body;
-        const configuration = await ConfigurationModel.findOne({_id});
+        //const {id} = req.body;
+        const configuration = await ConfigurationModel.findOne({id});
         if(configuration){
             return res.status(200).json({success:true, data: configuration});
         }
         else{
-            return res.status(404).json({success:false,errors:[{msg:_id+'does not exist',code:"404"}]});
+            return res.status(404).json({success:false,errors:[{msg:id+'does not exist',code:"404"}]});
         }
     } catch (err) {
-        logger.error(`get configuration info failed, system error。${err}`);
-        return res.status(500).json({success: false, errors: ['get configuration info failed, system error!']});
+        logger.error(JSON.stringify(errorStatements.CatchBlockErr)+`${err}`);
+         return res.status(500).json({success: false, error: [{message : (errorStatements.CatchBlockErr.split("|")[1]), code: 500}]});
     }
 };
 
@@ -155,5 +153,5 @@ module.exports = {
     configurationUpdate,
     configurationDelete,
     configurationDeleteById,
-    configurationGetInfo
+    configurationGet
 };

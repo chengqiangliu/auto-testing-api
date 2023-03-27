@@ -7,26 +7,26 @@ const Constants = require('../lib/constants');
 const formattedDate = moment(date).format(Constants.DATE_TIME_FORMAT);
 
 // 2.Defining Schema
-const appsSchema = new mongoose.Schema({
-  appsname: {type: String, required: true},
-  url: {type: String, required: true},
-  //version: {type: String, required: true},
-  version: {type: String},
-  build: {type: String, required: true},
+const runsSchema = new mongoose.Schema({
+  job_id: {type: String, required: true},
+  created_at: {type: String, required: true},
+  finished_at: {type: String, required: true},
+  total: {type: String, required: true},
+  status: {type: String, required: true},
   create_time: {type: String, default: formattedDate},
 },{versionKey: false})
 
-appsSchema.virtual('id').get(function(){
+runsSchema.virtual('id').get(function(){
   return this._id.toHexString();
 });
 
-appsSchema.set('toJSON', {
+runsSchema.set('toJSON', {
   virtuals: true,
   transform: function (doc, ret) {   delete ret._id  }
 });
 
-// 3. Creating Application Model
-const AppsModel = mongoose.model('apps', appsSchema)
+// 3. Creating runs Model
+const RunsModel = mongoose.model('runs', runsSchema)
 
-// 4. Exporting the Application Model
-module.exports = AppsModel
+// 4. Exporting the runs Model
+module.exports = RunsModel
