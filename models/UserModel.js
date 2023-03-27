@@ -13,7 +13,6 @@ const userSchema = new mongoose.Schema({
   password: {type: String, required: true}, 
   phone: String,
   email: String,
-  create_time: {type: String, default: formattedDate},
   role_id: String,
   clientId: {type: String, required: true},
   accessToken: {type: String, required: true}
