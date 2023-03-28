@@ -20,13 +20,19 @@
 					}
 				}
 			],
-			"_postman_id": "08c72170-de37-4922-a1aa-3126c5c59ad0",
+			"id": "08c72170-de37-4922-a1aa-3126c5c59ad0",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
 			"request": {
 				"method": "POST",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{accessToken}}",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "urlencoded",
 					"urlencoded": [
@@ -65,10 +71,7 @@
 							"value": "dfsg",
 							"type": "text"
 						}
-					],
-					"options": {
-						"urlencoded": {}
-					}
+					]
 				},
 				"url": "{{base_url}}/jobs/add"
 			},
@@ -76,7 +79,7 @@
 		},
 		{
 			"name": "get",
-			"_postman_id": "2e29bf16-f094-4eeb-8120-4ff657575e1c",
+			"id": "2e29bf16-f094-4eeb-8120-4ff657575e1c",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -91,10 +94,7 @@
 							"value": "{{job_id}}",
 							"type": "text"
 						}
-					],
-					"options": {
-						"urlencoded": {}
-					}
+					]
 				},
 				"url": "{{base_url}}/jobs/get"
 			},
@@ -102,7 +102,7 @@
 		},
 		{
 			"name": "deleteById",
-			"_postman_id": "52737761-a97f-425b-add7-c907f93a6bed",
+			"id": "52737761-a97f-425b-add7-c907f93a6bed",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -117,10 +117,7 @@
 							"value": "{{job_id}}",
 							"type": "text"
 						}
-					],
-					"options": {
-						"urlencoded": {}
-					}
+					]
 				},
 				"url": "{{base_url}}/jobs/deleteById"
 			},
