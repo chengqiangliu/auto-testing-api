@@ -89,7 +89,13 @@
 			},
 			"request": {
 				"method": "POST",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{accessToken}}",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "urlencoded",
 					"urlencoded": [
@@ -208,13 +214,13 @@
 	],
 	"variable": [
 		{
-			"id": "f4e6bb2f-bbc0-4146-926e-f7911c8f2fbb",
+			"id": "398ef150-383f-4a32-bd25-af3b88e6ec2c",
 			"key": "key",
 			"value": "fdg",
 			"type": "string"
 		},
 		{
-			"id": "cbae3b15-fbf7-4698-9871-4db5ff649f12",
+			"id": "733dc71b-46f6-4035-95b2-84e46772143e",
 			"key": "value",
 			"value": "ergd",
 			"type": "string"
