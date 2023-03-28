@@ -1,0 +1,130 @@
+{
+	"info": {
+		"_postman_id": "2d2066ce-9e30-4bdf-b3c0-bcd54d5b5e8d",
+		"name": "jobs",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "add",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "837931a4-dcf1-40b5-a055-e458f5a1a1de",
+						"exec": [
+							"var jsonData = pm.response.json();\r",
+							"postman.setGlobalVariable(\"job_id\",jsonData.data.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"_postman_id": "08c72170-de37-4922-a1aa-3126c5c59ad0",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "app_id",
+							"value": "{{app_id}}",
+							"type": "text"
+						},
+						{
+							"key": "device_id",
+							"value": "{{device_id}}",
+							"type": "text"
+						},
+						{
+							"key": "ci_id",
+							"value": "{{ci_id}}",
+							"type": "text"
+						},
+						{
+							"key": "environment",
+							"value": "gsdfhjghcvbnm",
+							"type": "text"
+						},
+						{
+							"key": "started_at",
+							"value": "ety",
+							"type": "text"
+						},
+						{
+							"key": "finished_at",
+							"value": "fgh",
+							"type": "text"
+						},
+						{
+							"key": "status",
+							"value": "dfsg",
+							"type": "text"
+						}
+					],
+					"options": {
+						"urlencoded": {}
+					}
+				},
+				"url": "{{base_url}}/jobs/add"
+			},
+			"response": []
+		},
+		{
+			"name": "get",
+			"_postman_id": "2e29bf16-f094-4eeb-8120-4ff657575e1c",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "id",
+							"value": "{{job_id}}",
+							"type": "text"
+						}
+					],
+					"options": {
+						"urlencoded": {}
+					}
+				},
+				"url": "{{base_url}}/jobs/get"
+			},
+			"response": []
+		},
+		{
+			"name": "deleteById",
+			"_postman_id": "52737761-a97f-425b-add7-c907f93a6bed",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "id",
+							"value": "{{job_id}}",
+							"type": "text"
+						}
+					],
+					"options": {
+						"urlencoded": {}
+					}
+				},
+				"url": "{{base_url}}/jobs/deleteById"
+			},
+			"response": []
+		}
+	]
+}
