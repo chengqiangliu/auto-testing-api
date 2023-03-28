@@ -13,8 +13,8 @@
 					"script": {
 						"id": "ff18a989-8b04-4635-b218-011c3488a756",
 						"exec": [
-							"//var jsonData = pm.response.json();\r",
-							"//postman.setGlobalVariable(\"ci_id\",jsonData.data.id);"
+							"var jsonData = pm.response.json();\r",
+							"postman.setGlobalVariable(\"ci_id\",jsonData.data.id);"
 						],
 						"type": "text/javascript"
 					}
