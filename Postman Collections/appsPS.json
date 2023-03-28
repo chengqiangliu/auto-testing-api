@@ -1,0 +1,169 @@
+{
+	"info": {
+		"_postman_id": "201e6746-fcd5-4651-bf5d-5e6da9db288d",
+		"name": "apps",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "add",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b70d00f9-5fe5-4a24-8f01-685ebe9c9678",
+						"exec": [
+							"var jsonData = pm.response.json();\r",
+							"postman.setGlobalVariable(\"app_id\",jsonData.data.id);\r",
+							"postman.setGlobalVariable(\"appsname\",jsonData.data.appsname);\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"_postman_id": "9f17033e-41bf-4ebe-a694-d26a406d7ee0",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "appsname",
+							"value": "facebook",
+							"type": "text"
+						},
+						{
+							"key": "url",
+							"value": "www.sdf.com",
+							"type": "text"
+						},
+						{
+							"key": "build",
+							"value": "fgh",
+							"type": "text"
+						}
+					],
+					"options": {
+						"urlencoded": {}
+					}
+				},
+				"url": "{{base_url}}/apps/add"
+			},
+			"response": []
+		},
+		{
+			"name": "get",
+			"_postman_id": "ea0a44b7-50a7-4c6a-953c-1db1d1e37c89",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "id",
+							"value": "{{app_id}}",
+							"type": "text"
+						}
+					],
+					"options": {
+						"urlencoded": {}
+					}
+				},
+				"url": "{{base_url}}/apps/get"
+			},
+			"response": []
+		},
+		{
+			"name": "update",
+			"_postman_id": "ac00ab01-f965-4a28-9ea3-c2f70998d4e4",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "id",
+							"value": "{{app_id}}",
+							"type": "text"
+						},
+						{
+							"key": "url",
+							"value": "www.fgdh.com",
+							"type": "text"
+						}
+					],
+					"options": {
+						"urlencoded": {}
+					}
+				},
+				"url": "{{base_url}}/apps/update"
+			},
+			"response": []
+		},
+		{
+			"name": "deleteByName",
+			"_postman_id": "7e14a4cb-804c-4e20-886b-c51854a4f27c",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "appsname",
+							"value": "{{appsname}}",
+							"type": "text"
+						}
+					],
+					"options": {
+						"urlencoded": {}
+					}
+				},
+				"url": "{{base_url}}/apps/deleteByName"
+			},
+			"response": []
+		},
+		{
+			"name": "deleteById",
+			"_postman_id": "ddcea86f-d0be-4688-81b1-9e33f66a5aff",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "id",
+							"value": "{{app_id}}",
+							"type": "text"
+						}
+					],
+					"options": {
+						"urlencoded": {}
+					}
+				},
+				"url": "{{base_url}}/apps/deleteById"
+			},
+			"response": []
+		}
+	]
+}
