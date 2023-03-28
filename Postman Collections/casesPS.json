@@ -1,0 +1,215 @@
+{
+	"info": {
+		"_postman_id": "ae65a85b-36d1-41ee-999a-ecbc623e7932",
+		"name": "cases",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25232986"
+	},
+	"item": [
+		{
+			"name": "DeleteByID",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "_id",
+							"value": "",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/cases/deleteById",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"cases",
+						"deleteById"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteByName",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "tagsname",
+							"value": "",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/cases/deleteByName",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"cases",
+						"deleteByName"
+					],
+					"query": [
+						{
+							"key": "tagsname",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "status",
+							"value": "true",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "error",
+							"value": "64004ab79aca4ec62b28621b",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "case",
+							"value": "6406cd1d03eceea3ca212b6d",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "_id",
+							"value": "64098559771c677245171b05",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "tagsname",
+							"value": "atdf",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "username",
+							"value": "niha",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "Doramedha9@",
+							"type": "text"
+						},
+						{
+							"key": "clientId",
+							"value": "1999",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/cases/add",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"cases",
+						"add"
+					],
+					"query": [
+						{
+							"key": "tagsname",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "tagsname",
+							"value": "",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "_id",
+							"value": "64098559771c677245171b05",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/cases/update",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"cases",
+						"update"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/cases/get",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"cases",
+						"get"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

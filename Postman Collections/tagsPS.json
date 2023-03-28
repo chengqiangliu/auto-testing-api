@@ -1,0 +1,215 @@
+{
+	"info": {
+		"_postman_id": "86efde5a-af0c-433b-986a-eaec5bd6ebda",
+		"name": "tags",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25232986"
+	},
+	"item": [
+		{
+			"name": "DeleteByID",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0YWdzbmFtZSI6ImhlbGxvIiwiY3JlYXRlVGltZSI6IjIwMjMtMDMtMjIgMTQ6NTc6MzYiLCJpYXQiOjE2Nzk0NjQ2ODUsImV4cCI6MTY3OTQ2NTI4NX0.c_8tPL7_cJ6S-8GNWZ8hPRkU3fyC_acoqLS98x1S8ug",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "_id",
+							"value": "641a98ed627eed943c873db9",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "tagsname",
+							"value": "hello123",
+							"type": "text",
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/tag/deleteById",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"tag",
+						"deleteById"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteByName",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "tagsname",
+							"value": "",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/tag/deleteByName",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"tag",
+						"deleteByName"
+					],
+					"query": [
+						{
+							"key": "tagsname",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "status",
+							"value": "true",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "error",
+							"value": "64004ab79aca4ec62b28621b",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "case",
+							"value": "6406cd1d03eceea3ca212b6d",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "_id",
+							"value": "64098559771c677245171b05",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "tagsname",
+							"value": "atdf",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "username",
+							"value": "niha",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "Doramedha9@",
+							"type": "text"
+						},
+						{
+							"key": "clientId",
+							"value": "1999",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/user/add",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"user",
+						"add"
+					],
+					"query": [
+						{
+							"key": "tagsname",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "tagsname",
+							"value": "",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "_id",
+							"value": "64098559771c677245171b05",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/tag/update",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"tag",
+						"update"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		}
+	]
+}
