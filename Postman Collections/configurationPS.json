@@ -20,13 +20,19 @@
 					}
 				}
 			],
-			"_postman_id": "c459507d-932a-4571-a412-829f0609dada",
+			"id": "c459507d-932a-4571-a412-829f0609dada",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
 			"request": {
 				"method": "POST",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{accessToken}}",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "urlencoded",
 					"urlencoded": [
@@ -40,10 +46,7 @@
 							"value": "ewrtryt",
 							"type": "text"
 						}
-					],
-					"options": {
-						"urlencoded": {}
-					}
+					]
 				},
 				"url": "{{base_url}}/configuration/add"
 			},
@@ -51,7 +54,7 @@
 		},
 		{
 			"name": "get",
-			"_postman_id": "3b807e8f-9a29-4de5-92f0-2c2c0a3f4e25",
+			"id": "3b807e8f-9a29-4de5-92f0-2c2c0a3f4e25",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -66,10 +69,7 @@
 							"value": "{{configuration_id}}",
 							"type": "text"
 						}
-					],
-					"options": {
-						"urlencoded": {}
-					}
+					]
 				},
 				"url": "{{base_url}}/configuration/get"
 			},
@@ -77,7 +77,7 @@
 		},
 		{
 			"name": "update",
-			"_postman_id": "c466baf7-32d4-4472-b67e-4365deebfc89",
+			"id": "c466baf7-32d4-4472-b67e-4365deebfc89",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -102,10 +102,7 @@
 							"value": "{{configuration_id}}",
 							"type": "text"
 						}
-					],
-					"options": {
-						"urlencoded": {}
-					}
+					]
 				},
 				"url": "{{base_url}}/configuration/update"
 			},
@@ -113,7 +110,7 @@
 		},
 		{
 			"name": "deleteByKey",
-			"_postman_id": "9f597b18-efee-40ed-8a3e-d2cd5b0cab33",
+			"id": "9f597b18-efee-40ed-8a3e-d2cd5b0cab33",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -128,10 +125,7 @@
 							"value": "erytyj",
 							"type": "text"
 						}
-					],
-					"options": {
-						"urlencoded": {}
-					}
+					]
 				},
 				"url": "{{base_url}}/configuration/deleteByKey"
 			},
@@ -139,7 +133,7 @@
 		},
 		{
 			"name": "deleteById",
-			"_postman_id": "9fbdbeea-550c-40e9-98d9-19fbc98cd043",
+			"id": "9fbdbeea-550c-40e9-98d9-19fbc98cd043",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -154,10 +148,7 @@
 							"value": "{{configuration_id}}",
 							"type": "text"
 						}
-					],
-					"options": {
-						"urlencoded": {}
-					}
+					]
 				},
 				"url": {
 					"raw": "{{base_url}}/configuration/deleteById",
@@ -205,13 +196,13 @@
 	],
 	"variable": [
 		{
-			"id": "720077ca-0780-467c-833a-6d8a14f62d51",
+			"id": "24e9fb39-5284-4d85-af47-332b0d515c26",
 			"key": "key",
 			"value": "fdg",
 			"type": "string"
 		},
 		{
-			"id": "d855085b-fca1-4317-a74b-d3a1028270de",
+			"id": "ad9d33a3-0a24-4c28-be10-049155d70ae7",
 			"key": "value",
 			"value": "ergd",
 			"type": "string"
