@@ -20,13 +20,19 @@
 					}
 				}
 			],
-			"_postman_id": "0c9141cb-f8cb-443f-91a7-c67d2bb10b58",
+			"id": "0c9141cb-f8cb-443f-91a7-c67d2bb10b58",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
 			"request": {
 				"method": "POST",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{accessToken}}",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "urlencoded",
 					"urlencoded": [
@@ -45,10 +51,7 @@
 							"value": "rashi",
 							"type": "text"
 						}
-					],
-					"options": {
-						"urlencoded": {}
-					}
+					]
 				},
 				"url": "{{base_url}}/device/add"
 			},
@@ -68,7 +71,7 @@
 					}
 				}
 			],
-			"_postman_id": "49f18d8a-b577-469f-96bf-b9a8fe999388",
+			"id": "49f18d8a-b577-469f-96bf-b9a8fe999388",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -83,10 +86,7 @@
 							"value": "{{device_id}}",
 							"type": "text"
 						}
-					],
-					"options": {
-						"urlencoded": {}
-					}
+					]
 				},
 				"url": "{{base_url}}/device/get"
 			},
@@ -94,7 +94,7 @@
 		},
 		{
 			"name": "deleteById",
-			"_postman_id": "4c9d0681-5921-41eb-95b3-34dcce7d12cf",
+			"id": "4c9d0681-5921-41eb-95b3-34dcce7d12cf",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -109,10 +109,7 @@
 							"value": "{{device_id}}",
 							"type": "text"
 						}
-					],
-					"options": {
-						"urlencoded": {}
-					}
+					]
 				},
 				"url": "{{base_url}}/device/deleteById"
 			},
