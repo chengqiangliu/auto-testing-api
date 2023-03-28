@@ -32,7 +32,14 @@ const generateToken = (payload, type) => {
         return jwt.sign(payload, secret, {expiresIn: "24h"});
     }
 }
-
+// login
+// router.post('/login',  function(req, res, next) {
+//     let {username, password} = req.body;
+//     logger.info(`username: ${username}, password: ${password}`)
+//     //return res.status(200).json({success: true, data: {id: "test"}});
+//     const accessToken = generateToken({userId: 1, createTime: new Date()}, 'AccessToken');
+//     return res.status(200).json({success: true, data: {id: 1, username, accessToken}});
+// });
 
 /**
  * @swagger
@@ -63,6 +70,11 @@ const generateToken = (payload, type) => {
  *              clientID:
  *                 type: string
  *                 description: clientID related to the user
+ *   securitySchemes:
+ *      bearerAuth:            
+ *          type: http
+ *          scheme: bearer
+ *          bearerFormat: JWT    
  *
  */
 /**
@@ -108,6 +120,9 @@ const generateToken = (payload, type) => {
  *               type: array
  *               items:
  *                 $ref: '#/components/schemas/User'
+ *
+ *     security:
+ *          - bearerAuth: []  
  */
 
 router.post('/login',userLoginValidator,userLogin);
@@ -158,6 +173,7 @@ router.post('/login',userLoginValidator,userLogin);
  *               type: array
  *               items:
  *                 $ref: '#/components/schemas/User'
+ * 
  */
 router.post('/add', userAddValidator, userAdd);
 
@@ -207,6 +223,8 @@ router.post('/add', userAddValidator, userAdd);
  *               type: array
  *               items:
  *                 $ref: '#/components/schemas/User'
+ *     security:
+ *          - bearerAuth: []  
  */
 router.post('/update', userUpdateValidator, userUpdate);
 
@@ -234,6 +252,8 @@ router.post('/update', userUpdateValidator, userUpdate);
  *               type: array
  *               items:
  *                 $ref: '#/components/schemas/User'
+ *     security:
+ *          - bearerAuth: []  
  */
 router.post('/delete', userDeleteValidator, userDelete);
 
@@ -261,6 +281,8 @@ router.post('/delete', userDeleteValidator, userDelete);
  *               type: array
  *               items:
  *                 $ref: '#/components/schemas/User'
+ *     security:
+ *          - bearerAuth: []  
  */
 router.post('/deleteById', userDeleteByIdValidator, userDeleteById);
 
@@ -278,9 +300,10 @@ router.post('/deleteById', userDeleteByIdValidator, userDeleteById);
  *             schema:
  *               type: array
  *               items:
- *                 $ref: '#/components/schemas/User'
+ *                 $ref: '#/components/schemas/User' 
+ *     security:
+ *          - bearerAuth: []  
  */
-
 router.get('/list', userList);
 
 module.exports = router;

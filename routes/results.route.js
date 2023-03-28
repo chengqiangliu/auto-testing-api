@@ -38,6 +38,11 @@ const {
  *              case:
  *                 type: string
  *                 description: case of the results
+ *   securitySchemes:
+ *      bearerAuth:            
+ *          type: http
+ *          scheme: bearer
+ *          bearerFormat: JWT 
  *
  */
 /**
@@ -101,6 +106,8 @@ const {
  *               type: array
  *               items:
  *                 $ref: '#/components/schemas/Result'
+ *     security:
+ *        - bearerAuth: [] 
  */
 
 // results add 
@@ -166,6 +173,8 @@ router.post('/add', resultsAddValidator, resultsAdd);
  *               type: array
  *               items:
  *                 $ref: '#/components/schemas/Result'
+ *     security:
+ *        - bearerAuth: [] 
  */
 
 //results update
@@ -196,6 +205,8 @@ router.post('/update', resultsUpdateValidator, resultsUpdate);
  *               type: array
  *               items:
  *                 $ref: '#/components/schemas/Result'
+ *     security:
+ *        - bearerAuth: [] 
  */
 
 // results delete by result id
@@ -226,6 +237,8 @@ router.post('/deleteById', resultsDeleteByIdValidator, resultsDeleteById);
  *               type: array
  *               items:
  *                 $ref: '#/components/schemas/Result'
+ *     security:
+ *        - bearerAuth: [] 
  */
 
 // results get Information

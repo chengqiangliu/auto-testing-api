@@ -36,6 +36,11 @@ const {
  *              screenshot:
  *                 type: buffer
  *                 description: screenshot of the error
+ *   securitySchemes:
+ *      bearerAuth:            
+ *          type: http
+ *          scheme: bearer
+ *          bearerFormat: JWT 
  *
  */
 /**
@@ -81,6 +86,8 @@ const {
  *               type: array
  *               items:
  *                 $ref: '#/components/schemas/Error'
+ *     security:
+ *        - bearerAuth: [] 
  */
 
 // errors add 
@@ -128,6 +135,8 @@ router.post('/add', errorsAddValidator, errorsAdd);
  *               type: array
  *               items:
  *                 $ref: '#/components/schemas/Error'
+ *     security:
+ *        - bearerAuth: [] 
  */
 
 // errors update
@@ -157,6 +166,8 @@ router.post('/update', errorsUpdateValidator, errorsUpdate);
  *               type: array
  *               items:
  *                 $ref: '#/components/schemas/Error'
+ *     security:
+ *        - bearerAuth: [] 
  */
 
 // errors delete by errors id
@@ -186,6 +197,8 @@ router.post('/deleteById', errorsDeleteByIdValidator, errorsDeleteById);
  *               type: array
  *               items:
  *                 $ref: '#/components/schemas/Error'
+ *     security:
+ *        - bearerAuth: [] 
  */
 
 //errors get by errors id 

@@ -41,6 +41,11 @@ const {
  *              reference:
  *                 type: string
  *                 description: reference of the case
+ *   securitySchemes:
+ *      bearerAuth:            
+ *          type: http
+ *          scheme: bearer
+ *          bearerFormat: JWT 
  *
  */
 /**
@@ -98,6 +103,8 @@ const {
  *               type: array
  *               items:
  *                 $ref: '#/components/schemas/Case'
+ *     security:
+ *        - bearerAuth: [] 
  */
 
 // cases add 
@@ -157,6 +164,8 @@ router.post('/add', casesAddValidator, casesAdd);
  *               type: array
  *               items:
  *                 $ref: '#/components/schemas/Case'
+ *     security:
+ *        - bearerAuth: [] 
  */
 
 // cases update
@@ -186,6 +195,8 @@ router.post('/update', casesUpdateValidator, casesUpdate);
  *               type: array
  *               items:
  *                 $ref: '#/components/schemas/Case'
+ *     security:
+ *        - bearerAuth: [] 
  */
 // cases delete by casesname
 router.post('/deleteByName', casesDeleteValidator, casesDelete);
@@ -214,6 +225,8 @@ router.post('/deleteByName', casesDeleteValidator, casesDelete);
  *               type: array
  *               items:
  *                 $ref: '#/components/schemas/Case'
+ *     security:
+ *        - bearerAuth: [] 
  */
 // cases delete by cases id
 router.post('/deleteById', casesDeleteByIdValidator, casesDeleteById);
@@ -240,6 +253,8 @@ router.post('/deleteById', casesDeleteByIdValidator, casesDeleteById);
  *               type: array
  *               items:
  *                 $ref: '#/components/schemas/Case'
+ *     security:
+ *        - bearerAuth: [] 
  */
 // cases Information
 router.get('/get', casesInfoValidator, casesGet);
