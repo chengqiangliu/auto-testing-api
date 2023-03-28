@@ -4,6 +4,7 @@ const CasesModel = require("../models/CasesModel");
 const UserModel = require('../models/UserModel');
 const { validate } = require('./common.controller');
 const {autho} = require('../auth/index')
+const errorStatements = require('../lib/errorStatements');
 
 const Constants = require('../lib/constants');
 const logger = require('../lib/logger').API;
