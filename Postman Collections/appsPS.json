@@ -15,7 +15,7 @@
 						"exec": [
 							"var jsonData = pm.response.json();\r",
 							"//postman.setGlobalVariable(\"app_id\",jsonData.data.id);\r",
-							"postman.setGlobalVariable(\"appsname\",jsonData.data.appsname);\r",
+							"//postman.setGlobalVariable(\"appsname\",jsonData.data.appsname);\r",
 							""
 						],
 						"type": "text/javascript"
