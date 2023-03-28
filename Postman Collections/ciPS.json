@@ -1,0 +1,149 @@
+{
+	"info": {
+		"_postman_id": "29b4f83a-0472-4acd-a1f4-c00017947fbc",
+		"name": "ci",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "add",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ff18a989-8b04-4635-b218-011c3488a756",
+						"exec": [
+							"var jsonData = pm.response.json();\r",
+							"postman.setGlobalVariable(\"ci_id\",jsonData.data.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"_postman_id": "d5887a45-4210-4ce8-9f7d-aa5ac3d638d7",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "ci_url",
+							"value": "http://rewtdyufgioj.com",
+							"type": "text"
+						},
+						{
+							"key": "create_user",
+							"value": "rashi",
+							"type": "text"
+						}
+					],
+					"options": {
+						"urlencoded": {}
+					}
+				},
+				"url": "{{base_url}}/ci/add"
+			},
+			"response": []
+		},
+		{
+			"name": "get",
+			"_postman_id": "28860578-da0e-4862-9492-be020d01ea1e",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "id",
+							"value": "{{ci_id}}",
+							"type": "text"
+						}
+					],
+					"options": {
+						"urlencoded": {}
+					}
+				},
+				"url": "{{base_url}}/ci/get"
+			},
+			"response": []
+		},
+		{
+			"name": "update",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9aa46e7d-2de2-40cf-b2e3-55a3ba8a90c8",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);\r",
+							"postman.setGlobalVariable(\"ci_url\",jsonData.data.ci_url)"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"_postman_id": "1a407d44-4851-4bdf-b767-3191332e20f4",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "ci_url",
+							"value": "http://rewtdyufgoj.com",
+							"type": "text"
+						},
+						{
+							"key": "id",
+							"value": "{{ci_id}}",
+							"type": "text"
+						}
+					],
+					"options": {
+						"urlencoded": {}
+					}
+				},
+				"url": "{{base_url}}/ci/update"
+			},
+			"response": []
+		},
+		{
+			"name": "deleteById",
+			"_postman_id": "07ddb1bf-6d49-417d-953b-121583910e52",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "id",
+							"value": "{{ci_id}}",
+							"type": "text"
+						}
+					],
+					"options": {
+						"urlencoded": {}
+					}
+				},
+				"url": "{{base_url}}/ci/deleteById"
+			},
+			"response": []
+		}
+	]
+}
