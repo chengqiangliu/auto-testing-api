@@ -14,7 +14,7 @@
 						"id": "b70d00f9-5fe5-4a24-8f01-685ebe9c9678",
 						"exec": [
 							"var jsonData = pm.response.json();\r",
-							"postman.setGlobalVariable(\"app_id\",jsonData.data.id);\r",
+							"//postman.setGlobalVariable(\"app_id\",jsonData.data.id);\r",
 							"postman.setGlobalVariable(\"appsname\",jsonData.data.appsname);\r",
 							""
 						],
@@ -22,13 +22,20 @@
 					}
 				}
 			],
-			"_postman_id": "9f17033e-41bf-4ebe-a694-d26a406d7ee0",
+			"id": "9f17033e-41bf-4ebe-a694-d26a406d7ee0",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
 			"request": {
 				"method": "POST",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{accessToken}}",
+						"type": "text",
+						"disabled": true
+					}
+				],
 				"body": {
 					"mode": "urlencoded",
 					"urlencoded": [
@@ -47,10 +54,7 @@
 							"value": "fgh",
 							"type": "text"
 						}
-					],
-					"options": {
-						"urlencoded": {}
-					}
+					]
 				},
 				"url": "{{base_url}}/apps/add"
 			},
@@ -58,7 +62,7 @@
 		},
 		{
 			"name": "get",
-			"_postman_id": "ea0a44b7-50a7-4c6a-953c-1db1d1e37c89",
+			"id": "ea0a44b7-50a7-4c6a-953c-1db1d1e37c89",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -73,10 +77,7 @@
 							"value": "{{app_id}}",
 							"type": "text"
 						}
-					],
-					"options": {
-						"urlencoded": {}
-					}
+					]
 				},
 				"url": "{{base_url}}/apps/get"
 			},
@@ -84,7 +85,7 @@
 		},
 		{
 			"name": "update",
-			"_postman_id": "ac00ab01-f965-4a28-9ea3-c2f70998d4e4",
+			"id": "ac00ab01-f965-4a28-9ea3-c2f70998d4e4",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -104,10 +105,7 @@
 							"value": "www.fgdh.com",
 							"type": "text"
 						}
-					],
-					"options": {
-						"urlencoded": {}
-					}
+					]
 				},
 				"url": "{{base_url}}/apps/update"
 			},
@@ -115,7 +113,7 @@
 		},
 		{
 			"name": "deleteByName",
-			"_postman_id": "7e14a4cb-804c-4e20-886b-c51854a4f27c",
+			"id": "7e14a4cb-804c-4e20-886b-c51854a4f27c",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -130,10 +128,7 @@
 							"value": "{{appsname}}",
 							"type": "text"
 						}
-					],
-					"options": {
-						"urlencoded": {}
-					}
+					]
 				},
 				"url": "{{base_url}}/apps/deleteByName"
 			},
@@ -141,7 +136,7 @@
 		},
 		{
 			"name": "deleteById",
-			"_postman_id": "ddcea86f-d0be-4688-81b1-9e33f66a5aff",
+			"id": "ddcea86f-d0be-4688-81b1-9e33f66a5aff",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -156,10 +151,7 @@
 							"value": "{{app_id}}",
 							"type": "text"
 						}
-					],
-					"options": {
-						"urlencoded": {}
-					}
+					]
 				},
 				"url": "{{base_url}}/apps/deleteById"
 			},
