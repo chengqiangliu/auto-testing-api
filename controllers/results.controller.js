@@ -10,6 +10,7 @@ const {autho} = require('../auth/index')
 
 const Constants = require('../lib/constants');
 const logger = require('../lib/logger').API;
+const errorStatements = require('../lib/errorStatements');
 
 // adding a results
 const resultsAdd = async (req, res, next) => {
@@ -114,8 +115,8 @@ const resultsUpdate = async (req, res, next) => {
         logger.info('one of required attributes doesnt exist in the parent table');
     }
     } catch (err) {
-        logger.error(`update results failed, system error。${err}`);
-        return res.status(500).json({success: false, error: {message: 'update results failed, system error!',code:'500'}});
+       logger.info(`add results failed, all required input data doesn't exist`);
+            return res.status(500).json({success: false, error: {message: 'add results failed, all required input data doesnt exist',code:'500'}});
     }
 };
 
@@ -140,8 +141,8 @@ const resultsDeleteById = async (req, res, next) => {
             return res.status(404).json({success: false, error:[ {msg: results._id + ' does not exist', code: "404"}] });
         }
     } catch (err) {
-        logger.error(`delete results failed, system error。${err}`);
-        return res.status(500).json({success: false, error:[{ msg: 'delete results failed, system error!', code: '500'}]});
+        logger.info(`add results failed, all required input data doesn't exist`);
+         return res.status(500).json({success: false, error: {message: 'add results failed, all required input data doesnt exist',code:'500'}});
     }
 };
 
@@ -168,8 +169,8 @@ const resultsGetInfo = async (req, res, next) => {
             return res.status(404).json({success:false,error:[{msg:id+'does not exist',code:"404"}]});
         }
     } catch (err) {
-        logger.error(`get resultss info failed, system error。${err}`);
-        return res.status(500).json({success: false, error: ['get results info failed, system error!']});
+       logger.info(`add results failed, all required input data doesn't exist`);
+        return res.status(500).json({success: false, error: {message: 'add results failed, all required input data doesnt exist',code:'500'}});
     }
 };
 
