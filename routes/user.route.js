@@ -279,7 +279,7 @@ router.get('/list', userList);
 
 /**
  * @swagger
- * /api/users/list:
+ * /api/users/getAccessToken:
  *   get:
  *     summary: get the access token of a user 
  *     tags: [User]
