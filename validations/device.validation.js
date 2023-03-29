@@ -2,11 +2,11 @@ const { check, validationResult } = require("express-validator");
 
 exports.deviceAddValidator = 
     [
-        check("deviceName")
+        check("device_name")
             .exists({checkFalsy: true})
-            .withMessage("deviceName is required")
+            .withMessage("device_name is required")
             .isString()
-            .withMessage("deviceName should be string"),
+            .withMessage("device_name should be string"),
         check("model")
             .exists({checkFalsy: true})
             .withMessage("Model is required")
@@ -32,9 +32,9 @@ exports.deviceAddValidator =
 
 exports.deviceUpdateValidator = 
      [
-        check("deviceName")
+        check("device_name")
             .exists({checkFalsy: true})
-            .withMessage("deviceName is required"),
+            .withMessage("device_name is required"),
         check("model")
             .exists()
             .withMessage("model is required"),
