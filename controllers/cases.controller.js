@@ -4,7 +4,6 @@ const CasesModel = require("../models/CasesModel");
 const UserModel = require('../models/UserModel');
 const { validate } = require('./common.controller');
 const {autho} = require('../auth/index')
-const errorStatements = require('../lib/errorStatements');
 
 const Constants = require('../lib/constants');
 const logger = require('../lib/logger').API;
@@ -40,11 +39,11 @@ const casesAdd = async (req, res, next) => {
             const cases = await CasesModel.findOne({title,external_id});
             logger.info(cases)
             logger.info(`add case successful, ${title}`);
-            return res.status(200).json({success: true, data:{title: title,external_id:external_id}});
+            return res.status(200).json({success: true, cases});
         }
     } catch (err) {
-        logger.error(JSON.stringify(errorStatements.CatchBlockErr)+`${err}`);
-        return res.status(500).json({success: false, error: [{message : (errorStatements.CatchBlockErr.split("|")[1]), code: 500}]});
+        logger.error(`add case failed, system error。${err}`);
+        return res.status(500).json({success: false, errors: {errormessage: 'add case failed, system error!',errorcode:'500'}});
     }
 };
 
@@ -66,8 +65,9 @@ const casesUpdate = async (req, res, next) => {
         let user = await UserModel.findOne({username:username});
         let userid = user._id
         cases['update_user']=userid;
+
        
-        const oldCases = await CasesModel.findOneAndUpdate({_id: cases._id}, cases);
+        const oldCases = await CasesModel.findOneAndUpdate({_id: cases.id}, cases);
         // after updating the cases, we need to get the cases object data.
         var dict={};
         for(const i in Object.keys(cases)){
@@ -82,8 +82,8 @@ const casesUpdate = async (req, res, next) => {
         logger.info(`update cases successful, caseName: ${cases.title}, caseId: ${cases._id}`);
         return res.status(200).json({success: true, data: data});
     } catch (err) {
-        logger.error(JSON.stringify(errorStatements.CatchBlockErr)+`${err}`);
-        return res.status(500).json({success: false, error: [{message : (errorStatements.CatchBlockErr.split("|")[1]), code: 500}]});
+        logger.error(`update cases failed, system error。${err}`);
+        return res.status(500).json({success: false, errors: {errormessage: 'update cases failed, system error!',errorcode:'500'}});
     }
 };
 
@@ -108,8 +108,8 @@ const casesDelete = async (req, res, next) => {
             return res.status(404).json({success: false, error:[ {msg: title + ' does not exist', errorcode: "404"}] });
         }
     } catch (err) {
-        logger.error(JSON.stringify(errorStatements.CatchBlockErr)+`${err}`);
-        return res.status(500).json({success: false, error: [{message : (errorStatements.CatchBlockErr.split("|")[1]), code: 500}]});
+        logger.error(`delete cases failed, system error。${err}`);
+        return res.status(500).json({success: false, errors:[{ msg: 'delete cases failed, system error!', errorcode: '500'}]});
     }
 };
 
@@ -128,14 +128,14 @@ const casesDeleteById = async (req, res, next) => {
         if(cases){
             await CasesModel.deleteOne({_id: id});
             logger.info(`delete cases successful, ${id}`);
-            return res.status(200).json({success: true, message:' successfully deleted'});
+            return res.status(200).json({success: true, message:'successfully deleted'});
         }
         else{
             return res.status(404).json({success: false, error:[ {msg:'casename does not exist', errorcode: "404"}] });
         }
     } catch (err) {
-        logger.error(JSON.stringify(errorStatements.CatchBlockErr)+`${err}`);
-        return res.status(500).json({success: false, error: [{message : (errorStatements.CatchBlockErr.split("|")[1]), code: 500}]});
+        logger.error(`delete cases failed, system error。${err}`);
+        return res.status(500).json({success: false, errors:[{ msg: 'delete cases failed, system error!', errorcode: '500'}]});
     }
 };
 
@@ -151,7 +151,7 @@ const casesGet = async (req, res, next) => {
         }
 
         const {id} = req.body;
-        const cases = await CasesModel.findOne({id});
+        const cases = await CasesModel.findOne({_id:id});
         if(cases){
             return res.status(200).json({success:true, data: cases});
         }
@@ -159,8 +159,8 @@ const casesGet = async (req, res, next) => {
             return res.status(404).json({success:false,errors:[{msg:id+'does not exist',code:"404"}]});
         }
     } catch (err) {
-        logger.error(JSON.stringify(errorStatements.CatchBlockErr)+`${err}`);
-         return res.status(500).json({success: false, error: [{message : (errorStatements.CatchBlockErr.split("|")[1]), code: 500}]});
+        logger.error(`get cases info failed, system error。${err}`);
+        return res.status(500).json({success: false, errors: ['get cases info failed, system error!']});
     }
 };
 

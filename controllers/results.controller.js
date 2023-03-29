@@ -7,7 +7,6 @@ const RunsModel = require("../models/RunsModel");
 const CasesModel = require("../models/CasesModel");
 const { validate } = require('./common.controller');
 const {autho} = require('../auth/index')
-const errorStatements = require('../lib/errorStatements');
 
 const Constants = require('../lib/constants');
 const logger = require('../lib/logger').API;
@@ -55,8 +54,8 @@ const resultsAdd = async (req, res, next) => {
         }
         
     } catch (err) {
-        logger.error(JSON.stringify(errorStatements.CatchBlockErr)+`${err}`);
-         return res.status(500).json({success: false, error: [{message : (errorStatements.CatchBlockErr.split("|")[1]), code: 500}]});
+        logger.error(`add results failed, system error。${err}`);
+        return res.status(500).json({success: false, error: {message: 'add resultss failed, system error!',code:'500'}});
     }
 };
 
@@ -97,7 +96,7 @@ const resultsUpdate = async (req, res, next) => {
         results['update_user']=userid;
 
         if(Rerror && Rcases && Rruns){
-        const oldresults = await ResultsModel.findOneAndUpdate({_id: results._id}, results);
+        const oldresults = await ResultsModel.findOneAndUpdate({_id: results.id}, results);
         // after updating the results, we need to get the results object data.
         var dict={};
         for(const i in Object.keys(results)){
@@ -115,8 +114,8 @@ const resultsUpdate = async (req, res, next) => {
         logger.info('one of required attributes doesnt exist in the parent table');
     }
     } catch (err) {
-        logger.error(JSON.stringify(errorStatements.CatchBlockErr)+`${err}`);
-        return res.status(500).json({success: false, error: [{message : (errorStatements.CatchBlockErr.split("|")[1]), code: 500}]});
+        logger.error(`update results failed, system error。${err}`);
+        return res.status(500).json({success: false, error: {message: 'update results failed, system error!',code:'500'}});
     }
 };
 
@@ -141,8 +140,8 @@ const resultsDeleteById = async (req, res, next) => {
             return res.status(404).json({success: false, error:[ {msg: results._id + ' does not exist', code: "404"}] });
         }
     } catch (err) {
-        logger.error(JSON.stringify(errorStatements.CatchBlockErr)+`${err}`);
-         return res.status(500).json({success: false, error: [{message : (errorStatements.CatchBlockErr.split("|")[1]), code: 500}]});
+        logger.error(`delete results failed, system error。${err}`);
+        return res.status(500).json({success: false, error:[{ msg: 'delete results failed, system error!', code: '500'}]});
     }
 };
 
@@ -158,7 +157,7 @@ const resultsGetInfo = async (req, res, next) => {
         }
 
         const {id} = req.body;
-        const results = await ResultsModel.findOne({id});
+        const results = await ResultsModel.findOne({_id:id});
         if(results){
             return res.status(200).json({success:true, data: results});
         }
@@ -166,8 +165,8 @@ const resultsGetInfo = async (req, res, next) => {
             return res.status(404).json({success:false,error:[{msg:id+'does not exist',code:"404"}]});
         }
     } catch (err) {
-        logger.error(JSON.stringify(errorStatements.CatchBlockErr)+`${err}`);
-         return res.status(500).json({success: false, error: [{message : (errorStatements.CatchBlockErr.split("|")[1]), code: 500}]});
+        logger.error(`get resultss info failed, system error。${err}`);
+        return res.status(500).json({success: false, error: ['get results info failed, system error!']});
     }
 };
 

@@ -15,11 +15,10 @@ const { access } = require("fs");
 const { verifyRefreshToken } = require('../auth');
 const aut = require('../auth')
 const { secret } = require("../config");
-const errorStatements = require('../lib/errorStatements');
 
 const moment = require("moment");
 const date = new Date();
-const formattedDate = moment(date).format(Constants.DATE_TIME_FORMAT);
+const formattedDate = moment(date).format("YYYY-MM-DD HH:mm:ss");
 
 //const validationExport = require('../getInfo')
 
@@ -59,8 +58,8 @@ const userLogin = async (req, res, next) => {
                 const refreshToken = generateToken({userId: user.id, createTime: formattedDate}, 'RefreshToken');
             
                 await RefreshTokenModel.create({refreshToken, client: user.clientId, username: user.username});
-                if (user.role_id) {
-                    const role = await RoleModel.findOne({id: user.role_id});
+                if (user.roleid) {
+                    const role = await RoleModel.findOne({id: user.roleid});
                     logger.info(`login success, ${user.username}`);
                     return res.status(200).json({success: true, data: {username,accessToken, refreshToken}});
                 } else {
@@ -81,8 +80,8 @@ const userLogin = async (req, res, next) => {
         }
        
     } catch (err) {
-        logger.error(JSON.stringify(errorStatements.CatchBlockErr)+`${err}`);
-         return res.status(500).json({success: false, error: [{message : (errorStatements.CatchBlockErr.split("|")[1]), code: 500}]});
+        logger.error(`login failed, system error。${err}`);
+        return res.status(500).json({success: false, errors: {errormessage:'login failed, system error',errorcode:'500'}});
     }
 };
 
@@ -113,12 +112,12 @@ const userAdd = async (req, res, next) => {
             const user = await UserModel.findOne({username});
             //logger.info(user)
             logger.info(`add user successful, ${user.username}`);
-            return res.status(200).json({success: true, data: {username,accessToken}});
+            return res.status(200).json({success: true, user});
         }
         
     } catch (err) {
-        logger.error(JSON.stringify(errorStatements.CatchBlockErr)+`${err}`);
-         return res.status(500).json({success: false, error: [{message : (errorStatements.CatchBlockErr.split("|")[1]), code: 500}]});
+        logger.error(`add user failed, system error。${err}`);
+        return res.status(500).json({success: false, errors: {errormessage:`add user failed.${err}`,errorcode:'500'}});
     }
 };
 
@@ -151,8 +150,8 @@ const userUpdate = async (req, res, next) => {
         return res.status(200).json({success: true, data:dict});
     
     } catch (err) {
-        logger.error(JSON.stringify(errorStatements.CatchBlockErr)+`${err}`);
-         return res.status(500).json({success: false, error: [{message : (errorStatements.CatchBlockErr.split("|")[1]), code: 500}]});
+        logger.error(`update user failed, system error。${err}`);
+        return res.status(401).json({success: false, errors: {errormessage:`update user failed,${err}`,errorcode:'401'}});
     }
 };
 
@@ -168,42 +167,23 @@ const userDelete = async (req, res, next) => {
         }
 
         const {userId} = req.body;
-        await UserModel.deleteOne({id: userId});
+        const users = await UserModel.findOne({userId});
 
-        logger.info(`delete user successful, ${user.username}`);
+        if(users){
+            await UserModel.deleteOne({id: userId});
+            logger.info(`delete user successful`);
+            return res.status(200).json({success: true, message:'successfully deleted'});
+        }
+
+        logger.info(`delete user successful, ${users.username}`);
         return res.status(200).json({success: true});
     } catch (err) {
-        logger.error(JSON.stringify(errorStatements.CatchBlockErr)+`${err}`);
-        return res.status(500).json({success: false, error: [{message : (errorStatements.CatchBlockErr.split("|")[1]), code: 500}]});
+        logger.error(`delete user failed, system error。${err}`);
+        return res.status(500).json({success: false, errors: "no user to delete!"});
     }
 };
 
-const userDeleteById = async (req, res, next) => {
-    logger.addContext(Constants.FILE_NAME, path.basename(__filename));
-    logger.info('The user delete by ClientId controller is started');
 
-    try {
-        // validation
-        const validateResult = validate(req);
-        if (!validateResult.success) {
-            return res.status(validateResult.status).json({success: false, errors: validateResult.errors});
-        }
-        const {clientId} = req.body;
-        const user = await UserModel.findOne({clientId});
-        //console.log(user);
-        if(user){
-            await UserModel.deleteOne({clientId:clientId});
-            logger.info(`delete user successful, ${clientId}`);
-            return res.status(200).json({success: true, message: clientId + ' successfully deleted'});
-        }
-        else{
-            return res.status(404).json({success: false, error:[ {msg: clientId + ' does not exist', errorcode: "404"}] });
-        }
-    } catch (err) {
-        logger.error(JSON.stringify(errorStatements.CatchBlockErr)+`${err}`);
-         return res.status(500).json({success: false, error: [{message : (errorStatements.CatchBlockErr.split("|")[1]), code: 500}]});
-    }
-};
 
 //list all the users that are present
 const userList = async (req, res, next) => {
@@ -246,11 +226,11 @@ const userList = async (req, res, next) => {
         logger.info(`get user list successful.`);
         return res.status(200).json({success: true, data: Object.values(dict)});
     } catch (err) {
-        logger.error(JSON.stringify(errorStatements.CatchBlockErr)+`${err}`);
-        return res.status(500).json({success: false, error: [{message : (errorStatements.CatchBlockErr.split("|")[1]), code: 500}]});
+        logger.error(`get user list failed, system error。${err}`);
+        return res.status(500).json({success: false, errors: ['Get user list exception, please try again!']});
     }
 };
 
-module.exports = { userLogin, userAdd, userUpdate, userDelete, userDeleteById, userList };
+module.exports = { userLogin, userAdd, userUpdate, userDelete, userList };
 
 
