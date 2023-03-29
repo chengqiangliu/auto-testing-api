@@ -44,7 +44,7 @@ const jobsAdd = async (req, res, next) => {
                 await JobsModel.create({create_user:userid,update_user:userid,...req.body});
                 const jobs = await JobsModel.findOne({app_id:app_id,device_id:device_id,ci_id:ci_id});
                 logger.info(`add jobs successful`);
-                return res.status(200).json({success: true, data: {id: jobs._id, apps, device, ci, environment: jobs.environment, started_at: jobs.started_at, finished_at: jobs.finished_at, status: jobs.status, create_time: jobs.create_time}});
+                return res.status(200).json({success: true, data: {id: jobs._id, apps, device, ci, environment: jobs.environment, started_at: jobs.started_at, finished_at: jobs.finished_at, status: jobs.status, create_user: jobs.create_user, update_user: jobs.update_user, create_time: jobs.create_time, update_time: jobs.update_time}});
             }
         } else {
             if(apps!=null || device!=null || ci!=null){
@@ -107,7 +107,7 @@ const jobsGet = async (req, res, next) => {
         const ci= await CiModel.findOne({ci_id});
         
         if(jobs){
-            return res.status(200).json({success:true, data: {id: jobs.id, apps, device, ci, environment: jobs.environment, started_at: jobs.started_at, finished_at: jobs.finished_at, status: jobs.status, create_time: jobs.create_time}});
+            return res.status(200).json({success:true, data: {id: jobs.id, apps, device, ci, environment: jobs.environment, started_at: jobs.started_at, finished_at: jobs.finished_at, status: jobs.status, create_user: jobs.create_user, update_user: jobs.update_user, create_time: jobs.create_time, update_time: jobs.update_time}});
         }
         else{
             return res.status(404).json({success:false,error:[{msg:id+'does not exist',code:"404"}]});
