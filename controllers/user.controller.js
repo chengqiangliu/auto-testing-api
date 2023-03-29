@@ -212,7 +212,7 @@ const userList = async (req, res, next) => {
             if(dat=='_doc'){
                 for(const k in Object.keys(datum[dat])){
                 var dat1= Object.keys(datum[dat])[k];
-                if (dat1!='password' && dat1!="__v"){
+                if (dat1!='password' && dat1!="_id"){
                     dic[dat1]=datum[dat1];}
                 }
                 
@@ -231,6 +231,36 @@ const userList = async (req, res, next) => {
     }
 };
 
-module.exports = { userLogin, userAdd, userUpdate, userDelete, userList };
+//fetch accesstoken of user
+
+const userGetAccessToken = async (req, res, next) => {
+    logger.addContext(Constants.FILE_NAME, path.basename(__filename));
+    logger.info('The user access token  info controller is started');
+    try {
+        //validation
+        const validateResult = validate(req);
+        if (!validateResult.success) {
+            return res.status(validateResult.status).json({success: false, errors: validateResult.errors});
+        }
+
+        const {username,password} = req.body;
+        const user = await UserModel.findOne({username:username,password:md5(password)});
+        logger.info(user)
+        if(user){
+            return res.status(200).json({success:true, data:{accessToken:user.accessToken}});
+        }
+        else{
+            return res.status(404).json({success:false,errors:[{msg:username+' does not exist',code:"404"}]});
+        }
+        
+    } catch (err) {
+        logger.error(JSON.stringify(errorStatements.CatchBlockErr)+`${err}`);
+         return res.status(500).json({success: false, error: [{message : (errorStatements.CatchBlockErr.split("|")[1]), code: 500}]});
+    }
+};
+
+module.exports = { userLogin, userAdd, userUpdate, userDelete, userList,userGetAccessToken };
+
+
 
 
