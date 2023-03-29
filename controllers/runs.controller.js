@@ -27,9 +27,9 @@ const runsAdd = async (req, res, next) => {
         //accesstoken checking
         const username = autho(req)
         let user = await UserModel.findOne({username:username});
-        let userid = user._id
+        let userid = user.id
 
-        const jobs = await JobsModel.findOne({_id:job_id});
+        const jobs = await JobsModel.findOne({id:job_id});
         if(jobs){
             // if job_id already exists, return error or else create a new runs
             const runs = await RunsModel.findOne({job_id:job_id});
@@ -40,7 +40,7 @@ const runsAdd = async (req, res, next) => {
                 await RunsModel.create({create_user:userid,update_user:userid,...req.body});
                 const runs = await RunsModel.findOne({job_id:job_id});
                 logger.info(`add runs successful`);
-                return res.status(200).json({success: true, data: {id: runs._id, jobs, created_at: runs.created_at, finished_at: runs.finished_at, total: runs.total, status: runs.status}});
+                return res.status(200).json({success: true, data: {id: runs.id, jobs, created_at: runs.created_at, finished_at: runs.finished_at, total: runs.total, status: runs.status, create_user: runs.create_user, update_user: runs.update_user, create_time: runs.create_time, update_time: runs.update_time}});
             }
         } else {
             if(jobs!=null){
@@ -99,7 +99,7 @@ const runsGet = async (req, res, next) => {
         const job_id = runs.job_id;
         const jobs = await JobsModel.findOne({id:job_id});
         if(runs){
-            return res.status(200).json({success:true, data: {id: runs.id, jobs, created_at: runs.created_at, finished_at: runs.finished_at, total: runs.total, status: runs.status}});
+            return res.status(200).json({success:true, data: {id: runs.id, jobs, created_at: runs.created_at, finished_at: runs.finished_at, total: runs.total, status: runs.status, create_user: runs.create_user, update_user: runs.update_user, create_time: runs.create_time, update_time: runs.update_time}});
         }
         else{
             return res.status(404).json({success:false,error:[{msg:id+'does not exist',code:"404"}]});
