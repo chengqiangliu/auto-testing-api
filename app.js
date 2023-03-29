@@ -83,7 +83,7 @@ var unless = function(path, middleware) {
 //error with swagger as of now, to solve the issue, the below line should be commented.
 //error is that when the swagger path is being given the unless function or the post request is not being processed
 //still researching about this issue
-app.use(unless('/api/users/add',verifyToken))
+app.use(unless(['/api/users/add','/api/users/getAccessToken'],verifyToken))
 
 
 
