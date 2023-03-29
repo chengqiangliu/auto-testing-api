@@ -216,7 +216,7 @@ router.post('/add', userAddValidator, userAdd);
  *         description: The email address associated with the user
  *     responses:
  *       200:
- *         description: The user is added successfully
+ *         description: The user is updated successfully
  *         content:
  *           application/json:
  *             schema:
@@ -245,7 +245,7 @@ router.post('/update', userUpdateValidator, userUpdate);
  *         description: The user id of the user
  *     responses:
  *       200:
- *         description: The user is added successfully
+ *         description: The user is deleted successfully
  *         content:
  *           application/json:
  *             schema:
@@ -259,9 +259,29 @@ router.post('/delete', userDeleteValidator, userDelete);
 
 /**
  * @swagger
- * /api/users/deleteById:
- *   post:
- *     summary: delete a user
+ * /api/users/list:
+ *   get:
+ *     summary: get the list of all users in the database
+ *     tags: [User]
+ *     responses:
+ *       200:
+ *         description: The user list is obtained successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/User' 
+ *     security:
+ *          - bearerAuth: []  
+ */
+router.get('/list', userList);
+
+/**
+ * @swagger
+ * /api/users/list:
+ *   get:
+ *     summary: get the access token of a user 
  *     tags: [User]
  *     consumes:
  *       - application/x-www-form-urlencoded
@@ -274,7 +294,7 @@ router.post('/delete', userDeleteValidator, userDelete);
  *         description: The client id of the user
  *     responses:
  *       200:
- *         description: The user is added successfully
+ *         description: The user access token is obtained successfully
  *         content:
  *           application/json:
  *             schema:
@@ -284,26 +304,5 @@ router.post('/delete', userDeleteValidator, userDelete);
  *     security:
  *          - bearerAuth: []  
  */
-router.post('/deleteById', userDeleteByIdValidator, userDeleteById);
-
-/**
- * @swagger
- * /api/users/list:
- *   get:
- *     summary: get the list of all users in the database
- *     tags: [User]
- *     responses:
- *       200:
- *         description: The user is added successfully
- *         content:
- *           application/json:
- *             schema:
- *               type: array
- *               items:
- *                 $ref: '#/components/schemas/User' 
- *     security:
- *          - bearerAuth: []  
- */
-router.get('/list', userList);
-
+router.get('/getAccessToken',userGetAccessToken);
 module.exports = router;
