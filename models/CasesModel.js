@@ -15,7 +15,7 @@ const casesSchema = new mongoose.Schema({
   location:{type:String},
   reference:{type:String},
   create_time: {type: String, default: formattedDate},
-  deleteFlag:{type:Number ,default:0,required:true},
+  delete_flag:{type:Number ,default:0,required:true},
   create_user:{type:String},
   update_user:{type:String}
 },{versionKey:false},{
