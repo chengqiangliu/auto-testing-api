@@ -18,7 +18,7 @@ const casesSchema = new mongoose.Schema({
   delete_flag:{type:Number ,default:0,required:true},
   create_user:{type:String},
   update_user:{type:String}
-},{versionKey:false},{
+},{versionKey:false,
   timestamps:
   {createdAt:"create_time",updatedAt:"update_time"}})
 
