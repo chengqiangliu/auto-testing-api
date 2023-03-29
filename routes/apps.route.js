@@ -23,11 +23,11 @@ const {
  *     Apps:
  *          type: Object
  *          required:
- *              -appsname
+ *              -apps_name
  *          properties:
  *              title:
  *                 type: string
- *                 description: appsname of the application
+ *                 description: apps_name of the application
  *
  */
 /**
@@ -45,11 +45,11 @@ const {
  *     tags: [Apps]
  *     parameters:
  *       - in: path
- *         name: appsname
+ *         name: apps_name
  *         schema:
  *           type: string
  *         required: true
- *         description: The appsname of the application
+ *         description: The apps_name of the application
  *     responses:
  *       200:
  *         description: The apps is added succesfully
@@ -78,11 +78,11 @@ router.post('/add', appsAddValidator, appsAdd);
  *         required: true
  *         description: The id of the app
  *       - in: path
- *         name: appsname
+ *         name: apps_name
  *         schema:
  *           type: string
  *         required: false
- *         description: The appsname of the app
+ *         description: The apps_name of the app
  *     responses:
  *       200:
  *         description: The apps is updated succesfully
@@ -107,11 +107,11 @@ router.post('/update', appsUpdateValidator, appsUpdate);
  *       - application/x-www-form-urlencoded
  *     parameters:
  *       - in: formData
- *         name: appsname
+ *         name: apps_name
  *         schema:
  *           type: string
  *         required: true
- *         description: The appsname of the app
+ *         description: The apps_name of the app
  *     responses:
  *       200:
  *         description: The app is deleted successfully
@@ -123,7 +123,7 @@ router.post('/update', appsUpdateValidator, appsUpdate);
  *                 $ref: '#/components/schemas/Apps'
  */
 
-// apps delete by appsname
+// apps delete by apps_name
 router.post('/deleteByName', appsDeleteValidator, appsDelete);
 
 /**
