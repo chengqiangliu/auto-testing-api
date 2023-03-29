@@ -14,7 +14,7 @@ const tagsSchema = new mongoose.Schema({
   create_user:{type:String,required:true},
   update_user:{type:String}
 
-},{versionKey: false},{
+},{versionKey: false,
   timestamps:
   {createdAt:"create_time",updatedAt:"update_time"}})
 
