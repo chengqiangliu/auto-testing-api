@@ -301,8 +301,6 @@ router.get('/list', userList);
  *               type: array
  *               items:
  *                 $ref: '#/components/schemas/User'
- *     security:
- *          - bearerAuth: []  
  */
 router.get('/getAccessToken',userGetAccessToken);
 module.exports = router;
