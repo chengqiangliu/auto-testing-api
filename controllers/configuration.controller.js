@@ -61,7 +61,7 @@ const configurationUpdate = async (req, res, next) => {
         const username = autho(req)
         let user = await UserModel.findOne({username:username});
         let userid = user._id
-        tags['update_user']=userid;
+        configuration['update_user']=userid;
         
         const oldConfiguration = await ConfigurationModel.findOneAndUpdate({id: configuration.id}, configuration);
         // after updating the configuration, we need to get the configuration object data.
