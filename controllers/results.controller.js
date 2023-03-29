@@ -158,8 +158,11 @@ const resultsGetInfo = async (req, res, next) => {
 
         const {id} = req.body;
         const results = await ResultsModel.findOne({_id:id});
+        const errors = await ErrorsModel.findOne({_id:results.error})
+        const runs = await RunsModel.findOne({_id:results.run})
+        const cases = await CasesModel.findOne({_id:results.case})
         if(results){
-            return res.status(200).json({success:true, data: results});
+            return res.status(200).json({success:true, data: {id:results._id,error:errors,run:runs,case:cases,status:results.status}});
         }
         else{
             return res.status(404).json({success:false,error:[{msg:id+'does not exist',code:"404"}]});
