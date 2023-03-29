@@ -61,7 +61,7 @@ const ciUpdate = async (req, res, next) => {
         const username = autho(req)
         let user = await UserModel.findOne({username:username});
         let userid = user._id
-        tags['update_user']=userid;
+        ci['update_user']=userid;
 
         const oldCi = await CiModel.findOneAndUpdate({id: ci.id}, ci);
         // after updating the ci, we need to get the ci object data.
