@@ -112,7 +112,7 @@ const userAdd = async (req, res, next) => {
             const user = await UserModel.findOne({username});
             //logger.info(user)
             logger.info(`add user successful, ${user.username}`);
-            return res.status(200).json({success: true, user});
+            return res.status(200).json({success: true, data:{username:user.username,accessToken:user.accessToken,id:user._id}});
         }
         
     } catch (err) {
@@ -138,7 +138,7 @@ const userUpdate = async (req, res, next) => {
         var dict={};
         for(const i in Object.keys(user)){
             var datum=Object.keys(user)[i];
-            if (datum!='password'){
+            if (datum!='password'&& datum!="delete_flag"){
                 dict[datum]=user[datum];}
             
         }
@@ -212,7 +212,7 @@ const userList = async (req, res, next) => {
             if(dat=='_doc'){
                 for(const k in Object.keys(datum[dat])){
                 var dat1= Object.keys(datum[dat])[k];
-                if (dat1!='password' && dat1!="_id"){
+                if (dat1!='password' && dat1!="_id" && dat1!='delete_flag'){
                     dic[dat1]=datum[dat1];}
                 }
                 
@@ -260,7 +260,6 @@ const userGetAccessToken = async (req, res, next) => {
 };
 
 module.exports = { userLogin, userAdd, userUpdate, userDelete, userList,userGetAccessToken };
-
 
 
 
