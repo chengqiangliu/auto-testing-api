@@ -17,7 +17,7 @@ const userSchema = new mongoose.Schema({
   roleid: String,
   clientId: {type: String, required: true},
   accessToken: {type: String, required: true}
-}{versionKey:false,
+},{versionKey:false,
   timestamps:
   {createdAt:"createtime",updatedAt:"updatetime"}})
 
