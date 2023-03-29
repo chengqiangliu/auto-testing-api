@@ -4,6 +4,7 @@ const ErrorsModel = require("../models/ErrorsModel");
 const UserModel = require('../models/UserModel');
 const { validate } = require('./common.controller');
 const {autho} = require('../auth/index')
+const errorStatements = require('../lib/errorStatements');
 
 const Constants = require('../lib/constants');
 const logger = require('../lib/logger').API;
@@ -40,8 +41,8 @@ const errorsAdd = async (req, res, next) => {
             return res.status(200).json({success: true, errors});
         }
     } catch (err) {
-        logger.error(`add error failed, system error。${err}`);
-        return res.status(500).json({success: false, errors: {errormessage: 'add error failed, system error!',errorcode:'500'}});
+         logger.error(JSON.stringify(errorStatements.CatchBlockErr)+`${err}`);
+        return res.status(500).json({success: false, error: [{message : (errorStatements.CatchBlockErr.split("|")[1]), code: 500}]});
     }
 };
 
@@ -81,8 +82,8 @@ const errorsUpdate = async (req, res, next) => {
         logger.info(`update errors successful,errorId: ${errors.id}`);
         return res.status(200).json({success: true, data: data});
     } catch (err) {
-        logger.error(`update errors failed, system error。${err}`);
-        return res.status(500).json({success: false, errors: {errormessage: 'update errors failed, system error!',errorcode:'500'}});
+        logger.error(JSON.stringify(errorStatements.CatchBlockErr)+`${err}`);
+        return res.status(500).json({success: false, error: [{message : (errorStatements.CatchBlockErr.split("|")[1]), code: 500}]});
     }
 };
 
@@ -108,8 +109,8 @@ const errorsDeleteById = async (req, res, next) => {
             return res.status(404).json({success: false, error:[ {msg:'error ID does not exist', errorcode: "404"}] });
         }
     } catch (err) {
-        logger.error(`delete errors failed, system error。${err}`);
-        return res.status(500).json({success: false, errors:[{ msg: 'delete errors failed, system error!', errorcode: '500'}]});
+        logger.error(JSON.stringify(errorStatements.CatchBlockErr)+`${err}`);
+        return res.status(500).json({success: false, error: [{message : (errorStatements.CatchBlockErr.split("|")[1]), code: 500}]});
     }
 };
 
@@ -133,8 +134,8 @@ const errorsGet = async (req, res, next) => {
             return res.status(404).json({success:false,errors:[{msg:id+'does not exist',code:"404"}]});
         }
     } catch (err) {
-        logger.error(`get errors info failed, system error。${err}`);
-        return res.status(500).json({success: false, errors: ['get errors info failed, system error!']});
+        logger.error(JSON.stringify(errorStatements.CatchBlockErr)+`${err}`);
+        return res.status(500).json({success: false, error: [{message : (errorStatements.CatchBlockErr.split("|")[1]), code: 500}]});
     }
 };
 module.exports = {
