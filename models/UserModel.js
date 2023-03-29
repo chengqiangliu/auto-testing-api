@@ -13,13 +13,13 @@ const userSchema = new mongoose.Schema({
   password: {type: String, required: true}, 
   phone: String,
   email: String,
-  create_time: {type: String, default: formattedDate},
-  role_id: String,
+  createtime: {type: String, default: formattedDate},
+  roleid: String,
   clientId: {type: String, required: true},
   accessToken: {type: String, required: true}
-},{
+},{versionKey:false},{
   timestamps:
-  {createdAt:"create_time",updatedAt:"update_time"}})
+  {createdAt:"createtime",updatedAt:"updatetime"}})
 
 userSchema.virtual('id').get(function(){
    return this._id.toHexString();

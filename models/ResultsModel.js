@@ -13,7 +13,7 @@ const resultsSchema = new mongoose.Schema({
   error:{type:String, required:true},
   run:{type:String,required:true},
   case:{type:String,required:true},
-  deleteFlag:{type:Number ,default:0,required:true},
+  delete_flag:{type:Number ,default:0,required:true},
   create_user:{type:String},
   update_user:{type:String}
 },{versionKey: false},{
