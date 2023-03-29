@@ -65,7 +65,7 @@ const deviceUpdate = async (req, res, next) => {
         const username = autho(req)
         let user = await UserModel.findOne({username:username});
         let userid = user._id
-        tags['update_user']=userid;
+        device['update_user']=userid;
 
         const olddevice = await DeviceModel.findOneAndUpdate({device_name: device.device_name}, device);
 
