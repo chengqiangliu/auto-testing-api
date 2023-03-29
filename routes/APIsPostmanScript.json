@@ -1,0 +1,2416 @@
+{
+	"info": {
+		"_postman_id": "aa8cfed7-d14c-499a-adf6-04de5963007a",
+		"name": "APIs",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "apps",
+			"item": [
+				{
+					"name": "add",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b70d00f9-5fe5-4a24-8f01-685ebe9c9678",
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"postman.setGlobalVariable(\"app_id\",jsonData.data.id);\r",
+									"postman.setGlobalVariable(\"appsname\",jsonData.data.appsname);\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"_postman_id": "9f17033e-41bf-4ebe-a694-d26a406d7ee0",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "appsname",
+									"value": "facebook",
+									"type": "text"
+								},
+								{
+									"key": "url",
+									"value": "www.sdf.com",
+									"type": "text"
+								},
+								{
+									"key": "build",
+									"value": "fgh",
+									"type": "text"
+								}
+							],
+							"options": {
+								"urlencoded": {}
+							}
+						},
+						"url": "{{base_url}}/apps/add"
+					},
+					"response": []
+				},
+				{
+					"name": "get",
+					"_postman_id": "ea0a44b7-50a7-4c6a-953c-1db1d1e37c89",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "id",
+									"value": "{{app_id}}",
+									"type": "text"
+								}
+							],
+							"options": {
+								"urlencoded": {}
+							}
+						},
+						"url": "{{base_url}}/apps/get"
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"_postman_id": "ac00ab01-f965-4a28-9ea3-c2f70998d4e4",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "id",
+									"value": "{{app_id}}",
+									"type": "text"
+								},
+								{
+									"key": "url",
+									"value": "www.fgdh.com",
+									"type": "text"
+								}
+							],
+							"options": {
+								"urlencoded": {}
+							}
+						},
+						"url": "{{base_url}}/apps/update"
+					},
+					"response": []
+				},
+				{
+					"name": "deleteByName",
+					"_postman_id": "7e14a4cb-804c-4e20-886b-c51854a4f27c",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "appsname",
+									"value": "{{appsname}}",
+									"type": "text"
+								}
+							],
+							"options": {
+								"urlencoded": {}
+							}
+						},
+						"url": "{{base_url}}/apps/deleteByName"
+					},
+					"response": []
+				},
+				{
+					"name": "deleteById",
+					"_postman_id": "ddcea86f-d0be-4688-81b1-9e33f66a5aff",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "id",
+									"value": "{{app_id}}",
+									"type": "text"
+								}
+							],
+							"options": {
+								"urlencoded": {}
+							}
+						},
+						"url": "{{base_url}}/apps/deleteById"
+					},
+					"response": []
+				}
+			],
+			"_postman_id": "cee82920-8da7-4499-b8fb-71259f9e065a"
+		},
+		{
+			"name": "tags",
+			"item": [
+				{
+					"name": "add",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "af01b4fd-d8b8-479a-927e-3f858adb8e00",
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"postman.setGlobalVariable(\"tag_id\",jsonData.data.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"_postman_id": "841a0b57-9f9c-42f0-a601-c9fd281e8efd",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "status",
+									"value": "true",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "error",
+									"value": "64004ab79aca4ec62b28621b",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "case",
+									"value": "6406cd1d03eceea3ca212b6d",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "_id",
+									"value": "64098559771c677245171b05",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "tagsname",
+									"value": "atdf",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "username",
+									"value": "niha",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "password",
+									"value": "Doramedha9@",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "clientId",
+									"value": "1999",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "tagsname",
+									"value": "1234abcdef",
+									"type": "text"
+								}
+							],
+							"options": {
+								"urlencoded": {}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/tag/add",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"tag",
+								"add"
+							],
+							"query": [
+								{
+									"key": "tagsname",
+									"value": null,
+									"type": "text",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get",
+					"_postman_id": "d06d06ad-8fdd-499d-b941-ba8bb9e11452",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "id",
+									"value": "{{tag_id}}",
+									"type": "text"
+								}
+							],
+							"options": {
+								"urlencoded": {}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/tag/get",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"tag",
+								"get"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "64229fc35bf688c3d022ed4b",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"_postman_id": "9161d94b-9728-4383-b37f-ecc393690566",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "tagsname",
+									"value": "avcd1234",
+									"type": "text"
+								},
+								{
+									"key": "id",
+									"value": "{{tag_id}}",
+									"type": "text"
+								}
+							],
+							"options": {
+								"urlencoded": {}
+							}
+						},
+						"url": "{{base_url}}/tag/update"
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteByID",
+					"_postman_id": "3709965c-0faa-4f12-ab59-9c1339fd6922",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "id",
+									"value": "{{tag_id}}",
+									"type": "text"
+								},
+								{
+									"key": "tagsname",
+									"value": "hello123",
+									"type": "text",
+									"disabled": true
+								}
+							],
+							"options": {
+								"urlencoded": {}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/tag/deleteById",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"tag",
+								"deleteById"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "{{tag_id}}",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteByName",
+					"_postman_id": "3eef60f6-ed34-4b7d-9018-b90c70825fae",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "tagsname",
+									"value": "avcd1234",
+									"type": "text"
+								}
+							],
+							"options": {
+								"urlencoded": {}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/tag/deleteByName",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"tag",
+								"deleteByName"
+							],
+							"query": [
+								{
+									"key": "tagsname",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"_postman_id": "8e8ed26a-4399-4862-9ed8-e93f4d4b8de7"
+		},
+		{
+			"name": "cases",
+			"item": [
+				{
+					"name": "add",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "140862c0-7c14-4051-98e2-6f3ff8040fdf",
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"postman.setGlobalVariable(\"cases_id\",jsonData.cases.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"_postman_id": "ccf4b1fd-f182-44eb-9fe6-7b6dae551223",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "status",
+									"value": "true",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "error",
+									"value": "64004ab79aca4ec62b28621b",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "case",
+									"value": "6406cd1d03eceea3ca212b6d",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "_id",
+									"value": "64098559771c677245171b05",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "tagsname",
+									"value": "atdf",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "title",
+									"value": "barbie2",
+									"type": "text"
+								},
+								{
+									"key": "external_id",
+									"value": "123",
+									"type": "text"
+								},
+								{
+									"key": "clientId",
+									"value": "1999",
+									"type": "text",
+									"disabled": true
+								}
+							],
+							"options": {
+								"urlencoded": {}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/cases/add",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"cases",
+								"add"
+							],
+							"query": [
+								{
+									"key": "tagsname",
+									"value": null,
+									"type": "text",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get",
+					"_postman_id": "70080902-c5c8-47ad-a14d-93a7ebd7cbdf",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "id",
+									"value": "{{cases_id}}",
+									"type": "text"
+								}
+							],
+							"options": {
+								"urlencoded": {}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/cases/get",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"cases",
+								"get"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null,
+									"type": "text",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"_postman_id": "5f15e8db-77c7-40b0-95b3-7dcdf1382af4",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "tagsname",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "id",
+									"value": "{{cases_id}}",
+									"type": "text"
+								},
+								{
+									"key": "feature",
+									"value": "murder",
+									"type": "text"
+								}
+							],
+							"options": {
+								"urlencoded": {}
+							}
+						},
+						"url": "{{base_url}}/cases/update"
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteByID",
+					"_postman_id": "50240028-0a6c-4312-8672-f334631922b9",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "id",
+									"value": "{{cases_id}}",
+									"type": "text"
+								}
+							],
+							"options": {
+								"urlencoded": {}
+							}
+						},
+						"url": "{{base_url}}/cases/deleteById"
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteByName",
+					"_postman_id": "a114d8d7-cbec-4c0e-a36f-07e5fba65c4c",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "title",
+									"value": "barbie",
+									"type": "text"
+								}
+							],
+							"options": {
+								"urlencoded": {}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/cases/deleteByName",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"cases",
+								"deleteByName"
+							],
+							"query": [
+								{
+									"key": "tagsname",
+									"value": null,
+									"type": "text",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"_postman_id": "5532f21d-11d0-4c22-9e7f-f0fd83aeec20"
+		},
+		{
+			"name": "casetags",
+			"item": [
+				{
+					"name": "add",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "830d1b4c-94d8-4d66-85f6-4de610884d2c",
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"postman.setGlobalVariable(\"casetag_id\",jsonData.data.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"_postman_id": "59136efa-9f83-41d6-b146-a0a2f8647308",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "tag_id",
+									"value": "{{tag_id}}",
+									"type": "text"
+								},
+								{
+									"key": "case_id",
+									"value": "{{cases_id}}",
+									"type": "text"
+								},
+								{
+									"key": "_id",
+									"value": "63fefc168ec1255f905bd6f6",
+									"type": "text",
+									"disabled": true
+								}
+							],
+							"options": {
+								"urlencoded": {}
+							}
+						},
+						"url": "{{base_url}}/casetags/add"
+					},
+					"response": []
+				},
+				{
+					"name": "get",
+					"_postman_id": "1c40ccee-af76-4c29-a355-87a8535d83cd",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "id",
+									"value": "{{casetag_id}}",
+									"type": "text"
+								}
+							],
+							"options": {
+								"urlencoded": {}
+							}
+						},
+						"url": "{{base_url}}/casetags/get"
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"_postman_id": "d6ad9aa9-c566-4b48-8b2d-d9bc8a72ff2e",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "_id",
+									"value": "64004cfc9aca4ec62b28622d",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "id",
+									"value": "{{casetag_id}}",
+									"type": "text"
+								},
+								{
+									"key": "case_id",
+									"value": "{{cases_id}}",
+									"type": "text"
+								},
+								{
+									"key": "backtrace",
+									"value": "false",
+									"type": "text",
+									"disabled": true
+								}
+							],
+							"options": {
+								"urlencoded": {}
+							}
+						},
+						"url": "{{base_url}}/casetags/update"
+					},
+					"response": []
+				},
+				{
+					"name": "DeletebyID",
+					"_postman_id": "016dfd0b-4fc4-4831-8a61-803ac37aba49",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "id",
+									"value": "{{casetag_id}}",
+									"type": "text"
+								}
+							],
+							"options": {
+								"urlencoded": {}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/casetags/deleteById",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"casetags",
+								"deleteById"
+							],
+							"query": [
+								{
+									"key": "_id",
+									"value": "64004be39aca4ec62b286227",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"_postman_id": "73100040-7f37-4fed-bd8d-aad5c85d9204"
+		},
+		{
+			"name": "device",
+			"item": [
+				{
+					"name": "add",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "a6f375e4-529f-49b5-8ea4-3b00d866e2e9",
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"postman.setGlobalVariable(\"device_id\",jsonData.data.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"_postman_id": "0c9141cb-f8cb-443f-91a7-c67d2bb10b58",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "deviceName",
+									"value": "sgdhj",
+									"type": "text"
+								},
+								{
+									"key": "model",
+									"value": "nhmjjjjjfd",
+									"type": "text"
+								},
+								{
+									"key": "create_user",
+									"value": "rashi",
+									"type": "text"
+								}
+							],
+							"options": {
+								"urlencoded": {}
+							}
+						},
+						"url": "{{base_url}}/device/add"
+					},
+					"response": []
+				},
+				{
+					"name": "get",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "a6f375e4-529f-49b5-8ea4-3b00d866e2e9",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"_postman_id": "49f18d8a-b577-469f-96bf-b9a8fe999388",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "id",
+									"value": "{{device_id}}",
+									"type": "text"
+								}
+							],
+							"options": {
+								"urlencoded": {}
+							}
+						},
+						"url": "{{base_url}}/device/get"
+					},
+					"response": []
+				},
+				{
+					"name": "deleteById",
+					"_postman_id": "4c9d0681-5921-41eb-95b3-34dcce7d12cf",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "id",
+									"value": "{{device_id}}",
+									"type": "text"
+								}
+							],
+							"options": {
+								"urlencoded": {}
+							}
+						},
+						"url": "{{base_url}}/device/deleteById"
+					},
+					"response": []
+				}
+			],
+			"_postman_id": "188033c2-9750-4070-adb6-702259f65b09"
+		},
+		{
+			"name": "ci",
+			"item": [
+				{
+					"name": "add",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "ff18a989-8b04-4635-b218-011c3488a756",
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"postman.setGlobalVariable(\"ci_id\",jsonData.data.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"_postman_id": "d5887a45-4210-4ce8-9f7d-aa5ac3d638d7",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "ci_url",
+									"value": "http://rewtdyufgioj.com",
+									"type": "text"
+								},
+								{
+									"key": "create_user",
+									"value": "rashi",
+									"type": "text"
+								}
+							],
+							"options": {
+								"urlencoded": {}
+							}
+						},
+						"url": "{{base_url}}/ci/add"
+					},
+					"response": []
+				},
+				{
+					"name": "get",
+					"_postman_id": "28860578-da0e-4862-9492-be020d01ea1e",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "id",
+									"value": "{{ci_id}}",
+									"type": "text"
+								}
+							],
+							"options": {
+								"urlencoded": {}
+							}
+						},
+						"url": "{{base_url}}/ci/get"
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "9aa46e7d-2de2-40cf-b2e3-55a3ba8a90c8",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);\r",
+									"postman.setGlobalVariable(\"ci_url\",jsonData.data.ci_url)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"_postman_id": "1a407d44-4851-4bdf-b767-3191332e20f4",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "ci_url",
+									"value": "http://rewtdyufgoj.com",
+									"type": "text"
+								},
+								{
+									"key": "id",
+									"value": "{{ci_id}}",
+									"type": "text"
+								}
+							],
+							"options": {
+								"urlencoded": {}
+							}
+						},
+						"url": "{{base_url}}/ci/update"
+					},
+					"response": []
+				},
+				{
+					"name": "deleteById",
+					"_postman_id": "07ddb1bf-6d49-417d-953b-121583910e52",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "id",
+									"value": "{{ci_id}}",
+									"type": "text"
+								}
+							],
+							"options": {
+								"urlencoded": {}
+							}
+						},
+						"url": "{{base_url}}/ci/deleteById"
+					},
+					"response": []
+				}
+			],
+			"_postman_id": "5728354c-9271-448a-b623-367e7ecd9d4c"
+		},
+		{
+			"name": "configuration",
+			"item": [
+				{
+					"name": "add",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "df248087-5da9-4632-9c24-095fc1470698",
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"postman.setGlobalVariable(\"configuration_id\",jsonData.data.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"_postman_id": "c459507d-932a-4571-a412-829f0609dada",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "key",
+									"value": "etrthjhg",
+									"type": "text"
+								},
+								{
+									"key": "value",
+									"value": "ewrtryt",
+									"type": "text"
+								}
+							],
+							"options": {
+								"urlencoded": {}
+							}
+						},
+						"url": "{{base_url}}/configuration/add"
+					},
+					"response": []
+				},
+				{
+					"name": "get",
+					"_postman_id": "3b807e8f-9a29-4de5-92f0-2c2c0a3f4e25",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "id",
+									"value": "{{configuration_id}}",
+									"type": "text"
+								}
+							],
+							"options": {
+								"urlencoded": {}
+							}
+						},
+						"url": "{{base_url}}/configuration/get"
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"_postman_id": "c466baf7-32d4-4472-b67e-4365deebfc89",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "key",
+									"value": "erytyj",
+									"type": "text"
+								},
+								{
+									"key": "value",
+									"value": "etryty",
+									"type": "text"
+								},
+								{
+									"key": "id",
+									"value": "{{configuration_id}}",
+									"type": "text"
+								}
+							],
+							"options": {
+								"urlencoded": {}
+							}
+						},
+						"url": "{{base_url}}/configuration/update"
+					},
+					"response": []
+				},
+				{
+					"name": "deleteByKey",
+					"_postman_id": "9f597b18-efee-40ed-8a3e-d2cd5b0cab33",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "key",
+									"value": "erytyj",
+									"type": "text"
+								}
+							],
+							"options": {
+								"urlencoded": {}
+							}
+						},
+						"url": "{{base_url}}/configuration/deleteByKey"
+					},
+					"response": []
+				},
+				{
+					"name": "deleteById",
+					"_postman_id": "9fbdbeea-550c-40e9-98d9-19fbc98cd043",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "id",
+									"value": "{{configuration_id}}",
+									"type": "text"
+								}
+							],
+							"options": {
+								"urlencoded": {}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/configuration/deleteById",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"configuration",
+								"deleteById"
+							],
+							"query": [
+								{
+									"key": "_id",
+									"value": "64003faa4f8852ade5e837f9",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"_postman_id": "f7729cf9-2e2c-4bdd-824e-ebc90b8cfa4a"
+		},
+		{
+			"name": "errors",
+			"item": [
+				{
+					"name": "add",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "fc257787-90db-4f8b-b189-8eb1e5c23edf",
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"postman.setGlobalVariable(\"error_id\",jsonData.errors.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"_postman_id": "93e72e4d-d8af-4b64-a07f-cce9e3db1ca0",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "type",
+									"value": "medh",
+									"type": "text"
+								},
+								{
+									"key": "message",
+									"value": "ijfidfjjgirj",
+									"type": "text"
+								},
+								{
+									"key": "_id",
+									"value": "63fefc168ec1255f905bd6f6",
+									"type": "text",
+									"disabled": true
+								}
+							],
+							"options": {
+								"urlencoded": {}
+							}
+						},
+						"url": "{{base_url}}/errors/add"
+					},
+					"response": []
+				},
+				{
+					"name": "get",
+					"_postman_id": "68b755d1-5f82-44be-a7c2-a43c95f7b805",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "id",
+									"value": "{{error_id}}",
+									"type": "text"
+								}
+							],
+							"options": {
+								"urlencoded": {}
+							}
+						},
+						"url": "{{base_url}}/errors/get"
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "d410daec-e3a3-4861-b010-71fd8f9f0f13",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"_postman_id": "9774374a-6641-4552-9691-74ac3d18ce44",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "_id",
+									"value": "64004cfc9aca4ec62b28622d",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "id",
+									"value": "{{error_id}}",
+									"type": "text"
+								},
+								{
+									"key": "message",
+									"value": "hbjhhkjkjkk",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "backtrace",
+									"value": "false",
+									"type": "text"
+								}
+							],
+							"options": {
+								"urlencoded": {}
+							}
+						},
+						"url": "{{base_url}}/errors/update"
+					},
+					"response": []
+				},
+				{
+					"name": "DeletebyID",
+					"_postman_id": "54550ffe-2a69-4ee5-baa5-597be9c2df8e",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "id",
+									"value": "{{error_id}}",
+									"type": "text"
+								}
+							],
+							"options": {
+								"urlencoded": {}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/errors/deleteById",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"errors",
+								"deleteById"
+							],
+							"query": [
+								{
+									"key": "_id",
+									"value": "64004be39aca4ec62b286227",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"_postman_id": "817c09a0-1168-4e23-aeda-4cb94fddcddc"
+		},
+		{
+			"name": "jobs",
+			"item": [
+				{
+					"name": "add",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "837931a4-dcf1-40b5-a055-e458f5a1a1de",
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"postman.setGlobalVariable(\"job_id\",jsonData.data.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"_postman_id": "08c72170-de37-4922-a1aa-3126c5c59ad0",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "app_id",
+									"value": "{{app_id}}",
+									"type": "text"
+								},
+								{
+									"key": "device_id",
+									"value": "{{device_id}}",
+									"type": "text"
+								},
+								{
+									"key": "ci_id",
+									"value": "{{ci_id}}",
+									"type": "text"
+								},
+								{
+									"key": "environment",
+									"value": "gsdfhjghcvbnm",
+									"type": "text"
+								},
+								{
+									"key": "started_at",
+									"value": "ety",
+									"type": "text"
+								},
+								{
+									"key": "finished_at",
+									"value": "fgh",
+									"type": "text"
+								},
+								{
+									"key": "status",
+									"value": "dfsg",
+									"type": "text"
+								}
+							],
+							"options": {
+								"urlencoded": {}
+							}
+						},
+						"url": "{{base_url}}/jobs/add"
+					},
+					"response": []
+				},
+				{
+					"name": "get",
+					"_postman_id": "2e29bf16-f094-4eeb-8120-4ff657575e1c",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "id",
+									"value": "{{job_id}}",
+									"type": "text"
+								}
+							],
+							"options": {
+								"urlencoded": {}
+							}
+						},
+						"url": "{{base_url}}/jobs/get"
+					},
+					"response": []
+				},
+				{
+					"name": "deleteById",
+					"_postman_id": "52737761-a97f-425b-add7-c907f93a6bed",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "id",
+									"value": "{{job_id}}",
+									"type": "text"
+								}
+							],
+							"options": {
+								"urlencoded": {}
+							}
+						},
+						"url": "{{base_url}}/jobs/deleteById"
+					},
+					"response": []
+				}
+			],
+			"_postman_id": "b1ee7d99-4f7d-43ef-a2ce-8fa764fb91a4"
+		},
+		{
+			"name": "runs",
+			"item": [
+				{
+					"name": "add",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "6cacec1a-e924-43aa-9367-ad95579bdb7f",
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"postman.setGlobalVariable(\"runs_id\",jsonData.data.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"_postman_id": "ee30a02f-0c4d-4bd9-889d-199e5f6f592a",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "job_id",
+									"value": "{{job_id}}",
+									"type": "text"
+								},
+								{
+									"key": "created_at",
+									"value": "hhg",
+									"type": "text"
+								},
+								{
+									"key": "finished_at",
+									"value": "fsd",
+									"type": "text"
+								},
+								{
+									"key": "total",
+									"value": "fadg",
+									"type": "text"
+								},
+								{
+									"key": "status",
+									"value": "gfd",
+									"type": "text"
+								}
+							],
+							"options": {
+								"urlencoded": {}
+							}
+						},
+						"url": "{{base_url}}/runs/add"
+					},
+					"response": []
+				},
+				{
+					"name": "get",
+					"_postman_id": "2a29416d-5e15-4020-9af3-d7fd9fd284b8",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "id",
+									"value": "{{runs_id}}",
+									"type": "text"
+								}
+							],
+							"options": {
+								"urlencoded": {}
+							}
+						},
+						"url": "{{base_url}}/runs/get"
+					},
+					"response": []
+				},
+				{
+					"name": "deleteById",
+					"_postman_id": "4e5f053c-06f6-44c4-be3b-ccdf0da04ae4",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "id",
+									"value": "{{runs_id}}",
+									"type": "text"
+								}
+							],
+							"options": {
+								"urlencoded": {}
+							}
+						},
+						"url": "{{base_url}}/runs/deleteById"
+					},
+					"response": []
+				}
+			],
+			"_postman_id": "5626bd8b-da36-4e02-928a-df6a9571533b"
+		},
+		{
+			"name": "results",
+			"item": [
+				{
+					"name": "add",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "98c7369d-886a-45d2-b154-eef218b3d9e0",
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"postman.setGlobalVariable(\"result_id\",jsonData.data.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"_postman_id": "d8581a70-3983-4af5-8763-585de8b3b5bd",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "status",
+									"value": "success",
+									"type": "text"
+								},
+								{
+									"key": "run",
+									"value": "{{runs_id}}",
+									"type": "text"
+								},
+								{
+									"key": "error",
+									"value": "{{error_id}}",
+									"type": "text"
+								},
+								{
+									"key": "case",
+									"value": "{{cases_id}}",
+									"type": "text"
+								}
+							],
+							"options": {
+								"urlencoded": {}
+							}
+						},
+						"url": "{{base_url}}/results/add"
+					},
+					"response": []
+				},
+				{
+					"name": "get",
+					"_postman_id": "400666c4-f517-4982-8423-d94ae91cdd44",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "id",
+									"value": "{{result_id}}",
+									"type": "text"
+								}
+							],
+							"options": {
+								"urlencoded": {}
+							}
+						},
+						"url": "{{base_url}}/results/get"
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"_postman_id": "16ea3787-cbc4-4359-aa18-1ded121ce335",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "id",
+									"value": "{{result_id}}",
+									"type": "text"
+								},
+								{
+									"key": "type",
+									"value": "ghggjgjg",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "message",
+									"value": "hbjhhkjkjkk",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "backtrace",
+									"value": "false",
+									"type": "text",
+									"disabled": true
+								}
+							],
+							"options": {
+								"urlencoded": {}
+							}
+						},
+						"url": "{{base_url}}/results/update"
+					},
+					"response": []
+				},
+				{
+					"name": "DeletebyID",
+					"_postman_id": "13280b67-61db-4c37-b444-43171ea712ef",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "id",
+									"value": "{{result_id}}",
+									"type": "text"
+								}
+							],
+							"options": {
+								"urlencoded": {}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/results/deleteById",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"results",
+								"deleteById"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "64004be39aca4ec62b286227",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"_postman_id": "5f0c7db4-4dc5-48f4-9137-ac0bf6a650a5"
+		},
+		{
+			"name": "users",
+			"item": [
+				{
+					"name": "add",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "1043755d-2716-41cc-9f2e-2a3396fdcd93",
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"postman.setGlobalVariable(\"accessToken\",jsonData.user.accessToken);\r",
+									"postman.setGlobalVariable(\"users_id\",jsonData.user.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"_postman_id": "08c4add8-1133-4a56-9ebb-42583d1d4d2d",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "username",
+									"value": "rashika1234",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "Admin1@",
+									"type": "text"
+								},
+								{
+									"key": "clientId",
+									"value": "11",
+									"type": "text"
+								},
+								{
+									"key": "id",
+									"value": "64229c8b5bf688c3d022ed3c",
+									"type": "text",
+									"disabled": true
+								}
+							],
+							"options": {
+								"urlencoded": {}
+							}
+						},
+						"url": "{{base_url}}/users/add"
+					},
+					"response": []
+				},
+				{
+					"name": "list",
+					"_postman_id": "aa48b25c-83d5-472e-b794-f52769f4ca3a",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "id",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								}
+							],
+							"options": {
+								"urlencoded": {}
+							}
+						},
+						"url": "{{base_url}}/users/list"
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"_postman_id": "fb6f757d-37cc-4a55-a8ff-a084a5046ddb",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJhc2hpa2ExMjM0IiwiY3JlYXRlVGltZSI6IjIwMjMtMDMtMjggMTY6NTA6MjkiLCJpYXQiOjE2Nzk5ODk4OTl9.JBHJYvvaranZUY5G-rUlEK9nWZTpdDvfCw6dRTkvIr4",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "username",
+									"value": "rashika1234",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "Admin1@",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "rash@gmail.com",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "id",
+									"value": "{{users_id}}",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "rash@gmail.com",
+									"type": "text"
+								}
+							],
+							"options": {
+								"urlencoded": {}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/users/update",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users",
+								"update"
+							],
+							"query": [
+								{
+									"key": "username",
+									"value": "rashika1234",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "password",
+									"value": "Admin1@",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "email",
+									"value": "rash@gmail.com",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "id",
+									"value": "64229c8b5bf688c3d022ed3c",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"_postman_id": "5cdf33f2-6667-4d78-87c5-bcd396343c1f",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "userId",
+									"value": "{{users_id}}",
+									"type": "text"
+								}
+							],
+							"options": {
+								"urlencoded": {}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/users/delete",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users",
+								"delete"
+							],
+							"query": [
+								{
+									"key": "userid",
+									"value": "64229c8b5bf688c3d022ed3c",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"_postman_id": "50ad3dab-61c0-4780-824c-91a186ed6aa5"
+		}
+	]
+}

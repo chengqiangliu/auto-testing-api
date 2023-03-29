@@ -9,12 +9,12 @@ const formattedDate = moment(date).format("YYYY-MM-DD HH:mm:ss");
 
 //user schema
 const tagsSchema = new mongoose.Schema({
-  tagsname: {type: String, required: true}, 
-  deleteFlag:{type:Number ,default:0,required:true},
+  tags_name: {type: String, required: true}, 
+  delete_flag:{type:Number ,default:0,required:true},
   create_user:{type:String,required:true},
   update_user:{type:String}
 
-},{
+},{versionKey: false,
   timestamps:
   {createdAt:"create_time",updatedAt:"update_time"}})
 
