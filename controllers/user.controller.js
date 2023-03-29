@@ -15,6 +15,7 @@ const { access } = require("fs");
 const { verifyRefreshToken } = require('../auth');
 const aut = require('../auth')
 const { secret } = require("../config");
+const errorStatements = require('../lib/errorStatements');
 
 const moment = require("moment");
 const date = new Date();
@@ -80,8 +81,8 @@ const userLogin = async (req, res, next) => {
         }
        
     } catch (err) {
-        logger.error(`login failed, system error。${err}`);
-        return res.status(500).json({success: false, errors: {errormessage:'login failed, system error',errorcode:'500'}});
+        logger.info(`add results failed, all required input data doesn't exist`);
+        return res.status(500).json({success: false, error: {message: 'add results failed, all required input data doesnt exist',code:'500'}});
     }
 };
 
@@ -116,8 +117,8 @@ const userAdd = async (req, res, next) => {
         }
         
     } catch (err) {
-        logger.error(`add user failed, system error。${err}`);
-        return res.status(500).json({success: false, errors: {errormessage:`add user failed.${err}`,errorcode:'500'}});
+        logger.info(`add results failed, all required input data doesn't exist`);
+        return res.status(500).json({success: false, error: {message: 'add results failed, all required input data doesnt exist',code:'500'}});
     }
 };
 
@@ -150,8 +151,8 @@ const userUpdate = async (req, res, next) => {
         return res.status(200).json({success: true, data:dict});
     
     } catch (err) {
-        logger.error(`update user failed, system error。${err}`);
-        return res.status(401).json({success: false, errors: {errormessage:`update user failed,${err}`,errorcode:'401'}});
+        logger.info(`add results failed, all required input data doesn't exist`);
+        return res.status(500).json({success: false, error: {message: 'add results failed, all required input data doesnt exist',code:'500'}});
     }
 };
 
@@ -178,8 +179,8 @@ const userDelete = async (req, res, next) => {
         logger.info(`delete user successful, ${users.username}`);
         return res.status(200).json({success: true});
     } catch (err) {
-        logger.error(`delete user failed, system error。${err}`);
-        return res.status(500).json({success: false, errors: "no user to delete!"});
+        logger.info(`add results failed, all required input data doesn't exist`);
+        return res.status(500).json({success: false, error: {message: 'add results failed, all required input data doesnt exist',code:'500'}});
     }
 };
 
@@ -226,8 +227,8 @@ const userList = async (req, res, next) => {
         logger.info(`get user list successful.`);
         return res.status(200).json({success: true, data: Object.values(dict)});
     } catch (err) {
-        logger.error(`get user list failed, system error。${err}`);
-        return res.status(500).json({success: false, errors: ['Get user list exception, please try again!']});
+        logger.info(`add results failed, all required input data doesn't exist`);
+        return res.status(500).json({success: false, error: {message: 'add results failed, all required input data doesnt exist',code:'500'}});
     }
 };
 
@@ -254,8 +255,8 @@ const userGetAccessToken = async (req, res, next) => {
         }
         
     } catch (err) {
-        logger.error(JSON.stringify(errorStatements.CatchBlockErr)+`${err}`);
-         return res.status(500).json({success: false, error: [{message : (errorStatements.CatchBlockErr.split("|")[1]), code: 500}]});
+        logger.info(`add results failed, all required input data doesn't exist`);
+        return res.status(500).json({success: false, error: {message: 'add results failed, all required input data doesnt exist',code:'500'}});
     }
 };
 
