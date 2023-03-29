@@ -81,8 +81,8 @@ const userLogin = async (req, res, next) => {
         }
        
     } catch (err) {
-        logger.info(`add results failed, all required input data doesn't exist`);
-        return res.status(500).json({success: false, error: {message: 'add results failed, all required input data doesnt exist',code:'500'}});
+        logger.error(JSON.stringify(errorStatements.CatchBlockErr)+`${err}`);
+        return res.status(500).json({success: false, error: [{message : (errorStatements.CatchBlockErr.split("|")[1]), code: 500}]});
     }
 };
 
@@ -117,8 +117,8 @@ const userAdd = async (req, res, next) => {
         }
         
     } catch (err) {
-        logger.info(`add results failed, all required input data doesn't exist`);
-        return res.status(500).json({success: false, error: {message: 'add results failed, all required input data doesnt exist',code:'500'}});
+        logger.error(JSON.stringify(errorStatements.CatchBlockErr)+`${err}`);
+        return res.status(500).json({success: false, error: [{message : (errorStatements.CatchBlockErr.split("|")[1]), code: 500}]});
     }
 };
 
@@ -151,8 +151,8 @@ const userUpdate = async (req, res, next) => {
         return res.status(200).json({success: true, data:dict});
     
     } catch (err) {
-        logger.info(`add results failed, all required input data doesn't exist`);
-        return res.status(500).json({success: false, error: {message: 'add results failed, all required input data doesnt exist',code:'500'}});
+        logger.error(JSON.stringify(errorStatements.CatchBlockErr)+`${err}`);
+        return res.status(500).json({success: false, error: [{message : (errorStatements.CatchBlockErr.split("|")[1]), code: 500}]});
     }
 };
 
@@ -179,8 +179,8 @@ const userDelete = async (req, res, next) => {
         logger.info(`delete user successful, ${users.username}`);
         return res.status(200).json({success: true});
     } catch (err) {
-        logger.info(`add results failed, all required input data doesn't exist`);
-        return res.status(500).json({success: false, error: {message: 'add results failed, all required input data doesnt exist',code:'500'}});
+        logger.error(JSON.stringify(errorStatements.CatchBlockErr)+`${err}`);
+        return res.status(500).json({success: false, error: [{message : (errorStatements.CatchBlockErr.split("|")[1]), code: 500}]});
     }
 };
 
@@ -227,8 +227,8 @@ const userList = async (req, res, next) => {
         logger.info(`get user list successful.`);
         return res.status(200).json({success: true, data: Object.values(dict)});
     } catch (err) {
-        logger.info(`add results failed, all required input data doesn't exist`);
-        return res.status(500).json({success: false, error: {message: 'add results failed, all required input data doesnt exist',code:'500'}});
+       logger.error(JSON.stringify(errorStatements.CatchBlockErr)+`${err}`);
+        return res.status(500).json({success: false, error: [{message : (errorStatements.CatchBlockErr.split("|")[1]), code: 500}]});
     }
 };
 
@@ -255,8 +255,8 @@ const userGetAccessToken = async (req, res, next) => {
         }
         
     } catch (err) {
-        logger.info(`add results failed, all required input data doesn't exist`);
-        return res.status(500).json({success: false, error: {message: 'add results failed, all required input data doesnt exist',code:'500'}});
+        logger.error(JSON.stringify(errorStatements.CatchBlockErr)+`${err}`);
+        return res.status(500).json({success: false, error: [{message : (errorStatements.CatchBlockErr.split("|")[1]), code: 500}]});
     }
 };
 
