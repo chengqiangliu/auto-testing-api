@@ -18,14 +18,14 @@
 								"exec": [
 									"var jsonData = pm.response.json();\r",
 									"postman.setGlobalVariable(\"app_id\",jsonData.data.id);\r",
-									"postman.setGlobalVariable(\"appsname\",jsonData.data.appsname);\r",
+									"postman.setGlobalVariable(\"apps_name\",jsonData.data.apps_name);\r",
 									""
 								],
 								"type": "text/javascript"
 							}
 						}
 					],
-					"_postman_id": "9f17033e-41bf-4ebe-a694-d26a406d7ee0",
+					"id": "9f17033e-41bf-4ebe-a694-d26a406d7ee0",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -42,7 +42,7 @@
 							"mode": "urlencoded",
 							"urlencoded": [
 								{
-									"key": "appsname",
+									"key": "apps_name",
 									"value": "facebook",
 									"type": "text"
 								},
@@ -56,10 +56,7 @@
 									"value": "fgh",
 									"type": "text"
 								}
-							],
-							"options": {
-								"urlencoded": {}
-							}
+							]
 						},
 						"url": "{{base_url}}/apps/add"
 					},
@@ -67,7 +64,7 @@
 				},
 				{
 					"name": "get",
-					"_postman_id": "ea0a44b7-50a7-4c6a-953c-1db1d1e37c89",
+					"id": "ea0a44b7-50a7-4c6a-953c-1db1d1e37c89",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -88,10 +85,7 @@
 									"value": "{{app_id}}",
 									"type": "text"
 								}
-							],
-							"options": {
-								"urlencoded": {}
-							}
+							]
 						},
 						"url": "{{base_url}}/apps/get"
 					},
@@ -99,7 +93,7 @@
 				},
 				{
 					"name": "update",
-					"_postman_id": "ac00ab01-f965-4a28-9ea3-c2f70998d4e4",
+					"id": "ac00ab01-f965-4a28-9ea3-c2f70998d4e4",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -125,10 +119,7 @@
 									"value": "www.fgdh.com",
 									"type": "text"
 								}
-							],
-							"options": {
-								"urlencoded": {}
-							}
+							]
 						},
 						"url": "{{base_url}}/apps/update"
 					},
@@ -136,7 +127,7 @@
 				},
 				{
 					"name": "deleteByName",
-					"_postman_id": "7e14a4cb-804c-4e20-886b-c51854a4f27c",
+					"id": "7e14a4cb-804c-4e20-886b-c51854a4f27c",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -157,10 +148,7 @@
 									"value": "{{appsname}}",
 									"type": "text"
 								}
-							],
-							"options": {
-								"urlencoded": {}
-							}
+							]
 						},
 						"url": "{{base_url}}/apps/deleteByName"
 					},
@@ -168,7 +156,7 @@
 				},
 				{
 					"name": "deleteById",
-					"_postman_id": "ddcea86f-d0be-4688-81b1-9e33f66a5aff",
+					"id": "ddcea86f-d0be-4688-81b1-9e33f66a5aff",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -189,17 +177,14 @@
 									"value": "{{app_id}}",
 									"type": "text"
 								}
-							],
-							"options": {
-								"urlencoded": {}
-							}
+							]
 						},
 						"url": "{{base_url}}/apps/deleteById"
 					},
 					"response": []
 				}
 			],
-			"_postman_id": "cee82920-8da7-4499-b8fb-71259f9e065a"
+			"id": "cee82920-8da7-4499-b8fb-71259f9e065a"
 		},
 		{
 			"name": "tags",
@@ -219,7 +204,7 @@
 							}
 						}
 					],
-					"_postman_id": "841a0b57-9f9c-42f0-a601-c9fd281e8efd",
+					"id": "841a0b57-9f9c-42f0-a601-c9fd281e8efd",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -288,10 +273,7 @@
 									"value": "1234abcdef",
 									"type": "text"
 								}
-							],
-							"options": {
-								"urlencoded": {}
-							}
+							]
 						},
 						"url": {
 							"raw": "{{base_url}}/tag/add",
@@ -316,7 +298,7 @@
 				},
 				{
 					"name": "get",
-					"_postman_id": "d06d06ad-8fdd-499d-b941-ba8bb9e11452",
+					"id": "d06d06ad-8fdd-499d-b941-ba8bb9e11452",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -337,10 +319,7 @@
 									"value": "{{tag_id}}",
 									"type": "text"
 								}
-							],
-							"options": {
-								"urlencoded": {}
-							}
+							]
 						},
 						"url": {
 							"raw": "{{base_url}}/tag/get",
@@ -365,7 +344,7 @@
 				},
 				{
 					"name": "update",
-					"_postman_id": "9161d94b-9728-4383-b37f-ecc393690566",
+					"id": "9161d94b-9728-4383-b37f-ecc393690566",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -391,10 +370,7 @@
 									"value": "{{tag_id}}",
 									"type": "text"
 								}
-							],
-							"options": {
-								"urlencoded": {}
-							}
+							]
 						},
 						"url": "{{base_url}}/tag/update"
 					},
@@ -402,7 +378,7 @@
 				},
 				{
 					"name": "DeleteByID",
-					"_postman_id": "3709965c-0faa-4f12-ab59-9c1339fd6922",
+					"id": "3709965c-0faa-4f12-ab59-9c1339fd6922",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -429,10 +405,7 @@
 									"type": "text",
 									"disabled": true
 								}
-							],
-							"options": {
-								"urlencoded": {}
-							}
+							]
 						},
 						"url": {
 							"raw": "{{base_url}}/tag/deleteById",
@@ -457,7 +430,7 @@
 				},
 				{
 					"name": "DeleteByName",
-					"_postman_id": "3eef60f6-ed34-4b7d-9018-b90c70825fae",
+					"id": "3eef60f6-ed34-4b7d-9018-b90c70825fae",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -478,10 +451,7 @@
 									"value": "avcd1234",
 									"type": "text"
 								}
-							],
-							"options": {
-								"urlencoded": {}
-							}
+							]
 						},
 						"url": {
 							"raw": "{{base_url}}/tag/deleteByName",
@@ -505,7 +475,7 @@
 					"response": []
 				}
 			],
-			"_postman_id": "8e8ed26a-4399-4862-9ed8-e93f4d4b8de7"
+			"id": "8e8ed26a-4399-4862-9ed8-e93f4d4b8de7"
 		},
 		{
 			"name": "cases",
@@ -525,7 +495,7 @@
 							}
 						}
 					],
-					"_postman_id": "ccf4b1fd-f182-44eb-9fe6-7b6dae551223",
+					"id": "ccf4b1fd-f182-44eb-9fe6-7b6dae551223",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -587,10 +557,7 @@
 									"type": "text",
 									"disabled": true
 								}
-							],
-							"options": {
-								"urlencoded": {}
-							}
+							]
 						},
 						"url": {
 							"raw": "{{base_url}}/cases/add",
@@ -615,7 +582,7 @@
 				},
 				{
 					"name": "get",
-					"_postman_id": "70080902-c5c8-47ad-a14d-93a7ebd7cbdf",
+					"id": "70080902-c5c8-47ad-a14d-93a7ebd7cbdf",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -636,10 +603,7 @@
 									"value": "{{cases_id}}",
 									"type": "text"
 								}
-							],
-							"options": {
-								"urlencoded": {}
-							}
+							]
 						},
 						"url": {
 							"raw": "{{base_url}}/cases/get",
@@ -664,7 +628,7 @@
 				},
 				{
 					"name": "update",
-					"_postman_id": "5f15e8db-77c7-40b0-95b3-7dcdf1382af4",
+					"id": "5f15e8db-77c7-40b0-95b3-7dcdf1382af4",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -696,10 +660,7 @@
 									"value": "murder",
 									"type": "text"
 								}
-							],
-							"options": {
-								"urlencoded": {}
-							}
+							]
 						},
 						"url": "{{base_url}}/cases/update"
 					},
@@ -707,7 +668,7 @@
 				},
 				{
 					"name": "DeleteByID",
-					"_postman_id": "50240028-0a6c-4312-8672-f334631922b9",
+					"id": "50240028-0a6c-4312-8672-f334631922b9",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -728,10 +689,7 @@
 									"value": "{{cases_id}}",
 									"type": "text"
 								}
-							],
-							"options": {
-								"urlencoded": {}
-							}
+							]
 						},
 						"url": "{{base_url}}/cases/deleteById"
 					},
@@ -739,7 +697,7 @@
 				},
 				{
 					"name": "DeleteByName",
-					"_postman_id": "a114d8d7-cbec-4c0e-a36f-07e5fba65c4c",
+					"id": "a114d8d7-cbec-4c0e-a36f-07e5fba65c4c",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -760,10 +718,7 @@
 									"value": "barbie",
 									"type": "text"
 								}
-							],
-							"options": {
-								"urlencoded": {}
-							}
+							]
 						},
 						"url": {
 							"raw": "{{base_url}}/cases/deleteByName",
@@ -787,7 +742,7 @@
 					"response": []
 				}
 			],
-			"_postman_id": "5532f21d-11d0-4c22-9e7f-f0fd83aeec20"
+			"id": "5532f21d-11d0-4c22-9e7f-f0fd83aeec20"
 		},
 		{
 			"name": "casetags",
@@ -807,7 +762,7 @@
 							}
 						}
 					],
-					"_postman_id": "59136efa-9f83-41d6-b146-a0a2f8647308",
+					"id": "59136efa-9f83-41d6-b146-a0a2f8647308",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -839,10 +794,7 @@
 									"type": "text",
 									"disabled": true
 								}
-							],
-							"options": {
-								"urlencoded": {}
-							}
+							]
 						},
 						"url": "{{base_url}}/casetags/add"
 					},
@@ -850,7 +802,7 @@
 				},
 				{
 					"name": "get",
-					"_postman_id": "1c40ccee-af76-4c29-a355-87a8535d83cd",
+					"id": "1c40ccee-af76-4c29-a355-87a8535d83cd",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -871,10 +823,7 @@
 									"value": "{{casetag_id}}",
 									"type": "text"
 								}
-							],
-							"options": {
-								"urlencoded": {}
-							}
+							]
 						},
 						"url": "{{base_url}}/casetags/get"
 					},
@@ -882,7 +831,7 @@
 				},
 				{
 					"name": "update",
-					"_postman_id": "d6ad9aa9-c566-4b48-8b2d-d9bc8a72ff2e",
+					"id": "d6ad9aa9-c566-4b48-8b2d-d9bc8a72ff2e",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -920,10 +869,7 @@
 									"type": "text",
 									"disabled": true
 								}
-							],
-							"options": {
-								"urlencoded": {}
-							}
+							]
 						},
 						"url": "{{base_url}}/casetags/update"
 					},
@@ -931,7 +877,7 @@
 				},
 				{
 					"name": "DeletebyID",
-					"_postman_id": "016dfd0b-4fc4-4831-8a61-803ac37aba49",
+					"id": "016dfd0b-4fc4-4831-8a61-803ac37aba49",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -952,10 +898,7 @@
 									"value": "{{casetag_id}}",
 									"type": "text"
 								}
-							],
-							"options": {
-								"urlencoded": {}
-							}
+							]
 						},
 						"url": {
 							"raw": "{{base_url}}/casetags/deleteById",
@@ -979,7 +922,7 @@
 					"response": []
 				}
 			],
-			"_postman_id": "73100040-7f37-4fed-bd8d-aad5c85d9204"
+			"id": "73100040-7f37-4fed-bd8d-aad5c85d9204"
 		},
 		{
 			"name": "device",
@@ -999,7 +942,7 @@
 							}
 						}
 					],
-					"_postman_id": "0c9141cb-f8cb-443f-91a7-c67d2bb10b58",
+					"id": "0c9141cb-f8cb-443f-91a7-c67d2bb10b58",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -1016,7 +959,7 @@
 							"mode": "urlencoded",
 							"urlencoded": [
 								{
-									"key": "deviceName",
+									"key": "device_name",
 									"value": "sgdhj",
 									"type": "text"
 								},
@@ -1030,10 +973,7 @@
 									"value": "rashi",
 									"type": "text"
 								}
-							],
-							"options": {
-								"urlencoded": {}
-							}
+							]
 						},
 						"url": "{{base_url}}/device/add"
 					},
@@ -1053,7 +993,7 @@
 							}
 						}
 					],
-					"_postman_id": "49f18d8a-b577-469f-96bf-b9a8fe999388",
+					"id": "49f18d8a-b577-469f-96bf-b9a8fe999388",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -1074,10 +1014,7 @@
 									"value": "{{device_id}}",
 									"type": "text"
 								}
-							],
-							"options": {
-								"urlencoded": {}
-							}
+							]
 						},
 						"url": "{{base_url}}/device/get"
 					},
@@ -1085,7 +1022,7 @@
 				},
 				{
 					"name": "deleteById",
-					"_postman_id": "4c9d0681-5921-41eb-95b3-34dcce7d12cf",
+					"id": "4c9d0681-5921-41eb-95b3-34dcce7d12cf",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -1106,17 +1043,14 @@
 									"value": "{{device_id}}",
 									"type": "text"
 								}
-							],
-							"options": {
-								"urlencoded": {}
-							}
+							]
 						},
 						"url": "{{base_url}}/device/deleteById"
 					},
 					"response": []
 				}
 			],
-			"_postman_id": "188033c2-9750-4070-adb6-702259f65b09"
+			"id": "188033c2-9750-4070-adb6-702259f65b09"
 		},
 		{
 			"name": "ci",
@@ -1136,7 +1070,7 @@
 							}
 						}
 					],
-					"_postman_id": "d5887a45-4210-4ce8-9f7d-aa5ac3d638d7",
+					"id": "d5887a45-4210-4ce8-9f7d-aa5ac3d638d7",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -1162,10 +1096,7 @@
 									"value": "rashi",
 									"type": "text"
 								}
-							],
-							"options": {
-								"urlencoded": {}
-							}
+							]
 						},
 						"url": "{{base_url}}/ci/add"
 					},
@@ -1173,7 +1104,7 @@
 				},
 				{
 					"name": "get",
-					"_postman_id": "28860578-da0e-4862-9492-be020d01ea1e",
+					"id": "28860578-da0e-4862-9492-be020d01ea1e",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -1194,10 +1125,7 @@
 									"value": "{{ci_id}}",
 									"type": "text"
 								}
-							],
-							"options": {
-								"urlencoded": {}
-							}
+							]
 						},
 						"url": "{{base_url}}/ci/get"
 					},
@@ -1218,7 +1146,7 @@
 							}
 						}
 					],
-					"_postman_id": "1a407d44-4851-4bdf-b767-3191332e20f4",
+					"id": "1a407d44-4851-4bdf-b767-3191332e20f4",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -1244,10 +1172,7 @@
 									"value": "{{ci_id}}",
 									"type": "text"
 								}
-							],
-							"options": {
-								"urlencoded": {}
-							}
+							]
 						},
 						"url": "{{base_url}}/ci/update"
 					},
@@ -1255,7 +1180,7 @@
 				},
 				{
 					"name": "deleteById",
-					"_postman_id": "07ddb1bf-6d49-417d-953b-121583910e52",
+					"id": "07ddb1bf-6d49-417d-953b-121583910e52",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -1276,17 +1201,14 @@
 									"value": "{{ci_id}}",
 									"type": "text"
 								}
-							],
-							"options": {
-								"urlencoded": {}
-							}
+							]
 						},
 						"url": "{{base_url}}/ci/deleteById"
 					},
 					"response": []
 				}
 			],
-			"_postman_id": "5728354c-9271-448a-b623-367e7ecd9d4c"
+			"id": "5728354c-9271-448a-b623-367e7ecd9d4c"
 		},
 		{
 			"name": "configuration",
@@ -1306,7 +1228,7 @@
 							}
 						}
 					],
-					"_postman_id": "c459507d-932a-4571-a412-829f0609dada",
+					"id": "c459507d-932a-4571-a412-829f0609dada",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -1332,10 +1254,7 @@
 									"value": "ewrtryt",
 									"type": "text"
 								}
-							],
-							"options": {
-								"urlencoded": {}
-							}
+							]
 						},
 						"url": "{{base_url}}/configuration/add"
 					},
@@ -1343,7 +1262,7 @@
 				},
 				{
 					"name": "get",
-					"_postman_id": "3b807e8f-9a29-4de5-92f0-2c2c0a3f4e25",
+					"id": "3b807e8f-9a29-4de5-92f0-2c2c0a3f4e25",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -1364,10 +1283,7 @@
 									"value": "{{configuration_id}}",
 									"type": "text"
 								}
-							],
-							"options": {
-								"urlencoded": {}
-							}
+							]
 						},
 						"url": "{{base_url}}/configuration/get"
 					},
@@ -1375,7 +1291,7 @@
 				},
 				{
 					"name": "update",
-					"_postman_id": "c466baf7-32d4-4472-b67e-4365deebfc89",
+					"id": "c466baf7-32d4-4472-b67e-4365deebfc89",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -1406,10 +1322,7 @@
 									"value": "{{configuration_id}}",
 									"type": "text"
 								}
-							],
-							"options": {
-								"urlencoded": {}
-							}
+							]
 						},
 						"url": "{{base_url}}/configuration/update"
 					},
@@ -1417,7 +1330,7 @@
 				},
 				{
 					"name": "deleteByKey",
-					"_postman_id": "9f597b18-efee-40ed-8a3e-d2cd5b0cab33",
+					"id": "9f597b18-efee-40ed-8a3e-d2cd5b0cab33",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -1438,10 +1351,7 @@
 									"value": "erytyj",
 									"type": "text"
 								}
-							],
-							"options": {
-								"urlencoded": {}
-							}
+							]
 						},
 						"url": "{{base_url}}/configuration/deleteByKey"
 					},
@@ -1449,7 +1359,7 @@
 				},
 				{
 					"name": "deleteById",
-					"_postman_id": "9fbdbeea-550c-40e9-98d9-19fbc98cd043",
+					"id": "9fbdbeea-550c-40e9-98d9-19fbc98cd043",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -1470,10 +1380,7 @@
 									"value": "{{configuration_id}}",
 									"type": "text"
 								}
-							],
-							"options": {
-								"urlencoded": {}
-							}
+							]
 						},
 						"url": {
 							"raw": "{{base_url}}/configuration/deleteById",
@@ -1497,7 +1404,7 @@
 					"response": []
 				}
 			],
-			"_postman_id": "f7729cf9-2e2c-4bdd-824e-ebc90b8cfa4a"
+			"id": "f7729cf9-2e2c-4bdd-824e-ebc90b8cfa4a"
 		},
 		{
 			"name": "errors",
@@ -1517,7 +1424,7 @@
 							}
 						}
 					],
-					"_postman_id": "93e72e4d-d8af-4b64-a07f-cce9e3db1ca0",
+					"id": "93e72e4d-d8af-4b64-a07f-cce9e3db1ca0",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -1549,10 +1456,7 @@
 									"type": "text",
 									"disabled": true
 								}
-							],
-							"options": {
-								"urlencoded": {}
-							}
+							]
 						},
 						"url": "{{base_url}}/errors/add"
 					},
@@ -1560,7 +1464,7 @@
 				},
 				{
 					"name": "get",
-					"_postman_id": "68b755d1-5f82-44be-a7c2-a43c95f7b805",
+					"id": "68b755d1-5f82-44be-a7c2-a43c95f7b805",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -1581,10 +1485,7 @@
 									"value": "{{error_id}}",
 									"type": "text"
 								}
-							],
-							"options": {
-								"urlencoded": {}
-							}
+							]
 						},
 						"url": "{{base_url}}/errors/get"
 					},
@@ -1604,7 +1505,7 @@
 							}
 						}
 					],
-					"_postman_id": "9774374a-6641-4552-9691-74ac3d18ce44",
+					"id": "9774374a-6641-4552-9691-74ac3d18ce44",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -1642,10 +1543,7 @@
 									"value": "false",
 									"type": "text"
 								}
-							],
-							"options": {
-								"urlencoded": {}
-							}
+							]
 						},
 						"url": "{{base_url}}/errors/update"
 					},
@@ -1653,7 +1551,7 @@
 				},
 				{
 					"name": "DeletebyID",
-					"_postman_id": "54550ffe-2a69-4ee5-baa5-597be9c2df8e",
+					"id": "54550ffe-2a69-4ee5-baa5-597be9c2df8e",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -1674,10 +1572,7 @@
 									"value": "{{error_id}}",
 									"type": "text"
 								}
-							],
-							"options": {
-								"urlencoded": {}
-							}
+							]
 						},
 						"url": {
 							"raw": "{{base_url}}/errors/deleteById",
@@ -1701,7 +1596,7 @@
 					"response": []
 				}
 			],
-			"_postman_id": "817c09a0-1168-4e23-aeda-4cb94fddcddc"
+			"id": "817c09a0-1168-4e23-aeda-4cb94fddcddc"
 		},
 		{
 			"name": "jobs",
@@ -1721,7 +1616,7 @@
 							}
 						}
 					],
-					"_postman_id": "08c72170-de37-4922-a1aa-3126c5c59ad0",
+					"id": "08c72170-de37-4922-a1aa-3126c5c59ad0",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -1772,10 +1667,7 @@
 									"value": "dfsg",
 									"type": "text"
 								}
-							],
-							"options": {
-								"urlencoded": {}
-							}
+							]
 						},
 						"url": "{{base_url}}/jobs/add"
 					},
@@ -1783,7 +1675,7 @@
 				},
 				{
 					"name": "get",
-					"_postman_id": "2e29bf16-f094-4eeb-8120-4ff657575e1c",
+					"id": "2e29bf16-f094-4eeb-8120-4ff657575e1c",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -1804,10 +1696,7 @@
 									"value": "{{job_id}}",
 									"type": "text"
 								}
-							],
-							"options": {
-								"urlencoded": {}
-							}
+							]
 						},
 						"url": "{{base_url}}/jobs/get"
 					},
@@ -1815,7 +1704,7 @@
 				},
 				{
 					"name": "deleteById",
-					"_postman_id": "52737761-a97f-425b-add7-c907f93a6bed",
+					"id": "52737761-a97f-425b-add7-c907f93a6bed",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -1836,17 +1725,14 @@
 									"value": "{{job_id}}",
 									"type": "text"
 								}
-							],
-							"options": {
-								"urlencoded": {}
-							}
+							]
 						},
 						"url": "{{base_url}}/jobs/deleteById"
 					},
 					"response": []
 				}
 			],
-			"_postman_id": "b1ee7d99-4f7d-43ef-a2ce-8fa764fb91a4"
+			"id": "b1ee7d99-4f7d-43ef-a2ce-8fa764fb91a4"
 		},
 		{
 			"name": "runs",
@@ -1866,7 +1752,7 @@
 							}
 						}
 					],
-					"_postman_id": "ee30a02f-0c4d-4bd9-889d-199e5f6f592a",
+					"id": "ee30a02f-0c4d-4bd9-889d-199e5f6f592a",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -1907,10 +1793,7 @@
 									"value": "gfd",
 									"type": "text"
 								}
-							],
-							"options": {
-								"urlencoded": {}
-							}
+							]
 						},
 						"url": "{{base_url}}/runs/add"
 					},
@@ -1918,7 +1801,7 @@
 				},
 				{
 					"name": "get",
-					"_postman_id": "2a29416d-5e15-4020-9af3-d7fd9fd284b8",
+					"id": "2a29416d-5e15-4020-9af3-d7fd9fd284b8",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -1939,10 +1822,7 @@
 									"value": "{{runs_id}}",
 									"type": "text"
 								}
-							],
-							"options": {
-								"urlencoded": {}
-							}
+							]
 						},
 						"url": "{{base_url}}/runs/get"
 					},
@@ -1950,7 +1830,7 @@
 				},
 				{
 					"name": "deleteById",
-					"_postman_id": "4e5f053c-06f6-44c4-be3b-ccdf0da04ae4",
+					"id": "4e5f053c-06f6-44c4-be3b-ccdf0da04ae4",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -1971,17 +1851,14 @@
 									"value": "{{runs_id}}",
 									"type": "text"
 								}
-							],
-							"options": {
-								"urlencoded": {}
-							}
+							]
 						},
 						"url": "{{base_url}}/runs/deleteById"
 					},
 					"response": []
 				}
 			],
-			"_postman_id": "5626bd8b-da36-4e02-928a-df6a9571533b"
+			"id": "5626bd8b-da36-4e02-928a-df6a9571533b"
 		},
 		{
 			"name": "results",
@@ -2001,7 +1878,7 @@
 							}
 						}
 					],
-					"_postman_id": "d8581a70-3983-4af5-8763-585de8b3b5bd",
+					"id": "d8581a70-3983-4af5-8763-585de8b3b5bd",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -2037,10 +1914,7 @@
 									"value": "{{cases_id}}",
 									"type": "text"
 								}
-							],
-							"options": {
-								"urlencoded": {}
-							}
+							]
 						},
 						"url": "{{base_url}}/results/add"
 					},
@@ -2048,7 +1922,7 @@
 				},
 				{
 					"name": "get",
-					"_postman_id": "400666c4-f517-4982-8423-d94ae91cdd44",
+					"id": "400666c4-f517-4982-8423-d94ae91cdd44",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -2069,10 +1943,7 @@
 									"value": "{{result_id}}",
 									"type": "text"
 								}
-							],
-							"options": {
-								"urlencoded": {}
-							}
+							]
 						},
 						"url": "{{base_url}}/results/get"
 					},
@@ -2080,7 +1951,7 @@
 				},
 				{
 					"name": "update",
-					"_postman_id": "16ea3787-cbc4-4359-aa18-1ded121ce335",
+					"id": "16ea3787-cbc4-4359-aa18-1ded121ce335",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -2119,10 +1990,7 @@
 									"type": "text",
 									"disabled": true
 								}
-							],
-							"options": {
-								"urlencoded": {}
-							}
+							]
 						},
 						"url": "{{base_url}}/results/update"
 					},
@@ -2130,7 +1998,7 @@
 				},
 				{
 					"name": "DeletebyID",
-					"_postman_id": "13280b67-61db-4c37-b444-43171ea712ef",
+					"id": "13280b67-61db-4c37-b444-43171ea712ef",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -2151,10 +2019,7 @@
 									"value": "{{result_id}}",
 									"type": "text"
 								}
-							],
-							"options": {
-								"urlencoded": {}
-							}
+							]
 						},
 						"url": {
 							"raw": "{{base_url}}/results/deleteById",
@@ -2178,7 +2043,7 @@
 					"response": []
 				}
 			],
-			"_postman_id": "5f0c7db4-4dc5-48f4-9137-ac0bf6a650a5"
+			"id": "5f0c7db4-4dc5-48f4-9137-ac0bf6a650a5"
 		},
 		{
 			"name": "users",
@@ -2199,7 +2064,7 @@
 							}
 						}
 					],
-					"_postman_id": "08c4add8-1133-4a56-9ebb-42583d1d4d2d",
+					"id": "08c4add8-1133-4a56-9ebb-42583d1d4d2d",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -2230,10 +2095,7 @@
 									"type": "text",
 									"disabled": true
 								}
-							],
-							"options": {
-								"urlencoded": {}
-							}
+							]
 						},
 						"url": "{{base_url}}/users/add"
 					},
@@ -2241,7 +2103,7 @@
 				},
 				{
 					"name": "list",
-					"_postman_id": "aa48b25c-83d5-472e-b794-f52769f4ca3a",
+					"id": "aa48b25c-83d5-472e-b794-f52769f4ca3a",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -2263,10 +2125,7 @@
 									"type": "text",
 									"disabled": true
 								}
-							],
-							"options": {
-								"urlencoded": {}
-							}
+							]
 						},
 						"url": "{{base_url}}/users/list"
 					},
@@ -2274,7 +2133,7 @@
 				},
 				{
 					"name": "update",
-					"_postman_id": "fb6f757d-37cc-4a55-a8ff-a084a5046ddb",
+					"id": "fb6f757d-37cc-4a55-a8ff-a084a5046ddb",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -2316,10 +2175,7 @@
 									"value": "rash@gmail.com",
 									"type": "text"
 								}
-							],
-							"options": {
-								"urlencoded": {}
-							}
+							]
 						},
 						"url": {
 							"raw": "{{base_url}}/users/update",
@@ -2362,7 +2218,7 @@
 				},
 				{
 					"name": "delete",
-					"_postman_id": "5cdf33f2-6667-4d78-87c5-bcd396343c1f",
+					"id": "5cdf33f2-6667-4d78-87c5-bcd396343c1f",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -2383,10 +2239,7 @@
 									"value": "{{users_id}}",
 									"type": "text"
 								}
-							],
-							"options": {
-								"urlencoded": {}
-							}
+							]
 						},
 						"url": {
 							"raw": "{{base_url}}/users/delete",
@@ -2410,7 +2263,7 @@
 					"response": []
 				}
 			],
-			"_postman_id": "50ad3dab-61c0-4780-824c-91a186ed6aa5"
+			"id": "50ad3dab-61c0-4780-824c-91a186ed6aa5"
 		}
 	]
 }

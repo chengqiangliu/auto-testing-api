@@ -160,9 +160,13 @@ const casetagsGetInfo = async (req, res, next) => {
         }
 
         const {id} = req.body;
-        const casetags = await CasetagsModel.findOne({_id:id});
+
+        const casetags = await CasetagsModel.findOne({id});
+        const cases = await CasesModel.findOne({_id:casetags.case_id})
+        const tags = await TagsModel.findOne({_id:casetags.tag_id})
+
         if(casetags){
-            return res.status(200).json({success:true, data: casetags});
+            return res.status(200).json({success:true, data:{id:casetags._id,case:cases,tag:tags}});
         }
         else{
             return res.status(404).json({success:false,error:[{msg:id+'does not exist',code:"404"}]});
