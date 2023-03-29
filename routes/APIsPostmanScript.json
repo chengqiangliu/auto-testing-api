@@ -959,7 +959,7 @@
 							"mode": "urlencoded",
 							"urlencoded": [
 								{
-									"key": "deviceName",
+									"key": "device_name",
 									"value": "sgdhj",
 									"type": "text"
 								},
