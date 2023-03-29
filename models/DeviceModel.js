@@ -10,17 +10,13 @@ const formattedDate = moment(date).format(Constants.DATE_TIME_FORMAT);
 
 //device schema
 const deviceSchema = new mongoose.Schema({
-    deviceName: {type: String, required: true}, 
+    device_name: {type: String, required: true}, 
     model : {type: String, required: true},
-    type: String,
-    create_time: {type: String, default: formattedDate},
-    update_time: {type: String, default: formattedDate},
-    deleteFlag:{type:Number ,default:0,required:true},
+    delete_flag:{type:Number ,default:0,required:true},
     create_user: {type: String, required: true},
-    platform: String,
     create_user:{type:String},
     update_user:{type:String}
-},{versionKey: false},{
+},{versionKey: false,
     timestamps:
     {createdAt:"create_time",updatedAt:"update_time"}})
 
