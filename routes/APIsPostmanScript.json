@@ -447,8 +447,8 @@
 							"mode": "urlencoded",
 							"urlencoded": [
 								{
-									"key": "tagsname",
-									"value": "avcd1234",
+									"key": "tags_name",
+									"value": "1234abcdef",
 									"type": "text"
 								}
 							]
