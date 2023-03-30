@@ -131,7 +131,7 @@ const resultsDeleteById = async (req, res, next) => {
             return res.status(validateResult.status).json({success: false, errors: validateResult.errors});
         }
         const {id} = req.body;
-        const results = await ResultsModel.findOne({id});
+        const results = await ResultsModel.findOne({_id:id});
         if(results){
             await ResultsModel.deleteOne({_id: id});
             logger.info(`delete results successful, ${id}`);
