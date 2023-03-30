@@ -2054,11 +2054,11 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "1043755d-2716-41cc-9f2e-2a3396fdcd93",
+								"id": "826ce0b6-3e54-47e7-8eb3-e51e0e6d487d",
 								"exec": [
 									"var jsonData = pm.response.json();\r",
-									"postman.setGlobalVariable(\"accessToken\",jsonData.user.accessToken);\r",
-									"postman.setGlobalVariable(\"users_id\",jsonData.user.id);"
+									"postman.setGlobalVariable(\"accessToken\",jsonData.data.accessToken);\r",
+									"postman.setGlobalVariable(\"users_id\",jsonData.data.id);"
 								],
 								"type": "text/javascript"
 							}
@@ -2076,7 +2076,7 @@
 							"urlencoded": [
 								{
 									"key": "username",
-									"value": "rashika1234",
+									"value": "rashika2222",
 									"type": "text"
 								},
 								{
@@ -2097,7 +2097,7 @@
 								}
 							]
 						},
-						"url": "{{base_url}}/users/add"
+						"url": "{{base_url}}/user/add"
 					},
 					"response": []
 				},
