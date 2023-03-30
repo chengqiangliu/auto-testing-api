@@ -126,7 +126,7 @@ const tagsDelete = async (req, res, next) => {
 // tags delete by ID
 const tagsDeleteById = async (req, res, next) => {
     logger.addContext(Constants.FILE_NAME, path.basename(__filename));
-    logger.info('The tags delete by tags_name controller is started');
+    logger.info('The tags delete by tags id controller is started');
     try {
         // validation
         const validateResult = validate(req);
@@ -134,14 +134,15 @@ const tagsDeleteById = async (req, res, next) => {
             return res.status(validateResult.status).json({success: false, errors: validateResult.errors});
         }
         const {id} = req.body;
-        const tags = await TagsModel.findOne({id});
+        const tags = await TagsModel.findOne({_id:id});
+        logger.info(tags)
         if(tags){
-            await TagsModel.deleteOne({id: id});
+            await TagsModel.deleteOne({_id: id});
             logger.info(`delete tags successful, ${id}`);
             return res.status(200).json({success: true, message:'successfully deleted'});
         }
         else{
-            return res.status(404).json({success: false, error:[ {msg:'tagname does not exist', code: "404"}] });
+            return res.status(404).json({success: false, error:[ {msg:'tagid does not exist', code: "404"}] });
         }
     } catch (err) {
          logger.error(JSON.stringify(errorStatements.CatchBlockErr)+`${err}`);
@@ -153,7 +154,7 @@ const tagsDeleteById = async (req, res, next) => {
 
 const tagsGet = async (req, res, next) => {
     logger.addContext(Constants.FILE_NAME, path.basename(__filename));
-    logger.info('The apps info controller is started');
+    logger.info('The tags info controller is started');
     try {
         //validation
         const validateResult = validate(req);
