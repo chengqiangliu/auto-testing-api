@@ -40,7 +40,7 @@ const userLogin = async (req, res, next) => {
         let {username, password} = req.body;
        
         //if username exists fetch the user information, if it doesn't exist and given username is admin, create a user named admin or else return an error
-        let user = await UserModel.findOne({username, password: md5(password)});
+        let user = await UserModel.findOne({username:username, password: md5(password)});
         if (!user && username === 'admin') {
             password = 'Admin1@'
             await UserModel.create({username: 'admin', password: md5(password), clientId: '9999'});
@@ -103,7 +103,7 @@ const userAdd = async (req, res, next) => {
         // if username already exists, return error or else create a new user
         
         const {username, password} = req.body
-        const user = await UserModel.findOne({username});
+        const user = await UserModel.findOne({username:username});
         if (user) {
             logger.warn(`the username already exists, ${user.username}`);
             return res.status(400).json({success: false, errors: {errormessage:'user already exists',errorcode:'400'}});
@@ -134,7 +134,7 @@ const userUpdate = async (req, res, next) => {
         }
     
         const user = req.body;
-            const oldUser = await UserModel.findOneAndUpdate({id: user.id}, user);
+            const oldUser = await UserModel.findOneAndUpdate({_id: user.id}, user);
         // after updating the user, we need to get the user object data without the password in it.
         var dict={};
         for(const i in Object.keys(user)){
@@ -168,10 +168,10 @@ const userDelete = async (req, res, next) => {
         }
 
         const {userId} = req.body;
-        const users = await UserModel.findOne({userId});
+        const users = await UserModel.findOne({_id:userId});
 
         if(users){
-            await UserModel.deleteOne({id: userId});
+            await UserModel.deleteOne({_id: userId});
             logger.info(`delete user successful`);
             return res.status(200).json({success: true, message:'successfully deleted'});
         }
@@ -261,6 +261,5 @@ const userGetAccessToken = async (req, res, next) => {
 };
 
 module.exports = { userLogin, userAdd, userUpdate, userDelete, userList,userGetAccessToken };
-
 
 
