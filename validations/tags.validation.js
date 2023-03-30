@@ -3,7 +3,7 @@ const { check, validationResult } = require("express-validator");
 
 exports.tagsAddValidator = 
     [
-        check("tagsname")
+        check("tags_name")
             .exists({checkFalsy: true})
             .withMessage(" Tagname is required")
             .isString()
@@ -45,7 +45,7 @@ exports.tagsUpdateValidator =
 
 exports.tagsDeleteValidator = 
      [
-       check("tagsname")
+       check("tags_name")
            .exists({checkFalsy: true})
            .withMessage("tag name is required"),
        (req, res, next) => {
