@@ -99,7 +99,7 @@ const errorsDeleteById = async (req, res, next) => {
             return res.status(validateResult.status).json({success: false, errors: validateResult.errors});
         }
         const {id} = req.body;
-        const errors = await ErrorsModel.findOne({id});
+        const errors = await ErrorsModel.findOne({_id:id});
         if(errors){
             await ErrorsModel.deleteOne({_id: id});
             logger.info(`delete errors successful, ${id}`);
