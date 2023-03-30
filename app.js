@@ -105,7 +105,7 @@ app.use('/api/results', resultsRouter);
 
 const swaggerUi = require('swagger-ui-express');
 const swaggerSpec = require('./swaggerOptions');
-app.use('/apidocs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 // const upload = multer({
 //   dest:"uploads/",
