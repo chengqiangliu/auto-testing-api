@@ -15,6 +15,7 @@ const { access } = require("fs");
 const { verifyRefreshToken } = require('../auth');
 const aut = require('../auth')
 const { secret } = require("../config");
+const errorStatements = require('../lib/errorStatements');
 
 const moment = require("moment");
 const date = new Date();
@@ -39,7 +40,7 @@ const userLogin = async (req, res, next) => {
         let {username, password} = req.body;
        
         //if username exists fetch the user information, if it doesn't exist and given username is admin, create a user named admin or else return an error
-        let user = await UserModel.findOne({username, password: md5(password)});
+        let user = await UserModel.findOne({username:username, password: md5(password)});
         if (!user && username === 'admin') {
             password = 'Admin1@'
             await UserModel.create({username: 'admin', password: md5(password), clientId: '9999'});
@@ -58,8 +59,8 @@ const userLogin = async (req, res, next) => {
                 const refreshToken = generateToken({userId: user.id, createTime: formattedDate}, 'RefreshToken');
             
                 await RefreshTokenModel.create({refreshToken, client: user.clientId, username: user.username});
-                if (user.role_id) {
-                    const role = await RoleModel.findOne({id: user.role_id});
+                if (user.roleid) {
+                    const role = await RoleModel.findOne({id: user.roleid});
                     logger.info(`login success, ${user.username}`);
                     return res.status(200).json({success: true, data: {username,accessToken, refreshToken}});
                 } else {
@@ -80,8 +81,8 @@ const userLogin = async (req, res, next) => {
         }
        
     } catch (err) {
-        logger.error(`login failed, system error。${err}`);
-        return res.status(500).json({success: false, errors: {errormessage:'login failed, system error',errorcode:'500'}});
+        logger.error(JSON.stringify(errorStatements.CatchBlockErr)+`${err}`);
+        return res.status(500).json({success: false, error: [{message : (errorStatements.CatchBlockErr.split("|")[1]), code: 500}]});
     }
 };
 
@@ -102,7 +103,7 @@ const userAdd = async (req, res, next) => {
         // if username already exists, return error or else create a new user
         
         const {username, password} = req.body
-        const user = await UserModel.findOne({username});
+        const user = await UserModel.findOne({username:username});
         if (user) {
             logger.warn(`the username already exists, ${user.username}`);
             return res.status(400).json({success: false, errors: {errormessage:'user already exists',errorcode:'400'}});
@@ -112,12 +113,12 @@ const userAdd = async (req, res, next) => {
             const user = await UserModel.findOne({username});
             //logger.info(user)
             logger.info(`add user successful, ${user.username}`);
-            return res.status(200).json({success: true, data: {username,accessToken}});
+            return res.status(200).json({success: true, data:{username:user.username,accessToken:user.accessToken,id:user._id}});
         }
         
     } catch (err) {
-        logger.error(`add user failed, system error。${err}`);
-        return res.status(500).json({success: false, errors: {errormessage:`add user failed.${err}`,errorcode:'500'}});
+        logger.error(JSON.stringify(errorStatements.CatchBlockErr)+`${err}`);
+        return res.status(500).json({success: false, error: [{message : (errorStatements.CatchBlockErr.split("|")[1]), code: 500}]});
     }
 };
 
@@ -133,12 +134,12 @@ const userUpdate = async (req, res, next) => {
         }
     
         const user = req.body;
-            const oldUser = await UserModel.findOneAndUpdate({id: user.id}, user);
+            const oldUser = await UserModel.findOneAndUpdate({_id: user.id}, user);
         // after updating the user, we need to get the user object data without the password in it.
         var dict={};
         for(const i in Object.keys(user)){
             var datum=Object.keys(user)[i];
-            if (datum!='password'){
+            if (datum!='password'&& datum!="delete_flag"){
                 dict[datum]=user[datum];}
             
         }
@@ -150,8 +151,8 @@ const userUpdate = async (req, res, next) => {
         return res.status(200).json({success: true, data:dict});
     
     } catch (err) {
-        logger.error(`update user failed, system error。${err}`);
-        return res.status(401).json({success: false, errors: {errormessage:`update user failed,${err}`,errorcode:'401'}});
+        logger.error(JSON.stringify(errorStatements.CatchBlockErr)+`${err}`);
+        return res.status(500).json({success: false, error: [{message : (errorStatements.CatchBlockErr.split("|")[1]), code: 500}]});
     }
 };
 
@@ -167,42 +168,23 @@ const userDelete = async (req, res, next) => {
         }
 
         const {userId} = req.body;
-        await UserModel.deleteOne({id: userId});
+        const users = await UserModel.findOne({_id:userId});
 
-        logger.info(`delete user successful, ${user.username}`);
+        if(users){
+            await UserModel.deleteOne({_id: userId});
+            logger.info(`delete user successful`);
+            return res.status(200).json({success: true, message:'successfully deleted'});
+        }
+
+        logger.info(`delete user successful, ${users.username}`);
         return res.status(200).json({success: true});
     } catch (err) {
-        logger.error(`delete user failed, system error。${err}`);
-        return res.status(500).json({success: false, errors: ['用户删除异常, 请重新尝试!']});
+        logger.error(JSON.stringify(errorStatements.CatchBlockErr)+`${err}`);
+        return res.status(500).json({success: false, error: [{message : (errorStatements.CatchBlockErr.split("|")[1]), code: 500}]});
     }
 };
 
-const userDeleteById = async (req, res, next) => {
-    logger.addContext(Constants.FILE_NAME, path.basename(__filename));
-    logger.info('The user delete by ClientId controller is started');
 
-    try {
-        // validation
-        const validateResult = validate(req);
-        if (!validateResult.success) {
-            return res.status(validateResult.status).json({success: false, errors: validateResult.errors});
-        }
-        const {clientId} = req.body;
-        const user = await UserModel.findOne({clientId});
-        //console.log(user);
-        if(user){
-            await UserModel.deleteOne({clientId:clientId});
-            logger.info(`delete user successful, ${clientId}`);
-            return res.status(200).json({success: true, message: clientId + ' successfully deleted'});
-        }
-        else{
-            return res.status(404).json({success: false, error:[ {msg: clientId + ' does not exist', errorcode: "404"}] });
-        }
-    } catch (err) {
-        logger.error(`delete user failed, system error。${err}`);
-         return res.status(500).json({success: false, errors:[{ msg: 'System error!', errorcode: '500'}]});
-    }
-};
 
 //list all the users that are present
 const userList = async (req, res, next) => {
@@ -231,7 +213,7 @@ const userList = async (req, res, next) => {
             if(dat=='_doc'){
                 for(const k in Object.keys(datum[dat])){
                 var dat1= Object.keys(datum[dat])[k];
-                if (dat1!='password' && dat1!="__v"){
+                if (dat1!='password' && dat1!="_id" && dat1!='delete_flag'){
                     dic[dat1]=datum[dat1];}
                 }
                 
@@ -245,11 +227,39 @@ const userList = async (req, res, next) => {
         logger.info(`get user list successful.`);
         return res.status(200).json({success: true, data: Object.values(dict)});
     } catch (err) {
-        logger.error(`get user list failed, system error。${err}`);
-        return res.status(500).json({success: false, errors: ['Get user list exception, please try again!']});
+       logger.error(JSON.stringify(errorStatements.CatchBlockErr)+`${err}`);
+        return res.status(500).json({success: false, error: [{message : (errorStatements.CatchBlockErr.split("|")[1]), code: 500}]});
     }
 };
 
-module.exports = { userLogin, userAdd, userUpdate, userDelete, userDeleteById, userList };
+//fetch accesstoken of user
+
+const userGetAccessToken = async (req, res, next) => {
+    logger.addContext(Constants.FILE_NAME, path.basename(__filename));
+    logger.info('The user access token  info controller is started');
+    try {
+        //validation
+        const validateResult = validate(req);
+        if (!validateResult.success) {
+            return res.status(validateResult.status).json({success: false, errors: validateResult.errors});
+        }
+
+        const {username,password} = req.body;
+        const user = await UserModel.findOne({username:username,password:md5(password)});
+        logger.info(user)
+        if(user){
+            return res.status(200).json({success:true, data:{accessToken:user.accessToken}});
+        }
+        else{
+            return res.status(404).json({success:false,errors:[{msg:username+' does not exist',code:"404"}]});
+        }
+        
+    } catch (err) {
+        logger.error(JSON.stringify(errorStatements.CatchBlockErr)+`${err}`);
+        return res.status(500).json({success: false, error: [{message : (errorStatements.CatchBlockErr.split("|")[1]), code: 500}]});
+    }
+};
+
+module.exports = { userLogin, userAdd, userUpdate, userDelete, userList,userGetAccessToken };
 
 

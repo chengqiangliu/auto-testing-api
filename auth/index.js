@@ -7,7 +7,7 @@ const UserModel = require("../models/UserModel");
 const generateToken = (payload, type) => {
     logger.info('The generateToken started');
     if (type === 'AccessToken') {
-        return jwt.sign(payload, secret, {expiresIn: "600s"});
+        return jwt.sign(payload, secret);
     } else {
         return jwt.sign(payload, secret, {expiresIn: "24h"});
     }

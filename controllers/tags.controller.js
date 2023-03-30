@@ -10,7 +10,8 @@ const logger = require('../lib/logger').API;
 const { generateToken } = require('../auth');
 const jwt = require("jsonwebtoken");
 const { secret } = require('../config');
-const {autho} = require('../auth/index')
+const {autho} = require('../auth/index');
+const errorStatements = require('../lib/errorStatements');
 
 const moment = require("moment");
 const date = new Date();
@@ -29,30 +30,28 @@ const tagsAdd = async (req, res, next) => {
         }
 
         // read request parameter data
-        let {tagsname} = req.body
+        let {tags_name} = req.body
         //accesstoken checking
         const username = autho(req)
         let user = await UserModel.findOne({username:username});
         let userid = user._id
 
-        // if tagsname already exists, return error or else create new tags
-        let tags = await TagsModel.findOne({tagsname});
+        // if tags_name already exists, return error or else create new tags
+        let tags = await TagsModel.findOne({tags_name});
         logger.info(tags);
         if (tags) {
             logger.warn(`Tag name already exists`);
             return res.status(400).json({success: false, errors: {message:'Tag already exists',errorcode:'400'}});
-        } else { 
-            
-            
+        } else {            
             await TagsModel.create({create_user:userid,update_user:userid,...req.body});
-            const tags = await TagsModel.findOne({tagsname});
+            const tags = await TagsModel.findOne({tags_name});
             logger.info(tags)
-            logger.info(`add tag successful, ${tagsname}`);
+            logger.info(`add tag successful, ${tags_name}`);
             return res.status(200).json({success: true, data:tags});
         }
     } catch (err) {
-        logger.error(`add tag failed, system error。${err}`);
-        return res.status(500).json({success: false, errors: {message: 'add tag failed, system error!',code:'500'}});
+        logger.error(JSON.stringify(errorStatements.CatchBlockErr)+`${err}`);
+        return res.status(500).json({success: false, error: [{message : (errorStatements.CatchBlockErr.split("|")[1]), code: 500}]});
     }
 };
 
@@ -76,7 +75,6 @@ const tagsUpdate = async (req, res, next) => {
         tags['update_user']=userid;
 
         const oldTags = await TagsModel.findOneAndUpdate({_id: tags.id}, tags);
-
         
         // after updating the tags, we need to get the tags object data.
         var dict={};
@@ -90,45 +88,45 @@ const tagsUpdate = async (req, res, next) => {
         //dict returns the tags information
         const data = Object.assign(oldTags, tags);
         
-        logger.info(`update tags successful, TagName: ${tags.tagsname}, tagId: ${tags.id}`);
-        return res.status(200).json({success: true, data:{tagsname:tags.tagsname}});
+        logger.info(`update tags successful, TagName: ${tags.tags_name}, tagId: ${tags.id}`);
+        return res.status(200).json({success: true, data:{tags_name:tags.tags_name}});
     } catch (err) {
-        logger.error(`update tags failed, system error。${err}`);
-        return res.status(500).json({success: false, errors: {message: 'update tags failed, system error!',code:'500'}});
+        logger.error(JSON.stringify(errorStatements.CatchBlockErr)+`${err}`);
+        return res.status(500).json({success: false, error: [{message : (errorStatements.CatchBlockErr.split("|")[1]), code: 500}]});
     }
 };
 
 // tags delete by name
 const tagsDelete = async (req, res, next) => {
     logger.addContext(Constants.FILE_NAME, path.basename(__filename));
-    logger.info('The tags delete by tagsname controller is started');
+    logger.info('The tags delete by tags_name controller is started');
     try {
         // validation
         const validateResult = validate(req);
         if (!validateResult.success) {
             return res.status(validateResult.status).json({success: false, errors: validateResult.errors});
         }
-        const {tagsname} = req.body;
-        logger.info(tagsname)
-        const tags = await TagsModel.findOne({tagsname});
+        const {tags_name} = req.body;
+        logger.info(tags_name)
+        const tags = await TagsModel.findOne({tags_name});
         if(tags){
-            await TagsModel.deleteOne({tagsname: tagsname});
-            logger.info(`delete tag successful, ${tagsname}`);
-            return res.status(200).json({success: true, message: tagsname + ' successfully deleted'});
+            await TagsModel.deleteOne({tags_name: tags_name});
+            logger.info(`delete tag successful, ${tags_name}`);
+            return res.status(200).json({success: true, message: tags_name + ' successfully deleted'});
         }
         else{
-            return res.status(404).json({success: false, error:[ {msg: tagsname + ' does not exist', code: "404"}] });
+            return res.status(404).json({success: false, error:[ {msg: tags_name + ' does not exist', code: "404"}] });
         }
     } catch (err) {
-        logger.error(`delete tags failed, system error。${err}`);
-        return res.status(500).json({success: false, errors:[{ msg: 'delete tags failed, system error!', code: '500'}]});
+        logger.error(JSON.stringify(errorStatements.CatchBlockErr)+`${err}`);
+        return res.status(500).json({success: false, error: [{message : (errorStatements.CatchBlockErr.split("|")[1]), code: 500}]});
     }
 };
 
 // tags delete by ID
 const tagsDeleteById = async (req, res, next) => {
     logger.addContext(Constants.FILE_NAME, path.basename(__filename));
-    logger.info('The tags delete by Tagsname controller is started');
+    logger.info('The tags delete by tags id controller is started');
     try {
         // validation
         const validateResult = validate(req);
@@ -136,18 +134,19 @@ const tagsDeleteById = async (req, res, next) => {
             return res.status(validateResult.status).json({success: false, errors: validateResult.errors});
         }
         const {id} = req.body;
-        const tags = await TagsModel.findOne({id});
+        const tags = await TagsModel.findOne({_id:id});
+        logger.info(tags)
         if(tags){
-            await TagsModel.deleteOne({id: id});
+            await TagsModel.deleteOne({_id: id});
             logger.info(`delete tags successful, ${id}`);
-            return res.status(200).json({success: true, message:' successfully deleted'});
+            return res.status(200).json({success: true, message:'successfully deleted'});
         }
         else{
-            return res.status(404).json({success: false, error:[ {msg:'tagname does not exist', code: "404"}] });
+            return res.status(404).json({success: false, error:[ {msg:'tagid does not exist', code: "404"}] });
         }
     } catch (err) {
-        logger.error(`delete tags failed, system error。${err}`);
-        return res.status(500).json({success: false, errors:[{ msg: 'delete tags failed, system error!', errorcode: '500'}]});
+         logger.error(JSON.stringify(errorStatements.CatchBlockErr)+`${err}`);
+        return res.status(500).json({success: false, error: [{message : (errorStatements.CatchBlockErr.split("|")[1]), code: 500}]});
     }
 };
 
@@ -155,16 +154,16 @@ const tagsDeleteById = async (req, res, next) => {
 
 const tagsGet = async (req, res, next) => {
     logger.addContext(Constants.FILE_NAME, path.basename(__filename));
-    logger.info('The apps info controller is started');
+    logger.info('The tags info controller is started');
     try {
-        validation
+        //validation
         const validateResult = validate(req);
         if (!validateResult.success) {
             return res.status(validateResult.status).json({success: false, errors: validateResult.errors});
         }
 
         const {id} = req.body;
-        const tags = await TagsModel.findOne({id});
+        const tags = await TagsModel.findOne({_id:id});
         if(tags){
             return res.status(200).json({success:true, data: tags});
         }
@@ -173,8 +172,8 @@ const tagsGet = async (req, res, next) => {
         }
         //getInformation(req, res,TagsModel);
     } catch (err) {
-        logger.error(`get tags info failed, system error。${err}`);
-        return res.status(500).json({success: false, errors: ['get tags info failed, system error!']});
+        logger.error(JSON.stringify(errorStatements.CatchBlockErr)+`${err}`);
+        return res.status(500).json({success: false, error: [{message : (errorStatements.CatchBlockErr.split("|")[1]), code: 500}]});
     }
 };
 

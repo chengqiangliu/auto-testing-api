@@ -9,7 +9,6 @@ const formattedDate = moment(date).format("YYYY-MM-DD HH:mm:ss");
 const casetagsSchema = new mongoose.Schema({
   tag_id: {type: String, required: true},
   case_id:{type:String,required:true},
-  create_time: {type: String, default: formattedDate},
   delete_flag:{type:Number ,default:0,required:true},
   create_user:{type:String},
   update_user:{type:String}

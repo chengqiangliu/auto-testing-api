@@ -68,11 +68,10 @@ app.post("/upload", upload.single("image"), (req, res) => {
 const cookieParser = require('cookie-parser');
 app.use(cookieParser());
 
-//import verify token middleware
 const verifyToken = require('./verifyTock')
-var unless = function(path, middleware) {
+var unless = function(middleware) {
   return function(req, res, next) {
-      if (path.includes(req.path)) {
+    if ((req.originalUrl.startsWith('/api/docs'))||(req.originalUrl.startsWith('/api/user/add'))||(req.originalUrl.startsWith('/api/user/getAccessToken'))) {
           return next();
       } else {
           return middleware(req, res, next);
@@ -80,17 +79,14 @@ var unless = function(path, middleware) {
   };
 };
 
-//error with swagger as of now, to solve the issue, the below line should be commented.
-//error is that when the swagger path is being given the unless function or the post request is not being processed
-//still researching about this issue
-app.use(unless('/api/users/add',verifyToken))
+app.use(unless(verifyToken));
 
 
 
 
 const userRouter = require('./routes/user.route');
 const { verify } = require('crypto');
-app.use('/api/users', userRouter);
+app.use('/api/user', userRouter);
 
 const tagsRouter = require('./routes/tags.route');
 app.use('/api/tag',tagsRouter);
@@ -109,7 +105,7 @@ app.use('/api/results', resultsRouter);
 
 const swaggerUi = require('swagger-ui-express');
 const swaggerSpec = require('./swaggerOptions');
-app.use('/apidocs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 // const upload = multer({
 //   dest:"uploads/",

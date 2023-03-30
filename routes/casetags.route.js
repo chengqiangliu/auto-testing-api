@@ -30,6 +30,11 @@ const {
  *              tag_id:
  *                 type: string
  *                 description: tag_id of the casetag
+ *   securitySchemes:
+ *      bearerAuth:            
+ *          type: http
+ *          scheme: bearer
+ *          bearerFormat: JWT 
  *
  */
 /**
@@ -69,6 +74,8 @@ const {
  *               type: array
  *               items:
  *                 $ref: '#/components/schemas/CaseTags'
+ *     security:
+ *        - bearerAuth: [] 
  */
 
 // casetags add 
@@ -98,6 +105,8 @@ router.post('/add', casetagsAddValidator, casetagsAdd);
  *               type: array
  *               items:
  *                 $ref: '#/components/schemas/CaseTags'
+ *     security:
+ *        - bearerAuth: [] 
  */
 
 // casetags update
@@ -127,6 +136,8 @@ router.post('/update', casetagsUpdateValidator, casetagsUpdate);
  *               type: array
  *               items:
  *                 $ref: '#/components/schemas/CaseTags'
+ *     security:
+ *        - bearerAuth: [] 
  */
 
 // casetags delete by case id
@@ -156,6 +167,8 @@ router.post('/deleteById', casetagsDeleteByIdValidator, casetagsDeleteById);
  *               type: array
  *               items:
  *                 $ref: '#/components/schemas/CaseTags'
+ *     security:
+ *        - bearerAuth: [] 
  */
 
 // case tags Information

@@ -28,7 +28,11 @@ const {
  *              tagsname:
  *                 type: string
  *                 description: tagname of the tag
- *
+ *   securitySchemes:
+ *      bearerAuth:            
+ *          type: http
+ *          scheme: bearer
+ *          bearerFormat: JWT 
  */
 /**
   * @swagger
@@ -61,6 +65,8 @@ const {
  *               type: array
  *               items:
  *                 $ref: '#/components/schemas/Tag'
+ *     security:
+ *        - bearerAuth: [] 
  */
 
 // tags add 
@@ -96,6 +102,8 @@ router.post('/add', tagsAddValidator, tagsAdd);
  *               type: array
  *               items:
  *                 $ref: '#/components/schemas/Tag'
+ *     security:
+ *        - bearerAuth: [] 
  */
 
 // tags update
@@ -125,6 +133,8 @@ router.post('/update', tagsUpdateValidator, tagsUpdate);
  *               type: array
  *               items:
  *                 $ref: '#/components/schemas/Tag'
+ *     security:
+ *        - bearerAuth: [] 
  */
 
 // tags delete by tagsname
@@ -154,6 +164,8 @@ router.post('/deleteByName', tagsDeleteValidator, tagsDelete);
  *               type: array
  *               items:
  *                 $ref: '#/components/schemas/Tag'
+ *     security:
+ *        - bearerAuth: [] 
  */
 
 // tags delete by tags id
@@ -183,9 +195,10 @@ router.post('/deleteById', tagsDeleteByIdValidator, tagsDeleteById);
  *               type: array
  *               items:
  *                 $ref: '#/components/schemas/Tag'
+ *     security:
+ *        - bearerAuth: [] 
  */
 // tags Information
 router.get('/get', tagsInfoValidator, tagsGet);
-
 
 module.exports = router;

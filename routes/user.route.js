@@ -6,7 +6,7 @@ const {
     userAddValidator,
     userUpdateValidator,
     userDeleteValidator,
-    userDeleteByIdValidator
+    
 } = require("../validations/user.validation");
 
 const {
@@ -14,7 +14,7 @@ const {
     userAdd,
     userUpdate,
     userDelete,
-    userDeleteById,
+    userGetAccessToken,
     userList
 } = require("../controllers/user.controller");
 const logger = require('../lib/logger').API;
@@ -32,7 +32,14 @@ const generateToken = (payload, type) => {
         return jwt.sign(payload, secret, {expiresIn: "24h"});
     }
 }
-
+// login
+// router.post('/login',  function(req, res, next) {
+//     let {username, password} = req.body;
+//     logger.info(`username: ${username}, password: ${password}`)
+//     //return res.status(200).json({success: true, data: {id: "test"}});
+//     const accessToken = generateToken({userId: 1, createTime: new Date()}, 'AccessToken');
+//     return res.status(200).json({success: true, data: {id: 1, username, accessToken}});
+// });
 
 /**
  * @swagger
@@ -63,18 +70,23 @@ const generateToken = (payload, type) => {
  *              clientID:
  *                 type: string
  *                 description: clientID related to the user
+ *   securitySchemes:
+ *      bearerAuth:            
+ *          type: http
+ *          scheme: bearer
+ *          bearerFormat: JWT    
  *
  */
 /**
   * @swagger
   * tags:
   *   name: User
-  *   description: Users managing API
+  *   description: user managing API
   */
 
 /**
  * @swagger
- * /api/users/login:
+ * /api/user/login:
  *   post:
  *     summary: Login the present user 
  *     tags: [User]
@@ -108,13 +120,16 @@ const generateToken = (payload, type) => {
  *               type: array
  *               items:
  *                 $ref: '#/components/schemas/User'
+ *
+ *     security:
+ *          - bearerAuth: []  
  */
 
 router.post('/login',userLoginValidator,userLogin);
 
 /**
  * @swagger
- * /api/users/add:
+ * /api/user/add:
  *   post:
  *     summary: add a new user 
  *     tags: [User]
@@ -158,12 +173,13 @@ router.post('/login',userLoginValidator,userLogin);
  *               type: array
  *               items:
  *                 $ref: '#/components/schemas/User'
+ * 
  */
 router.post('/add', userAddValidator, userAdd);
 
 /**
  * @swagger
- * /api/users/update:
+ * /api/user/update:
  *   post:
  *     summary: update a user 
  *     tags: [User]
@@ -200,19 +216,21 @@ router.post('/add', userAddValidator, userAdd);
  *         description: The email address associated with the user
  *     responses:
  *       200:
- *         description: The user is added successfully
+ *         description: The user is updated successfully
  *         content:
  *           application/json:
  *             schema:
  *               type: array
  *               items:
  *                 $ref: '#/components/schemas/User'
+ *     security:
+ *          - bearerAuth: []  
  */
 router.post('/update', userUpdateValidator, userUpdate);
 
 /**
  * @swagger
- * /api/users/delete:
+ * /api/user/delete:
  *   post:
  *     summary: delete a user
  *     tags: [User]
@@ -227,21 +245,43 @@ router.post('/update', userUpdateValidator, userUpdate);
  *         description: The user id of the user
  *     responses:
  *       200:
- *         description: The user is added successfully
+ *         description: The user is deleted successfully
  *         content:
  *           application/json:
  *             schema:
  *               type: array
  *               items:
  *                 $ref: '#/components/schemas/User'
+ *     security:
+ *          - bearerAuth: []  
  */
 router.post('/delete', userDeleteValidator, userDelete);
 
 /**
  * @swagger
- * /api/users/deleteById:
- *   post:
- *     summary: delete a user
+ * /api/user/list:
+ *   get:
+ *     summary: get the list of all user in the database
+ *     tags: [User]
+ *     responses:
+ *       200:
+ *         description: The user list is obtained successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/User' 
+ *     security:
+ *          - bearerAuth: []  
+ */
+router.get('/list', userList);
+
+/**
+ * @swagger
+ * /api/user/getAccessToken:
+ *   get:
+ *     summary: get the access token of a user 
  *     tags: [User]
  *     consumes:
  *       - application/x-www-form-urlencoded
@@ -254,7 +294,7 @@ router.post('/delete', userDeleteValidator, userDelete);
  *         description: The client id of the user
  *     responses:
  *       200:
- *         description: The user is added successfully
+ *         description: The user access token is obtained successfully
  *         content:
  *           application/json:
  *             schema:
@@ -262,25 +302,5 @@ router.post('/delete', userDeleteValidator, userDelete);
  *               items:
  *                 $ref: '#/components/schemas/User'
  */
-router.post('/deleteById', userDeleteByIdValidator, userDeleteById);
-
-/**
- * @swagger
- * /api/users/list:
- *   get:
- *     summary: get the list of all users in the database
- *     tags: [User]
- *     responses:
- *       200:
- *         description: The user is added successfully
- *         content:
- *           application/json:
- *             schema:
- *               type: array
- *               items:
- *                 $ref: '#/components/schemas/User'
- */
-
-router.get('/list', userList);
-
+router.get('/getAccessToken',userGetAccessToken);
 module.exports = router;

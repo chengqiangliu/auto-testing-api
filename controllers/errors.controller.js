@@ -4,6 +4,7 @@ const ErrorsModel = require("../models/ErrorsModel");
 const UserModel = require('../models/UserModel');
 const { validate } = require('./common.controller');
 const {autho} = require('../auth/index')
+const errorStatements = require('../lib/errorStatements');
 
 const Constants = require('../lib/constants');
 const logger = require('../lib/logger').API;
@@ -37,11 +38,11 @@ const errorsAdd = async (req, res, next) => {
             await ErrorsModel.create({create_user:userid,update_user:userid,...req.body});
             const errors = await ErrorsModel.findOne({type,message});
             logger.info(`add error successful, ${type,message}`);
-            return res.status(200).json({success: true, data:{type,message}});
+            return res.status(200).json({success: true, errors});
         }
     } catch (err) {
-        logger.error(`add error failed, system error。${err}`);
-        return res.status(500).json({success: false, errors: {errormessage: 'add error failed, system error!',errorcode:'500'}});
+         logger.error(JSON.stringify(errorStatements.CatchBlockErr)+`${err}`);
+        return res.status(500).json({success: false, error: [{message : (errorStatements.CatchBlockErr.split("|")[1]), code: 500}]});
     }
 };
 
@@ -58,13 +59,13 @@ const errorsUpdate = async (req, res, next) => {
 
         const errors = req.body;
 
-         //accesstoken checking
-         const username = autho(req)
-         let user = await UserModel.findOne({username:username});
-         let userid = user._id
-         errors['update_user']=userid;
-
-        const olderrors = await ErrorsModel.findOneAndUpdate({_id: errors._id}, errors);
+        //accesstoken checking
+        const username = autho(req)
+        let user = await UserModel.findOne({username:username});
+        let userid = user._id
+        errors['update_user']=userid;
+        logger.info(errors)
+        const olderrors = await ErrorsModel.findOneAndUpdate({_id: errors.id}, errors);
 
         // after updating the errors, we need to get the errors object data.
         var dict={};
@@ -76,12 +77,13 @@ const errorsUpdate = async (req, res, next) => {
         }
 
         //dict returns the errors information
-        const data = Object.assign(olderrors, errors);
-        logger.info(`update errors successful, errorName: ${errors.errorsname}, errorId: ${errors._id}`);
+        const data = await ErrorsModel.findById(errors.id)
+        logger.info(data)
+        logger.info(`update errors successful,errorId: ${errors.id}`);
         return res.status(200).json({success: true, data: data});
     } catch (err) {
-        logger.error(`update errors failed, system error。${err}`);
-        return res.status(500).json({success: false, errors: {errormessage: 'update errors failed, system error!',errorcode:'500'}});
+        logger.error(JSON.stringify(errorStatements.CatchBlockErr)+`${err}`);
+        return res.status(500).json({success: false, error: [{message : (errorStatements.CatchBlockErr.split("|")[1]), code: 500}]});
     }
 };
 
@@ -97,18 +99,18 @@ const errorsDeleteById = async (req, res, next) => {
             return res.status(validateResult.status).json({success: false, errors: validateResult.errors});
         }
         const {id} = req.body;
-        const errors = await ErrorsModel.findOne({id});
+        const errors = await ErrorsModel.findOne({_id:id});
         if(errors){
             await ErrorsModel.deleteOne({_id: id});
             logger.info(`delete errors successful, ${id}`);
-            return res.status(200).json({success: true, message:' successfully deleted'});
+            return res.status(200).json({success: true, message:'successfully deleted'});
         }
         else{
             return res.status(404).json({success: false, error:[ {msg:'error ID does not exist', errorcode: "404"}] });
         }
     } catch (err) {
-        logger.error(`delete errors failed, system error。${err}`);
-        return res.status(500).json({success: false, errors:[{ msg: 'delete errors failed, system error!', errorcode: '500'}]});
+        logger.error(JSON.stringify(errorStatements.CatchBlockErr)+`${err}`);
+        return res.status(500).json({success: false, error: [{message : (errorStatements.CatchBlockErr.split("|")[1]), code: 500}]});
     }
 };
 
@@ -124,7 +126,7 @@ const errorsGet = async (req, res, next) => {
         }
 
         const {id} = req.body;
-        const errors = await ErrorsModel.findOne({id});
+        const errors = await ErrorsModel.findOne({_id:id});
         if(errors){
             return res.status(200).json({success:true, data: errors});
         }
@@ -132,8 +134,8 @@ const errorsGet = async (req, res, next) => {
             return res.status(404).json({success:false,errors:[{msg:id+'does not exist',code:"404"}]});
         }
     } catch (err) {
-        logger.error(`get errors info failed, system error。${err}`);
-        return res.status(500).json({success: false, errors: ['get errors info failed, system error!']});
+        logger.error(JSON.stringify(errorStatements.CatchBlockErr)+`${err}`);
+        return res.status(500).json({success: false, error: [{message : (errorStatements.CatchBlockErr.split("|")[1]), code: 500}]});
     }
 };
 module.exports = {
