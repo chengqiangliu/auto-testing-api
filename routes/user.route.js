@@ -6,7 +6,7 @@ const {
     userAddValidator,
     userUpdateValidator,
     userDeleteValidator,
-    userDeleteByIdValidator
+    
 } = require("../validations/user.validation");
 
 const {
@@ -14,7 +14,7 @@ const {
     userAdd,
     userUpdate,
     userDelete,
-    userDeleteById,
+    userGetAccessToken,
     userList
 } = require("../controllers/user.controller");
 const logger = require('../lib/logger').API;
@@ -81,12 +81,12 @@ const generateToken = (payload, type) => {
   * @swagger
   * tags:
   *   name: User
-  *   description: Users managing API
+  *   description: user managing API
   */
 
 /**
  * @swagger
- * /api/users/login:
+ * /api/user/login:
  *   post:
  *     summary: Login the present user 
  *     tags: [User]
@@ -129,7 +129,7 @@ router.post('/login',userLoginValidator,userLogin);
 
 /**
  * @swagger
- * /api/users/add:
+ * /api/user/add:
  *   post:
  *     summary: add a new user 
  *     tags: [User]
@@ -179,7 +179,7 @@ router.post('/add', userAddValidator, userAdd);
 
 /**
  * @swagger
- * /api/users/update:
+ * /api/user/update:
  *   post:
  *     summary: update a user 
  *     tags: [User]
@@ -230,7 +230,7 @@ router.post('/update', userUpdateValidator, userUpdate);
 
 /**
  * @swagger
- * /api/users/delete:
+ * /api/user/delete:
  *   post:
  *     summary: delete a user
  *     tags: [User]
@@ -259,9 +259,9 @@ router.post('/delete', userDeleteValidator, userDelete);
 
 /**
  * @swagger
- * /api/users/list:
+ * /api/user/list:
  *   get:
- *     summary: get the list of all users in the database
+ *     summary: get the list of all user in the database
  *     tags: [User]
  *     responses:
  *       200:
@@ -279,7 +279,7 @@ router.get('/list', userList);
 
 /**
  * @swagger
- * /api/users/getAccessToken:
+ * /api/user/getAccessToken:
  *   get:
  *     summary: get the access token of a user 
  *     tags: [User]
