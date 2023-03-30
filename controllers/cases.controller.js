@@ -99,7 +99,7 @@ const casesDelete = async (req, res, next) => {
             return res.status(validateResult.status).json({success: false, errors: validateResult.errors});
         }
         const {title} = req.body;
-        const cases = await CasesModel.findOne({title});
+        const cases = await CasesModel.findOne({title:title});
         if(cases){
             await CasesModel.deleteOne({title: title});
             logger.info(`delete case successful, ${title}`);
@@ -125,7 +125,7 @@ const casesDeleteById = async (req, res, next) => {
             return res.status(validateResult.status).json({success: false, errors: validateResult.errors});
         }
         const {id} = req.body;
-        const cases = await CasesModel.findOne({id});
+        const cases = await CasesModel.findOne({_id:id});
         if(cases){
             await CasesModel.deleteOne({_id: id});
             logger.info(`delete cases successful, ${id}`);
