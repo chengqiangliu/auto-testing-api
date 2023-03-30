@@ -83,14 +83,14 @@ var unless = function(path, middleware) {
 //error with swagger as of now, to solve the issue, the below line should be commented.
 //error is that when the swagger path is being given the unless function or the post request is not being processed
 //still researching about this issue
-app.use(unless(['/api/users/add','/api/users/getAccessToken'],verifyToken))
+app.use(unless(['/api/user/add','/api/user/getAccessToken'],verifyToken))
 
 
 
 
 const userRouter = require('./routes/user.route');
 const { verify } = require('crypto');
-app.use('/api/users', userRouter);
+app.use('/api/user', userRouter);
 
 const tagsRouter = require('./routes/tags.route');
 app.use('/api/tag',tagsRouter);
