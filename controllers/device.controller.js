@@ -4,10 +4,12 @@ const moment = require("moment");
 
 const DeviceModel = require("../models/DeviceModel");
 const { validate } = require("./common.controller");
+const UserModel = require('../models/UserModel');
 
 const Constants = require('../lib/constants');
 const logger = require('../lib/logger').API;
 const errorStatements = require('../lib/errorStatements');
+const {autho} = require('../auth/index')
 
 //add a device
 const deviceAdd = async (req, res, next) => {
@@ -21,21 +23,26 @@ const deviceAdd = async (req, res, next) => {
         }
 
         // read req parameter data
-        const {deviceName} = req.body
+        const {device_name} = req.body
+        //accesstoken checking
+        const username = autho(req)
+        let user = await UserModel.findOne({username:username});
+        let userid = user._id
+
         // if username already exists, return error or else create a new user
 
-        const device = await DeviceModel.findOne({deviceName});
+        const device = await DeviceModel.findOne({device_name});
         if (device) {
-            logger.warn(`the device id already exists, ${device.deviceName}`);
+            logger.warn(`the device id already exists, ${device.device_name}`);
             return res.status(400).json({success: false, errors: {message:'device already exists',code:'400'}});
         } else { 
-            const device = await DeviceModel.create({...req.body});
-            logger.info('add device successful ' + deviceName);
+            const device = await DeviceModel.create({create_user:userid,update_user:userid,...req.body});
+            logger.info('add device successful ' + device_name);
             return res.status(200).json({success: true, data: device});
         }
     } catch (err) {
         logger.error(JSON.stringify(errorStatements.CatchBlockErr)+`${err}`);
-         return res.status(500).json({success: false, error: [{message : (errorStatements.CatchBlockErr.message), code: 500}]});
+         return res.status(500).json({success: false, error: [{message : (errorStatements.CatchBlockErr.split("|")[1]), code: 500}]});
     }
 };
 
@@ -54,13 +61,19 @@ const deviceUpdate = async (req, res, next) => {
         const date = new Date();
         const formattedDate = moment(date).format("YYYY-MM-DD HH:mm:ss");
         device.update_time = formattedDate; 
-        const olddevice = await DeviceModel.findOneAndUpdate({deviceName: device.deviceName}, device);
+        //accesstoken checking
+        const username = autho(req)
+        let user = await UserModel.findOne({username:username});
+        let userid = user._id
+        device['update_user']=userid;
 
-        logger.info(`update device successful, ${device.deviceName}`);
+        const olddevice = await DeviceModel.findOneAndUpdate({device_name: device.device_name}, device);
+
+        logger.info(`update device successful, ${device.device_name}`);
         return res.status(200).json({success: true, data:device});
     } catch (err) {
         logger.error(JSON.stringify(errorStatements.CatchBlockErr)+`${err}`);
-         return res.status(500).json({success: false, error: [{message : (errorStatements.CatchBlockErr.message), code: 500}]});
+         return res.status(500).json({success: false, error: [{message : (errorStatements.CatchBlockErr.split("|")[1]), code: 500}]});
     }
 };
 
@@ -86,7 +99,7 @@ const deviceDelete = async (req, res, next) => {
         }
     } catch (err) {
         logger.error(JSON.stringify(errorStatements.CatchBlockErr)+`${err}`);
-         return res.status(500).json({success: false, error: [{message : (errorStatements.CatchBlockErr.message), code: 500}]});
+         return res.status(500).json({success: false, error: [{message : (errorStatements.CatchBlockErr.split("|")[1]), code: 500}]});
     }
 };
 
@@ -106,11 +119,11 @@ const deviceGet = async (req, res, next) => {
             return res.status(200).json({success: true, data: device});
         }
         else{
-            return res.status(404).json({success: false, error:[ {msg: device.deviceName + ' does not exist', code: "404"}] });
+            return res.status(404).json({success: false, error:[ {msg: device.device_name + ' does not exist', code: "404"}] });
         }
     } catch (err) {
         logger.error(JSON.stringify(errorStatements.CatchBlockErr)+`${err}`);
-         return res.status(500).json({success: false, error: [{message : (errorStatements.CatchBlockErr.message), code: 500}]});
+         return res.status(500).json({success: false, error: [{message : (errorStatements.CatchBlockErr.split("|")[1]), code: 500}]});
     }
 };
 

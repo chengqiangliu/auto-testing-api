@@ -5,10 +5,12 @@ const AppsModel = require("../models/AppsModel");
 const DeviceModel = require("../models/DeviceModel");
 const CiModel = require("../models/CiModel");
 const { validate } = require('./common.controller');
+const UserModel = require('../models/UserModel');
 
 const Constants = require('../lib/constants');
 const logger = require('../lib/logger').API;
 const errorStatements = require('../lib/errorStatements');
+const {autho} = require('../auth/index')
 
 // adding a jobs
 const jobsAdd = async (req, res, next) => {
@@ -24,6 +26,11 @@ const jobsAdd = async (req, res, next) => {
 
         // read request parameter data
         const {app_id,device_id,ci_id} = req.body
+        //accesstoken checking
+        const username = autho(req)
+        let user = await UserModel.findOne({username:username});
+        let userid = user._id
+
         const apps = await AppsModel.findOne({_id:app_id});
         const device= await DeviceModel.findOne({_id:device_id});
         const ci= await CiModel.findOne({_id:ci_id});
@@ -34,10 +41,10 @@ const jobsAdd = async (req, res, next) => {
                 logger.warn(`the jobs already exists`);
                 return res.status(400).json({success: false, error: {message:'jobs already exists',code:'400'}});
             } else { 
-                await JobsModel.create({...req.body});
+                await JobsModel.create({create_user:userid,update_user:userid,...req.body});
                 const jobs = await JobsModel.findOne({app_id:app_id,device_id:device_id,ci_id:ci_id});
                 logger.info(`add jobs successful`);
-                return res.status(200).json({success: true, data: {id: jobs._id, apps, device, ci, environment: jobs.environment, started_at: jobs.started_at, finished_at: jobs.finished_at, status: jobs.status, create_time: jobs.create_time}});
+                return res.status(200).json({success: true, data: {id: jobs._id, apps, device, ci, environment: jobs.environment, started_at: jobs.started_at, finished_at: jobs.finished_at, status: jobs.status, create_user: jobs.create_user, update_user: jobs.update_user, create_time: jobs.create_time, update_time: jobs.update_time}});
             }
         } else {
             if(apps!=null || device!=null || ci!=null){
@@ -49,14 +56,14 @@ const jobsAdd = async (req, res, next) => {
         
     } catch (err) {
         logger.error(JSON.stringify(errorStatements.CatchBlockErr)+`${err}`);
-         return res.status(500).json({success: false, error: [{message : (errorStatements.CatchBlockErr.message), code: 500}]});
+         return res.status(500).json({success: false, error: [{message : (errorStatements.CatchBlockErr.split("|")[1]), code: 500}]});
     }
 };
 
 // jobs delete by ID
 const jobsDeleteById = async (req, res, next) => {
     logger.addContext(Constants.FILE_NAME, path.basename(__filename));
-    logger.info('The jobs delete by _id controller is started');
+    logger.info('The jobs delete by id controller is started');
     try {
         // validation
         const validateResult = validate(req);
@@ -75,7 +82,7 @@ const jobsDeleteById = async (req, res, next) => {
         }
     } catch (err) {
         logger.error(JSON.stringify(errorStatements.CatchBlockErr)+`${err}`);
-         return res.status(500).json({success: false, error: [{message : (errorStatements.CatchBlockErr.message), code: 500}]});
+         return res.status(500).json({success: false, error: [{message : (errorStatements.CatchBlockErr.split("|")[1]), code: 500}]});
     }
 };
 
@@ -100,14 +107,14 @@ const jobsGet = async (req, res, next) => {
         const ci= await CiModel.findOne({ci_id});
         
         if(jobs){
-            return res.status(200).json({success:true, data: {id: jobs.id, apps, device, ci, environment: jobs.environment, started_at: jobs.started_at, finished_at: jobs.finished_at, status: jobs.status, create_time: jobs.create_time}});
+            return res.status(200).json({success:true, data: {id: jobs.id, apps, device, ci, environment: jobs.environment, started_at: jobs.started_at, finished_at: jobs.finished_at, status: jobs.status, create_user: jobs.create_user, update_user: jobs.update_user, create_time: jobs.create_time, update_time: jobs.update_time}});
         }
         else{
             return res.status(404).json({success:false,error:[{msg:id+'does not exist',code:"404"}]});
         }
     } catch (err) {
         logger.error(JSON.stringify(errorStatements.CatchBlockErr)+`${err}`);
-         return res.status(500).json({success: false, error: [{message : (errorStatements.CatchBlockErr.message), code: 500}]});
+         return res.status(500).json({success: false, error: [{message : (errorStatements.CatchBlockErr.split("|")[1]), code: 500}]});
     }
 };
 

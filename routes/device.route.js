@@ -22,11 +22,11 @@ const logger = require('../lib/logger').API;
  *     Device:
  *          type: Object
  *          required:
- *              -deviceName
+ *              -device_name
  *          properties:
  *              title:
  *                 type: string
- *                 description: deviceName of the device
+ *                 description: device_name of the device
  *
  */
 /**
@@ -44,11 +44,11 @@ const logger = require('../lib/logger').API;
  *     tags: [Device]
  *     parameters:
  *       - in: path
- *         name: deviceName
+ *         name: device_name
  *         schema:
  *           type: string
  *         required: true
- *         description: The deviceName of the device
+ *         description: The device_name of the device
  *     responses:
  *       200:
  *         description: The device is added succesfully
@@ -77,11 +77,11 @@ router.post('/add', deviceAddValidator, deviceAdd);
  *         required: true
  *         description: The id of the device
  *       - in: path
- *         name: deviceName
+ *         name: device_name
  *         schema:
  *           type: string
  *         required: false
- *         description: The deviceName of the device
+ *         description: The device_name of the device
  *     responses:
  *       200:
  *         description: The device is updated succesfully

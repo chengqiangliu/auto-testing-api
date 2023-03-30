@@ -9,8 +9,12 @@ const formattedDate = moment(date).format(Constants.DATE_TIME_FORMAT);
 const configurationSchema = new mongoose.Schema({
   key: {type: String, required: true},
   value: {type: String, required: true},
-  create_time: {type: String, default: formattedDate},
-},{versionKey: false})
+  delete_flag:{type:Number ,default:0,required:true},
+  create_user:{type:String},
+  update_user:{type:String}
+},{versionKey: false,
+  timestamps:
+  {createdAt:"create_time",updatedAt:"update_time"}})
 
 configurationSchema.virtual('id').get(function(){
   return this._id.toHexString();

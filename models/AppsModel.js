@@ -8,13 +8,17 @@ const formattedDate = moment(date).format(Constants.DATE_TIME_FORMAT);
 
 // 2.Defining Schema
 const appsSchema = new mongoose.Schema({
-  appsname: {type: String, required: true},
+  apps_name: {type: String, required: true},
   url: {type: String, required: true},
   //version: {type: String, required: true},
   version: {type: String},
   build: {type: String, required: true},
-  create_time: {type: String, default: formattedDate},
-},{versionKey: false})
+  delete_flag:{type:Number ,default:0,required:true},
+  create_user:{type:String},
+  update_user:{type:String}
+},{versionKey: false,
+  timestamps:
+  {createdAt:"create_time",updatedAt:"update_time"}})
 
 appsSchema.virtual('id').get(function(){
   return this._id.toHexString();

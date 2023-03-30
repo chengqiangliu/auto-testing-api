@@ -3,7 +3,7 @@ const { check, validationResult } = require("express-validator");
 
 exports.appsAddValidator = 
     [
-        check("appsname")
+        check("apps_name")
             .exists({checkFalsy: true})
             .withMessage("Application name is required")
             .isString()
@@ -45,7 +45,7 @@ exports.appsUpdateValidator =
 
 exports.appsDeleteValidator = 
      [
-       check("appsname")
+       check("apps_name")
            .exists({checkFalsy: true})
            .withMessage("Application name is required"),
        (req, res, next) => {
