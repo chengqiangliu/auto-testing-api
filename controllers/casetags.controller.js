@@ -134,7 +134,7 @@ const casetagsDeleteById = async (req, res, next) => {
             return res.status(validateResult.status).json({success: false, errors: validateResult.errors});
         }
         const {id} = req.body;
-        const casetags = await CasetagsModel.findOne({id});
+        const casetags = await CasetagsModel.findOne({_id:id});
         if(casetags){
             await CasetagsModel.deleteOne({_id: id});
             logger.info(`delete casetags successful, ${id}`);
@@ -162,7 +162,7 @@ const casetagsGetInfo = async (req, res, next) => {
 
         const {id} = req.body;
 
-        const casetags = await CasetagsModel.findOne({id});
+        const casetags = await CasetagsModel.findOne({_id:id});
         const cases = await CasesModel.findOne({_id:casetags.case_id})
         const tags = await TagsModel.findOne({_id:casetags.tag_id})
 
