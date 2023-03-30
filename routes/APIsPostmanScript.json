@@ -269,7 +269,7 @@
 									"disabled": true
 								},
 								{
-									"key": "tagsname",
+									"key": "tags_name",
 									"value": "1234abcdef",
 									"type": "text"
 								}
