@@ -825,7 +825,8 @@
 								"id": "140862c0-7c14-4051-98e2-6f3ff8040fdf",
 								"exec": [
 									"var jsonData = pm.response.json();\r",
-									"postman.setGlobalVariable(\"cases_id\",jsonData.cases.id);"
+									"postman.setGlobalVariable(\"cases_id\",jsonData.cases.id);\r",
+									"postman.setGlobalVariable(\"cases_title\",jsonData.cases.title);"
 								],
 								"type": "text/javascript"
 							}
