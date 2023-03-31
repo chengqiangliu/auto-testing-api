@@ -1224,12 +1224,6 @@
 									"key": "case_id",
 									"value": "{{cases_id}}",
 									"type": "text"
-								},
-								{
-									"key": "_id",
-									"value": "63fefc168ec1255f905bd6f6",
-									"type": "text",
-									"disabled": true
 								}
 							]
 						},
