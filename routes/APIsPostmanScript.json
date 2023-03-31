@@ -202,12 +202,12 @@
 							]
 						},
 						"url": {
-							"raw": "{{base_url}}/users/delete",
+							"raw": "{{base_url}}/user/delete",
 							"host": [
 								"{{base_url}}"
 							],
 							"path": [
-								"users",
+								"user",
 								"delete"
 							],
 							"query": [
