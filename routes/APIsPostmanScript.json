@@ -138,12 +138,12 @@
 							]
 						},
 						"url": {
-							"raw": "{{base_url}}/users/update",
+							"raw": "{{base_url}}/user/update",
 							"host": [
 								"{{base_url}}"
 							],
 							"path": [
-								"users",
+								"user",
 								"update"
 							],
 							"query": [
