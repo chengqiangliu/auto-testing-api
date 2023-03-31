@@ -144,13 +144,67 @@
 							"mode": "urlencoded",
 							"urlencoded": [
 								{
-									"key": "appsname",
-									"value": "{{appsname}}",
+									"key": "apps_name",
+									"value": "{{apps_name}}",
 									"type": "text"
 								}
 							]
 						},
 						"url": "{{base_url}}/apps/deleteByName"
+					},
+					"response": []
+				},
+				{
+					"name": "add Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b70d00f9-5fe5-4a24-8f01-685ebe9c9678",
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"postman.setGlobalVariable(\"app_id\",jsonData.data.id);\r",
+									"postman.setGlobalVariable(\"apps_name\",jsonData.data.apps_name);\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "bb533c26-adcc-4be5-afff-13887f7af2e3",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "apps_name",
+									"value": "facebook",
+									"type": "text"
+								},
+								{
+									"key": "url",
+									"value": "www.sdf.com",
+									"type": "text"
+								},
+								{
+									"key": "build",
+									"value": "fgh",
+									"type": "text"
+								}
+							]
+						},
+						"url": "{{base_url}}/apps/add"
 					},
 					"response": []
 				},
@@ -180,6 +234,60 @@
 							]
 						},
 						"url": "{{base_url}}/apps/deleteById"
+					},
+					"response": []
+				},
+				{
+					"name": "add Copy 2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b70d00f9-5fe5-4a24-8f01-685ebe9c9678",
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"postman.setGlobalVariable(\"app_id\",jsonData.data.id);\r",
+									"postman.setGlobalVariable(\"apps_name\",jsonData.data.apps_name);\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "aff2da17-c8d6-4ed0-acf3-87a06357bffe",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "apps_name",
+									"value": "facebook",
+									"type": "text"
+								},
+								{
+									"key": "url",
+									"value": "www.sdf.com",
+									"type": "text"
+								},
+								{
+									"key": "build",
+									"value": "fgh",
+									"type": "text"
+								}
+							]
+						},
+						"url": "{{base_url}}/apps/add"
 					},
 					"response": []
 				}
