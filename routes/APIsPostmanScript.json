@@ -87,7 +87,7 @@
 								}
 							]
 						},
-						"url": "{{base_url}}/users/list"
+						"url": "{{base_url}}/user/list"
 					},
 					"response": []
 				},
