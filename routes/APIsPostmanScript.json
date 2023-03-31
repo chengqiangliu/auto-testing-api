@@ -453,6 +453,19 @@
 				},
 				{
 					"name": "update",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "182a2a2b-df00-4c4e-9f73-290ae26ba2a1",
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"postman.setGlobalVariable(\"tags_name\",jsonData.data.tags_name);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"id": "9161d94b-9728-4383-b37f-ecc393690566",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
