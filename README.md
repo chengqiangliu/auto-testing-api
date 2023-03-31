@@ -4,6 +4,9 @@ Commands to run the code(app.js):
 * cd `<project folder>`
 * npm install
 * npm i moment
+* npm i express-formidable
+* npm i multer
+* npm i morgan
 * npm i swagger-ui-express
 * npm i swagger-jsdoc
 * npm run dev 
