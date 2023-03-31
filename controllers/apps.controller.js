@@ -36,7 +36,6 @@ const appsAdd = async (req, res, next) => {
         } else { 
             await AppsModel.create({create_user:userid,update_user:userid,...req.body});
             const apps = await AppsModel.findOne({apps_name});
-            logger.info(apps)
             logger.info(`add apps successful, ${apps.apps_name}`);
             return res.status(200).json({success: true, data: apps});
         }
