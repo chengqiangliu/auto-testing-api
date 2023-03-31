@@ -677,7 +677,7 @@
 							"urlencoded": [
 								{
 									"key": "tags_name",
-									"value": "1234abcdef",
+									"value": "{{tags_name}}",
 									"type": "text"
 								}
 							]
