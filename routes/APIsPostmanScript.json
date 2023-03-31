@@ -848,36 +848,6 @@
 							"mode": "urlencoded",
 							"urlencoded": [
 								{
-									"key": "status",
-									"value": "true",
-									"type": "text",
-									"disabled": true
-								},
-								{
-									"key": "error",
-									"value": "64004ab79aca4ec62b28621b",
-									"type": "text",
-									"disabled": true
-								},
-								{
-									"key": "case",
-									"value": "6406cd1d03eceea3ca212b6d",
-									"type": "text",
-									"disabled": true
-								},
-								{
-									"key": "_id",
-									"value": "64098559771c677245171b05",
-									"type": "text",
-									"disabled": true
-								},
-								{
-									"key": "tagsname",
-									"value": "atdf",
-									"type": "text",
-									"disabled": true
-								},
-								{
 									"key": "title",
 									"value": "barbie2",
 									"type": "text"
@@ -886,12 +856,6 @@
 									"key": "external_id",
 									"value": "123",
 									"type": "text"
-								},
-								{
-									"key": "clientId",
-									"value": "1999",
-									"type": "text",
-									"disabled": true
 								}
 							]
 						},
