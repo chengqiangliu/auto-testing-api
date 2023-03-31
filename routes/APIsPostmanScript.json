@@ -306,7 +306,8 @@
 								"id": "af01b4fd-d8b8-479a-927e-3f858adb8e00",
 								"exec": [
 									"var jsonData = pm.response.json();\r",
-									"postman.setGlobalVariable(\"tag_id\",jsonData.data.id);"
+									"postman.setGlobalVariable(\"tag_id\",jsonData.data.id);\r",
+									"postman.setGlobalVariable(\"tags_name\",jsonData.data.tags_name);"
 								],
 								"type": "text/javascript"
 							}
@@ -537,6 +538,113 @@
 					"response": []
 				},
 				{
+					"name": "add Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "af01b4fd-d8b8-479a-927e-3f858adb8e00",
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"postman.setGlobalVariable(\"tag_id\",jsonData.data.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "360f7cdf-6251-4c90-b6b8-2ae201e11fbf",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "status",
+									"value": "true",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "error",
+									"value": "64004ab79aca4ec62b28621b",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "case",
+									"value": "6406cd1d03eceea3ca212b6d",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "_id",
+									"value": "64098559771c677245171b05",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "tagsname",
+									"value": "atdf",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "username",
+									"value": "niha",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "password",
+									"value": "Doramedha9@",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "clientId",
+									"value": "1999",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "tags_name",
+									"value": "1234abcdef",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/tag/add",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"tag",
+								"add"
+							],
+							"query": [
+								{
+									"key": "tagsname",
+									"value": null,
+									"type": "text",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "DeleteByName",
 					"id": "3eef60f6-ed34-4b7d-9018-b90c70825fae",
 					"protocolProfileBehavior": {
@@ -574,6 +682,113 @@
 								{
 									"key": "tagsname",
 									"value": "",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add Copy 2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "af01b4fd-d8b8-479a-927e-3f858adb8e00",
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"postman.setGlobalVariable(\"tag_id\",jsonData.data.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "c6ba3ffc-bd3a-4e7f-adba-0f00a0b68b53",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "status",
+									"value": "true",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "error",
+									"value": "64004ab79aca4ec62b28621b",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "case",
+									"value": "6406cd1d03eceea3ca212b6d",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "_id",
+									"value": "64098559771c677245171b05",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "tagsname",
+									"value": "atdf",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "username",
+									"value": "niha",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "password",
+									"value": "Doramedha9@",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "clientId",
+									"value": "1999",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "tags_name",
+									"value": "1234abcdef",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/tag/add",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"tag",
+								"add"
+							],
+							"query": [
+								{
+									"key": "tagsname",
+									"value": null,
 									"type": "text",
 									"disabled": true
 								}
