@@ -929,6 +929,19 @@
 				},
 				{
 					"name": "update",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "8197b266-f73f-4715-96b4-a4c66dd204ab",
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"postman.setGlobalVariable(\"cases_title\",jsonData.cases.title);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"id": "5f15e8db-77c7-40b0-95b3-7dcdf1382af4",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
