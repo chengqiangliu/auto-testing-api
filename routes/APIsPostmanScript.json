@@ -935,8 +935,7 @@
 							"script": {
 								"id": "8197b266-f73f-4715-96b4-a4c66dd204ab",
 								"exec": [
-									"var jsonData = pm.response.json();\r",
-									"postman.setGlobalVariable(\"cases_title\",jsonData.cases.title);"
+									""
 								],
 								"type": "text/javascript"
 							}
@@ -959,12 +958,6 @@
 							"mode": "urlencoded",
 							"urlencoded": [
 								{
-									"key": "tagsname",
-									"value": "",
-									"type": "text",
-									"disabled": true
-								},
-								{
 									"key": "id",
 									"value": "{{cases_id}}",
 									"type": "text"
@@ -977,35 +970,6 @@
 							]
 						},
 						"url": "{{base_url}}/cases/update"
-					},
-					"response": []
-				},
-				{
-					"name": "DeleteByID",
-					"id": "50240028-0a6c-4312-8672-f334631922b9",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer {{accessToken}}",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "urlencoded",
-							"urlencoded": [
-								{
-									"key": "id",
-									"value": "{{cases_id}}",
-									"type": "text"
-								}
-							]
-						},
-						"url": "{{base_url}}/cases/deleteById"
 					},
 					"response": []
 				},
@@ -1042,6 +1006,165 @@
 							"path": [
 								"cases",
 								"deleteByName"
+							],
+							"query": [
+								{
+									"key": "tagsname",
+									"value": null,
+									"type": "text",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "140862c0-7c14-4051-98e2-6f3ff8040fdf",
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"postman.setGlobalVariable(\"cases_id\",jsonData.cases.id);\r",
+									"postman.setGlobalVariable(\"cases_title\",jsonData.cases.title);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "6d0cb33d-681d-4f8c-839b-9d4693c3613f",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "title",
+									"value": "barbie2",
+									"type": "text"
+								},
+								{
+									"key": "external_id",
+									"value": "123",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/cases/add",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"cases",
+								"add"
+							],
+							"query": [
+								{
+									"key": "tagsname",
+									"value": null,
+									"type": "text",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteByID",
+					"id": "50240028-0a6c-4312-8672-f334631922b9",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "id",
+									"value": "{{cases_id}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": "{{base_url}}/cases/deleteById"
+					},
+					"response": []
+				},
+				{
+					"name": "add Copy 2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "140862c0-7c14-4051-98e2-6f3ff8040fdf",
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"postman.setGlobalVariable(\"cases_id\",jsonData.cases.id);\r",
+									"postman.setGlobalVariable(\"cases_title\",jsonData.cases.title);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "fd205038-78fb-462d-8acd-5c3bc533e8fd",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "title",
+									"value": "barbie2",
+									"type": "text"
+								},
+								{
+									"key": "external_id",
+									"value": "123",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/cases/add",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"cases",
+								"add"
 							],
 							"query": [
 								{
