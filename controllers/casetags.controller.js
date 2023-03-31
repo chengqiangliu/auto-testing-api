@@ -79,7 +79,6 @@ const casetagsUpdate = async (req, res, next) => {
         }
 
         const casetags = req.body;
-        logger.info(casetags)
         let Rcases = 1;
         if ('case_id' in casetags){
             logger.info('case_id attribute is present')
