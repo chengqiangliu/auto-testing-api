@@ -64,7 +64,6 @@ const errorsUpdate = async (req, res, next) => {
         let user = await UserModel.findOne({username:username});
         let userid = user._id
         errors['update_user']=userid;
-        logger.info(errors)
         const olderrors = await ErrorsModel.findOneAndUpdate({_id: errors.id}, errors);
 
         // after updating the errors, we need to get the errors object data.
@@ -78,7 +77,6 @@ const errorsUpdate = async (req, res, next) => {
 
         //dict returns the errors information
         const data = await ErrorsModel.findById(errors.id)
-        logger.info(data)
         logger.info(`update errors successful,errorId: ${errors.id}`);
         return res.status(200).json({success: true, data: data});
     } catch (err) {
