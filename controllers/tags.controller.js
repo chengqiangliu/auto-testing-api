@@ -38,14 +38,12 @@ const tagsAdd = async (req, res, next) => {
 
         // if tags_name already exists, return error or else create new tags
         let tags = await TagsModel.findOne({tags_name});
-        logger.info(tags);
         if (tags) {
             logger.warn(`Tag name already exists`);
             return res.status(400).json({success: false, errors: {message:'Tag already exists',errorcode:'400'}});
         } else {            
             await TagsModel.create({create_user:userid,update_user:userid,...req.body});
             const tags = await TagsModel.findOne({tags_name});
-            logger.info(tags)
             logger.info(`add tag successful, ${tags_name}`);
             return res.status(200).json({success: true, data:tags});
         }
@@ -107,7 +105,6 @@ const tagsDelete = async (req, res, next) => {
             return res.status(validateResult.status).json({success: false, errors: validateResult.errors});
         }
         const {tags_name} = req.body;
-        logger.info(tags_name)
         const tags = await TagsModel.findOne({tags_name});
         if(tags){
             await TagsModel.deleteOne({tags_name: tags_name});
@@ -135,7 +132,6 @@ const tagsDeleteById = async (req, res, next) => {
         }
         const {id} = req.body;
         const tags = await TagsModel.findOne({_id:id});
-        logger.info(tags)
         if(tags){
             await TagsModel.deleteOne({_id: id});
             logger.info(`delete tags successful, ${id}`);
