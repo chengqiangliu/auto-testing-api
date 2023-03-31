@@ -103,6 +103,24 @@ app.use('/api/casetags', casetagsRouter);
 const resultsRouter = require('./routes/results.route');
 app.use('/api/results', resultsRouter);
 
+const ciRouter = require('./routes/ci.route');
+app.use('/api/ci', ciRouter);
+
+const configurationRouter = require('./routes/configuration.route');
+app.use('/api/configuration', configurationRouter);
+
+const jobsRouter = require('./routes/jobs.route');
+app.use('/api/jobs', jobsRouter);
+
+const deviceRouter = require('./routes/device.route');
+app.use('/api/device', deviceRouter);
+
+const runsRouter = require('./routes/runs.route');
+app.use('/api/runs', runsRouter);
+
+const appsRouter = require('./routes/apps.route');
+app.use('/api/apps', appsRouter);
+
 const swaggerUi = require('swagger-ui-express');
 const swaggerSpec = require('./swaggerOptions');
 app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
