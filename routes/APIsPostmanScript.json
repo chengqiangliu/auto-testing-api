@@ -993,7 +993,7 @@
 							"urlencoded": [
 								{
 									"key": "title",
-									"value": "barbie",
+									"value": "{{cases_title}}",
 									"type": "text"
 								}
 							]
