@@ -31,14 +31,12 @@ const casesAdd = async (req, res, next) => {
          
         // if title already exists, return error or else create new cases
         let cases = await CasesModel.findOne({title,external_id});
-        logger.info(cases);
         if (cases) {
             logger.warn(`case name already exists`);
             return res.status(400).json({success: false, errors: {errormessage:'case already exists',errorcode:'400'}});
         } else { 
             await CasesModel.create({create_user:userid,update_user:userid,...req.body});
             const cases = await CasesModel.findOne({title,external_id});
-            logger.info(cases)
             logger.info(`add case successful, ${title}`);
             return res.status(200).json({success: true, cases});
         }
@@ -80,7 +78,7 @@ const casesUpdate = async (req, res, next) => {
 
         //dict returns the cases information
         const data = Object.assign(oldCases, cases);
-        logger.info(`update cases successful, caseName: ${cases.title}, caseId: ${cases._id}`);
+        logger.info(`update cases successful! caseId: ${cases.id}`);
         return res.status(200).json({success: true, data: data});
     } catch (err) {
         logger.error(JSON.stringify(errorStatements.CatchBlockErr)+`${err}`);
