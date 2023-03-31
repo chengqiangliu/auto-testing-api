@@ -6,6 +6,226 @@
 	},
 	"item": [
 		{
+			"name": "users",
+			"item": [
+				{
+					"name": "add",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "826ce0b6-3e54-47e7-8eb3-e51e0e6d487d",
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"postman.setGlobalVariable(\"accessToken\",jsonData.data.accessToken);\r",
+									"postman.setGlobalVariable(\"users_id\",jsonData.data.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "08c4add8-1133-4a56-9ebb-42583d1d4d2d",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "username",
+									"value": "rashika22223",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "Admin1@",
+									"type": "text"
+								},
+								{
+									"key": "clientId",
+									"value": "11",
+									"type": "text"
+								},
+								{
+									"key": "id",
+									"value": "64229c8b5bf688c3d022ed3c",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": "{{base_url}}/user/add"
+					},
+					"response": []
+				},
+				{
+					"name": "list",
+					"id": "aa48b25c-83d5-472e-b794-f52769f4ca3a",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "id",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": "{{base_url}}/users/list"
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"id": "fb6f757d-37cc-4a55-a8ff-a084a5046ddb",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "username",
+									"value": "rashika1234",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "Admin1@",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "rash@gmail.com",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "id",
+									"value": "{{users_id}}",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "rash@gmail.com",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/users/update",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users",
+								"update"
+							],
+							"query": [
+								{
+									"key": "username",
+									"value": "rashika1234",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "password",
+									"value": "Admin1@",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "email",
+									"value": "rash@gmail.com",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "id",
+									"value": "64229c8b5bf688c3d022ed3c",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"id": "5cdf33f2-6667-4d78-87c5-bcd396343c1f",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "userId",
+									"value": "{{users_id}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/users/delete",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users",
+								"delete"
+							],
+							"query": [
+								{
+									"key": "userid",
+									"value": "64229c8b5bf688c3d022ed3c",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"id": "50ad3dab-61c0-4780-824c-91a186ed6aa5"
+		},
+		{
 			"name": "apps",
 			"item": [
 				{
@@ -1479,6 +1699,58 @@
 						"url": "{{base_url}}/device/deleteById"
 					},
 					"response": []
+				},
+				{
+					"name": "add Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "a6f375e4-529f-49b5-8ea4-3b00d866e2e9",
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"postman.setGlobalVariable(\"device_id\",jsonData.data.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "746061e5-7b14-4847-a7f1-923a25cfc609",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "device_name",
+									"value": "sgdhj",
+									"type": "text"
+								},
+								{
+									"key": "model",
+									"value": "nhmjjjjjfd",
+									"type": "text"
+								},
+								{
+									"key": "create_user",
+									"value": "rashi",
+									"type": "text"
+								}
+							]
+						},
+						"url": "{{base_url}}/device/add"
+					},
+					"response": []
 				}
 			],
 			"id": "188033c2-9750-4070-adb6-702259f65b09"
@@ -1789,6 +2061,53 @@
 					"response": []
 				},
 				{
+					"name": "add Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "df248087-5da9-4632-9c24-095fc1470698",
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"postman.setGlobalVariable(\"configuration_id\",jsonData.data.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "cabcfe7d-26ca-46ad-8aa4-66a377ce25cc",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "key",
+									"value": "etrthjhg",
+									"type": "text"
+								},
+								{
+									"key": "value",
+									"value": "ewrtryt",
+									"type": "text"
+								}
+							]
+						},
+						"url": "{{base_url}}/configuration/add"
+					},
+					"response": []
+				},
+				{
 					"name": "deleteById",
 					"id": "9fbdbeea-550c-40e9-98d9-19fbc98cd043",
 					"protocolProfileBehavior": {
@@ -2025,6 +2344,59 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "add Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "fc257787-90db-4f8b-b189-8eb1e5c23edf",
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"postman.setGlobalVariable(\"error_id\",jsonData.errors.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "bc0f01f4-480e-43db-9df2-9d2d8d2fa7b7",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "type",
+									"value": "medh",
+									"type": "text"
+								},
+								{
+									"key": "message",
+									"value": "ijfidfjjgirj",
+									"type": "text"
+								},
+								{
+									"key": "_id",
+									"value": "63fefc168ec1255f905bd6f6",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": "{{base_url}}/errors/add"
+					},
+					"response": []
 				}
 			],
 			"id": "817c09a0-1168-4e23-aeda-4cb94fddcddc"
@@ -2161,6 +2533,78 @@
 						"url": "{{base_url}}/jobs/deleteById"
 					},
 					"response": []
+				},
+				{
+					"name": "add Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "837931a4-dcf1-40b5-a055-e458f5a1a1de",
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"postman.setGlobalVariable(\"job_id\",jsonData.data.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "22faae12-5f12-4d9e-a20a-caa156d4b54d",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "app_id",
+									"value": "{{app_id}}",
+									"type": "text"
+								},
+								{
+									"key": "device_id",
+									"value": "{{device_id}}",
+									"type": "text"
+								},
+								{
+									"key": "ci_id",
+									"value": "{{ci_id}}",
+									"type": "text"
+								},
+								{
+									"key": "environment",
+									"value": "gsdfhjghcvbnm",
+									"type": "text"
+								},
+								{
+									"key": "started_at",
+									"value": "ety",
+									"type": "text"
+								},
+								{
+									"key": "finished_at",
+									"value": "fgh",
+									"type": "text"
+								},
+								{
+									"key": "status",
+									"value": "dfsg",
+									"type": "text"
+								}
+							]
+						},
+						"url": "{{base_url}}/jobs/add"
+					},
+					"response": []
 				}
 			],
 			"id": "b1ee7d99-4f7d-43ef-a2ce-8fa764fb91a4"
@@ -2285,6 +2729,68 @@
 							]
 						},
 						"url": "{{base_url}}/runs/deleteById"
+					},
+					"response": []
+				},
+				{
+					"name": "add Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "6cacec1a-e924-43aa-9367-ad95579bdb7f",
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"postman.setGlobalVariable(\"runs_id\",jsonData.data.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "5ea52b6c-ef81-4131-b0f0-440ae9cb613e",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "job_id",
+									"value": "{{job_id}}",
+									"type": "text"
+								},
+								{
+									"key": "created_at",
+									"value": "hhg",
+									"type": "text"
+								},
+								{
+									"key": "finished_at",
+									"value": "fsd",
+									"type": "text"
+								},
+								{
+									"key": "total",
+									"value": "fadg",
+									"type": "text"
+								},
+								{
+									"key": "status",
+									"value": "gfd",
+									"type": "text"
+								}
+							]
+						},
+						"url": "{{base_url}}/runs/add"
 					},
 					"response": []
 				}
@@ -2475,226 +2981,6 @@
 				}
 			],
 			"id": "5f0c7db4-4dc5-48f4-9137-ac0bf6a650a5"
-		},
-		{
-			"name": "users",
-			"item": [
-				{
-					"name": "add",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "826ce0b6-3e54-47e7-8eb3-e51e0e6d487d",
-								"exec": [
-									"var jsonData = pm.response.json();\r",
-									"postman.setGlobalVariable(\"accessToken\",jsonData.data.accessToken);\r",
-									"postman.setGlobalVariable(\"users_id\",jsonData.data.id);"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"id": "08c4add8-1133-4a56-9ebb-42583d1d4d2d",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "urlencoded",
-							"urlencoded": [
-								{
-									"key": "username",
-									"value": "rashika22223",
-									"type": "text"
-								},
-								{
-									"key": "password",
-									"value": "Admin1@",
-									"type": "text"
-								},
-								{
-									"key": "clientId",
-									"value": "11",
-									"type": "text"
-								},
-								{
-									"key": "id",
-									"value": "64229c8b5bf688c3d022ed3c",
-									"type": "text",
-									"disabled": true
-								}
-							]
-						},
-						"url": "{{base_url}}/user/add"
-					},
-					"response": []
-				},
-				{
-					"name": "list",
-					"id": "aa48b25c-83d5-472e-b794-f52769f4ca3a",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer {{accessToken}}",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "urlencoded",
-							"urlencoded": [
-								{
-									"key": "id",
-									"value": "",
-									"type": "text",
-									"disabled": true
-								}
-							]
-						},
-						"url": "{{base_url}}/users/list"
-					},
-					"response": []
-				},
-				{
-					"name": "update",
-					"id": "fb6f757d-37cc-4a55-a8ff-a084a5046ddb",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJhc2hpa2ExMjM0IiwiY3JlYXRlVGltZSI6IjIwMjMtMDMtMjggMTY6NTA6MjkiLCJpYXQiOjE2Nzk5ODk4OTl9.JBHJYvvaranZUY5G-rUlEK9nWZTpdDvfCw6dRTkvIr4",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "urlencoded",
-							"urlencoded": [
-								{
-									"key": "username",
-									"value": "rashika1234",
-									"type": "text"
-								},
-								{
-									"key": "password",
-									"value": "Admin1@",
-									"type": "text"
-								},
-								{
-									"key": "email",
-									"value": "rash@gmail.com",
-									"type": "text",
-									"disabled": true
-								},
-								{
-									"key": "id",
-									"value": "{{users_id}}",
-									"type": "text"
-								},
-								{
-									"key": "email",
-									"value": "rash@gmail.com",
-									"type": "text"
-								}
-							]
-						},
-						"url": {
-							"raw": "{{base_url}}/users/update",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"users",
-								"update"
-							],
-							"query": [
-								{
-									"key": "username",
-									"value": "rashika1234",
-									"type": "text",
-									"disabled": true
-								},
-								{
-									"key": "password",
-									"value": "Admin1@",
-									"type": "text",
-									"disabled": true
-								},
-								{
-									"key": "email",
-									"value": "rash@gmail.com",
-									"type": "text",
-									"disabled": true
-								},
-								{
-									"key": "id",
-									"value": "64229c8b5bf688c3d022ed3c",
-									"type": "text",
-									"disabled": true
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "delete",
-					"id": "5cdf33f2-6667-4d78-87c5-bcd396343c1f",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer {{accessToken}}",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "urlencoded",
-							"urlencoded": [
-								{
-									"key": "userId",
-									"value": "{{users_id}}",
-									"type": "text"
-								}
-							]
-						},
-						"url": {
-							"raw": "{{base_url}}/users/delete",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"users",
-								"delete"
-							],
-							"query": [
-								{
-									"key": "userid",
-									"value": "64229c8b5bf688c3d022ed3c",
-									"type": "text",
-									"disabled": true
-								}
-							]
-						}
-					},
-					"response": []
-				}
-			],
-			"id": "50ad3dab-61c0-4780-824c-91a186ed6aa5"
 		}
 	]
 }
