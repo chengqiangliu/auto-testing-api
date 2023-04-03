@@ -3,12 +3,6 @@ Install NodeJS, npm, MongoDb Compass, postman and any text editor (IntelliJ or V
 Commands to run the code(app.js): 
 * cd `<project folder>`
 * npm install
-* npm i moment
-* npm i express-formidable
-* npm i multer
-* npm i morgan
-* npm i swagger-ui-express
-* npm i swagger-jsdoc
 * npm run dev 
 
 moment is for tracking time. \
