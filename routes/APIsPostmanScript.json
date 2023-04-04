@@ -2279,6 +2279,10 @@
 						"disableBodyPruning": true
 					},
 					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": {}
+						},
 						"method": "POST",
 						"header": [
 							{
@@ -2293,11 +2297,47 @@
 								{
 									"key": "screenshot",
 									"type": "file",
-									"value": null
+									"contentType": "",
+									"src": "/C:/Users/rashika.rathi/Downloads/auto-testing-api-main/models/schema.png"
+								},
+								{
+									"key": "errors[type]",
+									"value": "medh",
+									"type": "text",
+									"contentType": "application/json",
+									"disabled": true
+								},
+								{
+									"key": "errors[message]",
+									"value": "sdfguhl",
+									"type": "text",
+									"contentType": "application/json",
+									"disabled": true
 								}
 							]
 						},
-						"url": "{{base_url}}/errors/add"
+						"url": {
+							"raw": "{{base_url}}/errors/add?type=df&message=dsfb",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"errors",
+								"add"
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "df",
+									"type": "text"
+								},
+								{
+									"key": "message",
+									"value": "dsfb",
+									"type": "text"
+								}
+							]
+						}
 					},
 					"response": []
 				},
