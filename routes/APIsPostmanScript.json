@@ -221,6 +221,59 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "add Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "826ce0b6-3e54-47e7-8eb3-e51e0e6d487d",
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"postman.setGlobalVariable(\"accessToken\",jsonData.data.accessToken);\r",
+									"postman.setGlobalVariable(\"users_id\",jsonData.data.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "2c12e852-c532-4714-b91f-e89abb15d57c",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "username",
+									"value": "rashika22223",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "Admin1@",
+									"type": "text"
+								},
+								{
+									"key": "clientId",
+									"value": "11",
+									"type": "text"
+								},
+								{
+									"key": "id",
+									"value": "64229c8b5bf688c3d022ed3c",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": "{{base_url}}/user/add"
+					},
+					"response": []
 				}
 			],
 			"id": "50ad3dab-61c0-4780-824c-91a186ed6aa5"
@@ -1909,6 +1962,53 @@
 						"url": "{{base_url}}/ci/deleteById"
 					},
 					"response": []
+				},
+				{
+					"name": "add Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "ff18a989-8b04-4635-b218-011c3488a756",
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"postman.setGlobalVariable(\"ci_id\",jsonData.data.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "80801fcf-73de-48b0-8a2a-0284c094d015",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "ci_url",
+									"value": "http://rewtdyufgioj.com",
+									"type": "text"
+								},
+								{
+									"key": "create_user",
+									"value": "rashi",
+									"type": "text"
+								}
+							]
+						},
+						"url": "{{base_url}}/ci/add"
+					},
+					"response": []
 				}
 			],
 			"id": "5728354c-9271-448a-b623-367e7ecd9d4c"
@@ -2188,23 +2288,12 @@
 							}
 						],
 						"body": {
-							"mode": "urlencoded",
-							"urlencoded": [
+							"mode": "formdata",
+							"formdata": [
 								{
-									"key": "type",
-									"value": "medh",
-									"type": "text"
-								},
-								{
-									"key": "message",
-									"value": "ijfidfjjgirj",
-									"type": "text"
-								},
-								{
-									"key": "_id",
-									"value": "63fefc168ec1255f905bd6f6",
-									"type": "text",
-									"disabled": true
+									"key": "screenshot",
+									"type": "file",
+									"value": null
 								}
 							]
 						},
