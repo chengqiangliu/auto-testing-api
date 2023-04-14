@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const uri = 'mongodb://auto:passwd@10.211.55.3:27017/auto-testing';
+const uri = 'mongodb://root:example@mongo:27017/';
 const options = {
     useNewUrlParser: true,
     useUnifiedTopology: true
