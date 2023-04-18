@@ -55,19 +55,16 @@ const userLogin = async (req, res, next) => {
             //if case should contain if(client),but since client related data is not present, for now we are assuming that we have a client
             // with the same clientID as the user, hence if(1)
             if(1) {
-                const accessToken = generateToken({userId: user.id, createTime: formattedDate}, 'AccessToken');
-                const refreshToken = generateToken({userId: user.id, createTime: formattedDate}, 'RefreshToken');
-            
-                await RefreshTokenModel.create({refreshToken, client: user.clientId, username: user.username});
+               
                 if (user.roleid) {
                     const role = await RoleModel.findOne({id: user.roleid});
                     logger.info(`login success, ${user.username}`);
-                    return res.status(200).json({success: true, data: {username,accessToken, refreshToken}});
+                    return res.status(200).json({success: true, data: {username}});
                 } else {
                     const role= {menus: []}
                     //returns login success information with the username
                     logger.info(`login successful, ${user.username}`);
-                    return res.status(200).json({success: true, data: {username, accessToken, refreshToken}});
+                    return res.status(200).json({success: true, data: {username}});
                 }
             } else {
                 //when checking for the client, if the clientID is not same for the client and user then this else statement is true.
