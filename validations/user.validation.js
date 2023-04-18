@@ -76,18 +76,6 @@ exports.userUpdateValidator =
             .withMessage("User ID is required")
             .isString()
             .withMessage("User ID should be string"),
-        check("username")
-            .exists({checkFalsy: true})
-            .withMessage("User name is required")
-            .isString()
-            .withMessage("User name should be string"),
-        check("password")
-            .exists()
-            .withMessage("Password is required")
-            .isString()
-            .withMessage("Password should be string")
-            .isLength({min: 5})
-            .withMessage("Password should be at least 5 characters"),
         check("email").optional().isEmail().withMessage("Provide valid email"),
         check("phone")
             .optional()
@@ -127,20 +115,5 @@ exports.userDeleteValidator =
         }
     ];
 
-exports.userDeleteByIdValidator = 
-    [
-       check("clientId")
-           .exists({checkFalsy: true})
-           .withMessage("ClientId is required"),
-       (req, res, next) => {
-           const error = validationResult(req).formatWith(( {msg} ) => [{msg, errorcode:'400'}]);
-           const hasError = !error.isEmpty();
- 
-           if (hasError) {
-           res.status(400).json({ error: error.array() });
-           } else {
-           next();
-           }
-       }
-   ];
+
 
