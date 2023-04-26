@@ -26,10 +26,15 @@ const resultsAdd = async (req, res, next) => {
 
         // read request parameter data
         const results = req.body
-        const Rerror = await ErrorsModel.findOne({_id:results.error});
-        const Rruns = await RunsModel.findOne({_id:results.run})
+        if (results.error!=null){
+            const Rerror = await ErrorsModel.findOne({_id:results.error});
+        }
+        if (results.run!=null){
+            const Rruns = await RunsModel.findOne({_id:results.run})
+        }
+        if (results.case!=null){
         const Rcases= await CasesModel.findOne({_id:results.case})
-
+        }
         //accesstoken checking
         const username = autho(req)
         let user = await UserModel.findOne({username:username});
