@@ -88,7 +88,7 @@ const deviceDelete = async (req, res, next) => {
             return res.status(validateResult.status).json({success: false, errors: validateResult.errors});
         }
         const {id} = req.body;
-        const device = await DeviceModel.findOne({id});
+        const device = await DeviceModel.findOne({_id: id});
         if(device){
             await DeviceModel.deleteOne({id: id});
             logger.info(`delete device successful, ${id}`);
@@ -114,7 +114,7 @@ const deviceGet = async (req, res, next) => {
             return res.status(validateResult.status).json({success: false, errors: validateResult.errors});
         }
         const {id} = req.body;
-        const device = await DeviceModel.findOne({id});
+        const device = await DeviceModel.findOne({_id: id});
         if(device){
             return res.status(200).json({success: true, data: device});
         }
