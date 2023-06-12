@@ -14,7 +14,6 @@ const deviceSchema = new mongoose.Schema({
     model : {type: String, required: true},
     delete_flag:{type:Number ,default:0,required:true},
     create_user: {type: String, required: true},
-    create_user:{type:String},
     update_user:{type:String}
 },{versionKey: false,
     timestamps:
